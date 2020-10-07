@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1231
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopping", "EShopping\EShopping.csproj", "{FECEFEDE-0052-403C-B58E-B2AED73EDB74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingService", "EShoppingService\EShoppingService.csproj", "{99ECBF80-42C3-4E80-913B-21541A191575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingRepository", "EShoppingRepository\EShoppingRepository.csproj", "{55610589-A33B-4B93-B396-1293CAD907C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingModel", "EShoppingModel\EShoppingModel.csproj", "{09B00CA3-5760-4050-A22A-3BD4D2053BFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FECEFEDE-0052-403C-B58E-B2AED73EDB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECEFEDE-0052-403C-B58E-B2AED73EDB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECEFEDE-0052-403C-B58E-B2AED73EDB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECEFEDE-0052-403C-B58E-B2AED73EDB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99ECBF80-42C3-4E80-913B-21541A191575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99ECBF80-42C3-4E80-913B-21541A191575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99ECBF80-42C3-4E80-913B-21541A191575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99ECBF80-42C3-4E80-913B-21541A191575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55610589-A33B-4B93-B396-1293CAD907C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55610589-A33B-4B93-B396-1293CAD907C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55610589-A33B-4B93-B396-1293CAD907C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55610589-A33B-4B93-B396-1293CAD907C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09B00CA3-5760-4050-A22A-3BD4D2053BFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09B00CA3-5760-4050-A22A-3BD4D2053BFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09B00CA3-5760-4050-A22A-3BD4D2053BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09B00CA3-5760-4050-A22A-3BD4D2053BFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15B4D46F-2149-48B9-A0B9-CFA622904CF2}
+	EndGlobalSection
+EndGlobal
