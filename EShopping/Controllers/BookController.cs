@@ -8,7 +8,7 @@ namespace EShopping.Controllers
     public class BookController : ControllerBase
     {
         // GET: api/Book
-        [HttpGet]
+        [HttpGet]  
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
