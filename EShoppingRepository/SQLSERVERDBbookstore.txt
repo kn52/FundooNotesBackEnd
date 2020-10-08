@@ -1,0 +1,122 @@
+=====CREATE TABLE=====
+create table book (
+	id int primary key,
+	auther_name varchar(100),
+	book_detail varchar(2000),
+	book_image_src varchar(255),
+	book_name varchar(50),
+	book_price int,
+	isbn_number varchar(13),
+	no_of_copies int,
+	publishing_year int
+)
+
+=====STORE PROCEDURE FOR GET ALL BOOKS=====
+create procedure spGetBooks
+as
+begin
+	begin transaction
+	save transaction savepoint
+	begin try
+		if NOT EXISTS (select * from book)
+			print 'BOOKS NOT FOUND'
+		else
+			begin 
+				select * from book
+				commit transaction
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+		if @@TRANCOUNT > 0
+			begin
+				rollback transaction savepoint
+			end
+	end catch
+end
+
+=====STORE PROCEDURE FOR ADD BOOK=====
+create procedure spAddBook
+(
+	@id int,
+	@auther_name varchar(100),
+	@book_detail varchar(2000),
+	@book_image_src varchar(255),
+	@book_name varchar(50),
+	@book_price int,
+	@isbn_number varchar(13),
+	@no_of_copies int,
+	@publishing_year int,
+	@key int output
+)
+as
+begin
+	begin transaction
+	save transaction savepoint
+	begin try
+		if NOT EXISTS (select * from book where isbn_number = @isbn_number)
+			print 'BOOKS ALREADY EXISTS'
+		if NOT EXISTS (select * from book where book_name = @book_name)
+			print 'BOOKS ALREADY EXISTS'
+		else
+			begin 
+				insert into book(auther_name,book_detail,book_image_src,book_name,book_price,
+					isbn_number,no_of_copies,publishing_year)
+				values (@auther_name,@book_detail,@book_image_src,@book_name,@book_price,
+					@isbn_number,@no_of_copies,@publishing_year)
+				commit transaction
+				set @key=SCOPE_IDENTITY()
+				return @key
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+		if @@TRANCOUNT > 0
+			begin
+				rollback transaction savepoint
+			end
+	end catch
+end
+
+=====STORE PROCEDURE FOR UPDATE BOOK=====
+create procedure spUpdateBook
+(
+	@auther_name varchar(100),
+	@book_detail varchar(2000),
+	@book_image_src varchar(255),
+	@book_name varchar(50),
+	@book_price int,
+	@isbn_number varchar(13),
+	@no_of_copies int,
+	@publishing_year int
+)
+as
+begin
+	begin transaction
+	save transaction savepoint
+	begin try
+		if NOT EXISTS (select * from book where isbn_number = @isbn_number)
+			print 'BOOK NOT FOUND'
+		else
+			begin 
+				update book
+				set auther_name=@auther_name,
+				book_detail=@book_detail,
+				book_image_src=@book_image_src,
+				book_name=@book_name,
+				book_price=@book_price,
+				isbn_number=@isbn_number,
+				no_of_copies=@no_of_copies,
+				publishing_year=@publishing_year
+				where isbn_number=@isbn_number
+				commit transaction
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+		if @@TRANCOUNT > 0
+			begin
+				rollback transaction savepoint
+			end
+	end catch
+end

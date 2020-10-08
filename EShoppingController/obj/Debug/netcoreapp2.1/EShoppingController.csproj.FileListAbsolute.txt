@@ -1,0 +1,14 @@
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\bin\Debug\netcoreapp2.1\EShoppingController.deps.json
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\bin\Debug\netcoreapp2.1\EShoppingController.runtimeconfig.json
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\bin\Debug\netcoreapp2.1\EShoppingController.runtimeconfig.dev.json
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\bin\Debug\netcoreapp2.1\EShoppingController.dll
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\bin\Debug\netcoreapp2.1\EShoppingController.pdb
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.csprojAssemblyReference.cache
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.csproj.CoreCompileInputs.cache
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.RazorAssemblyInfo.cache
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.RazorAssemblyInfo.cs
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.AssemblyInfoInputs.cache
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.AssemblyInfo.cs
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.RazorTargetAssemblyInfo.cache
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.dll
+D:\AAA\VisualStudio\EShoppingSln\EshoppingController\obj\Debug\netcoreapp2.1\EShoppingController.pdb
