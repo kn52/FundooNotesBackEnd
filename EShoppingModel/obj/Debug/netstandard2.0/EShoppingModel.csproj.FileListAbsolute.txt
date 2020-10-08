@@ -1,0 +1,9 @@
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\EShoppingModel.deps.json
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\EShoppingModel.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\EShoppingModel.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.csproj.CoreCompileInputs.cache
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.AssemblyInfoInputs.cache
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.AssemblyInfo.cs
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.csprojAssemblyReference.cache
