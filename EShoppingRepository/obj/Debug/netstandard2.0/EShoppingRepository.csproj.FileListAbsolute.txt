@@ -1,0 +1,14 @@
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\EShoppingRepository.deps.json
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\EShoppingRepository.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\EShoppingRepository.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\EShoppingModel.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\EShoppingModel.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.csprojAssemblyReference.cache
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.csproj.CoreCompileInputs.cache
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.AssemblyInfoInputs.cache
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.AssemblyInfo.cs
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.csproj.CopyComplete
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\obj\Debug\netstandard2.0\EShoppingRepository.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingRepository\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.xml
