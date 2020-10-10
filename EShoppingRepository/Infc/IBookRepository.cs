@@ -1,4 +1,4 @@
-﻿namespace EShoppingRepository.Infc
+﻿namespace EShoppingModel.Infc
 {
     using EShoppingModel.Model;
     using System.Collections.Generic;

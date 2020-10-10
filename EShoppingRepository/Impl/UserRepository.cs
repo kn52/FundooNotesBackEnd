@@ -1,7 +1,7 @@
-﻿namespace EShoppingRepository.Impl
+﻿namespace EShoppingModel.Impl
 {
-    using EShoppingRepository.Dto;
-    using EShoppingRepository.Infc;
+    using EShoppingModel.Dto;
+    using EShoppingModel.Infc;
     using Microsoft.Extensions.Configuration;
     using System;
     using System.Data;
@@ -55,6 +55,43 @@
                 }
             }
             return "User Already Exist";
+        }
+
+        public string VerifyUserEmail(string token)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@userId", 3);
+                    cmd.Parameters.AddWithValue("@email_verified", true);
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        string id = cmd.Parameters["@id"].Value.ToString();
+                        if (id != "")
+                        {
+                            return "User Email Verified";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "User Email Not Verified";
         }
 
         private readonly string DBString = null;

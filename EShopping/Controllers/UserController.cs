@@ -1,12 +1,10 @@
-﻿
-namespace EShopping.Controllers
+﻿namespace EShopping.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
     using EShoppingModel.Response;
-    using EShoppingRepository.Dto;
+    using EShoppingModel.Dto;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +31,27 @@ namespace EShopping.Controllers
                     return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, userRegistrationDto));
                 }
                 
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+        }
+
+        [HttpPost]
+        [Route("verify/email")]
+        public async Task<IActionResult> VerifyEmail([FromBody] string token)
+        {
+            var UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
+            try
+            {
+                if (UserData.Contains("Verified"))
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, UserData));
+                }
+
             }
             catch (Exception ex)
             {

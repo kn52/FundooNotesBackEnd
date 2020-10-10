@@ -6,4 +6,3 @@ D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppi
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.AssemblyInfo.cs
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.dll
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.pdb
-D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.csprojAssemblyReference.cache

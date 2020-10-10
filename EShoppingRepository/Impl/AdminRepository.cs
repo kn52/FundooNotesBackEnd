@@ -1,8 +1,8 @@
-﻿namespace EShoppingRepository.Impl
+﻿namespace EShoppingModel.Impl
 {
     using EShoppingModel.Model;
-    using EShoppingRepository.Dto;
-    using EShoppingRepository.Infc;
+    using EShoppingModel.Dto;
+    using EShoppingModel.Infc;
     using Microsoft.Extensions.Configuration;
     using System;
     using System.Data;

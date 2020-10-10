@@ -1,11 +1,11 @@
-﻿namespace EShoppingRepository.Impl
+﻿namespace EShoppingModel.Impl
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     using EShoppingModel.Model;
-    using EShoppingRepository.Infc;
+    using EShoppingModel.Infc;
     using Microsoft.Extensions.Configuration;
 
     public class BookRepository : IBookRepository

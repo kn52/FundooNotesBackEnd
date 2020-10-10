@@ -1,7 +1,7 @@
 ﻿namespace EShoppingService.Infc
 {
     using EShoppingModel.Model;
-    using EShoppingRepository.Dto;
+    using EShoppingModel.Dto;
     public interface IAdminService
     {
         User AdminLogin(LoginDto loginDto);

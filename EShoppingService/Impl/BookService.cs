@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using EShoppingModel.Model;
-    using EShoppingRepository.Infc;
+    using EShoppingModel.Infc;
     using EShoppingService.Infc;
     public class BookService : IBookService
     {

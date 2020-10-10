@@ -1,7 +1,7 @@
 ﻿namespace EShopping.Controllers
 {
     using EShoppingModel.Response;
-    using EShoppingRepository.Dto;
+    using EShoppingModel.Dto;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Mvc;
     using System;
