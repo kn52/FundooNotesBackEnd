@@ -97,6 +97,16 @@
             return "User Email Not Verified";
         }
 
+        public string GenerateJSONWebToken()
+        {
+            return TokenGenerator.GenerateJSONWebToken(Configuration);
+        }
+
+        public bool ValidateJSONWebToken(string token)
+        {
+            return TokenGenerator.ValidateJSONWebToken(token, Configuration);
+        }
+
         private readonly string DBString = null;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EShoppingModel.Infc
 {
-    using EShoppingModel.Model;  
+    using EShoppingModel.Model;
     using System.Collections.Generic;
     public interface IBookRepository
     {

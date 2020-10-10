@@ -14,3 +14,7 @@ D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShop
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.csproj.CopyComplete
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.dll
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\Microsoft.IdentityModel.Tokens.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\System.IdentityModel.Tokens.Jwt.dll
+D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\Microsoft.IdentityModel.Tokens.xml
+D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\System.IdentityModel.Tokens.Jwt.xml
