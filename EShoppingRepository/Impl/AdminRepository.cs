@@ -7,6 +7,7 @@
     using System;
     using System.Data;
     using System.Data.SqlClient;
+    using EShoppingModel.Util;
 
     public class AdminRepository : IAdminRepository
     {
@@ -36,6 +37,8 @@
                             User user =  new User();
                             while (rdr.Read())
                             {
+                                var pass = SaltGenerator.Base64Decode(rdr["password"].ToString());
+                                Console.WriteLine(pass);
                                 user.id = Convert.ToInt32(rdr["id"]);
                                 user.fullName = rdr["full_name"].ToString();
                                 user.email = rdr["email"].ToString();

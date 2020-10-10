@@ -1,10 +1,11 @@
-﻿namespace EShoppingModel.Util
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+
+namespace EShoppingModel.Util
 {
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.IdentityModel.Tokens;
-    using System;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Text;
     public class TokenGenerator
     {
         public static string GenerateJSONWebToken(IConfiguration configuration)
@@ -31,7 +32,7 @@
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.ToString());
                 return false;
             }
             return true;

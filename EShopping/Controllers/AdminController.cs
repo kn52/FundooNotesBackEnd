@@ -7,9 +7,11 @@
     using System;
     using System.Net;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Cors;
 
     [Route("/bookstore/admin")]
     [ApiController]
+    [EnableCors("CORS")]
     public class AdminController : ControllerBase
     {
         public AdminController(IAdminService service)

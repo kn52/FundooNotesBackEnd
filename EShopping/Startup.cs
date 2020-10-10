@@ -46,6 +46,16 @@ namespace EShopping
                 c.SwaggerDoc("v1", new Info { Title = "e Bookstore"});
             });
 
+            //Cross Origin
+            services.AddCors(c =>
+            {
+                c.AddPolicy("CORS",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +82,9 @@ namespace EShopping
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "e Bookstore");
             });
+
+            //CORS
+            app.UseCors();
         }
     }
 }

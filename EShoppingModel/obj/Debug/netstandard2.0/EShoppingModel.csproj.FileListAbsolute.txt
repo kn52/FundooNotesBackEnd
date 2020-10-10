@@ -7,10 +7,6 @@ D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppi
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.dll
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.pdb
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\Microsoft.IdentityModel.Tokens.dll
-D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\System.IdentityModel.Tokens.Jwt.dll
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.xml
-D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\Microsoft.IdentityModel.Tokens.xml
-D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\bin\Debug\netstandard2.0\System.IdentityModel.Tokens.Jwt.xml
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.csprojAssemblyReference.cache
 D:\AAA\VisualStudio\EShoppingSln\EShoppingModel\obj\Debug\netstandard2.0\EShoppingModel.csproj.CopyComplete

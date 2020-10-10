@@ -2,6 +2,7 @@
 {
     using EShoppingModel.Dto;
     using EShoppingModel.Infc;
+    using EShoppingModel.Model;
     using EShoppingModel.Util;
     using Microsoft.Extensions.Configuration;
     using System;
@@ -16,7 +17,7 @@
             DBString = this.Configuration["ConnectionString:DBConnection"];
         }
 
-        IConfiguration Configuration { get; set; }
+        private readonly IConfiguration Configuration;
         public string UserRegistration(UserRegistrationDto userRegistrationDto)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
@@ -59,7 +60,6 @@
             }
             return "User Already Exist";
         }
-
         public string VerifyUserEmail(string token)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
@@ -96,7 +96,52 @@
             }
             return "User Email Not Verified";
         }
-
+        public User UserLogin(LoginDto loginDto)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spAdminLogin", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@email", loginDto.email);
+                    cmd.Parameters.AddWithValue("@password", loginDto.password);
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            User user = new User();
+                            while (rdr.Read())
+                            {
+                                var pass = SaltGenerator.Base64Decode(rdr["password"].ToString());
+                                Console.WriteLine(pass);
+                                user.id = Convert.ToInt32(rdr["id"]);
+                                user.fullName = rdr["full_name"].ToString();
+                                user.email = rdr["email"].ToString();
+                                user.password = rdr["password"].ToString();
+                                user.phoneNo = rdr["phone_no"].ToString();
+                                user.emailVerified = (bool)rdr["email_verified"];
+                                user.userRole = Convert.ToInt32(rdr["user_role"]);
+                            }
+                            return user;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
+        }
         public string GenerateJSONWebToken()
         {
             return TokenGenerator.GenerateJSONWebToken(Configuration);

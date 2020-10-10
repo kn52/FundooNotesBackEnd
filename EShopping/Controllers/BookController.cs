@@ -7,11 +7,13 @@
     using EShoppingModel.Model;
     using EShoppingModel.Response;
     using EShoppingService.Infc;
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("/bookstore")]
     [ApiController]
+    [EnableCors("CORS")]
     public class BookController : ControllerBase
     {
         public BookController(IBookService service)

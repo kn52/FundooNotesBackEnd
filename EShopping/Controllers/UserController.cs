@@ -7,9 +7,12 @@
     using EShoppingModel.Dto;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Cors;
+    using System.Net.Http;
 
     [Route("/bookstore/user")]
     [ApiController]
+    [EnableCors("CORS")]
     public class UserController : ControllerBase
     {
         public UserController(IUserService service)
@@ -26,8 +29,10 @@
             var UserData = await Task.FromResult(UserService.UserRegistration(userRegistrationDto));
             try
             {
-                if (UserData.Contains("Success"))
+                if (UserData.Contains("Success") && UserData != null)
                 {
+                    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                    response.Headers.Add("Autherization", "Hello");
                     return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, userRegistrationDto));
                 }
                 
@@ -41,13 +46,13 @@
         }
 
         [HttpPost]
-        [Route("verify/email")]
-        public async Task<IActionResult> VerifyEmail([FromBody] string token)
+        [Route("verify/email/{token}")]
+        public async Task<IActionResult> VerifyEmail(string token)
         {
             var UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
             try
             {
-                if (UserData.Contains("Verified"))
+                if (UserData.Contains("Verified") && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, UserData));
                 }
@@ -59,6 +64,27 @@
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> UserLogin([FromBody] LoginDto loginDto)
+        {
+            var UserData = await Task.FromResult(UserService.UserLogin(loginDto));
+            try
+            {
+                if (UserData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "User Found", UserData));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null));
         }
     }
 }
