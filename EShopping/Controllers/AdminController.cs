@@ -20,7 +20,7 @@
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Post([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> AdminLogin([FromBody] LoginDto loginDto)
         {
             try
             {

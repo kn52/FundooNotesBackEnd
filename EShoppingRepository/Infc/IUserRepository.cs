@@ -1,12 +1,8 @@
-﻿namespace EShoppingModel.Infc
+﻿namespace EShoppingRepository.Infc
 {
-    using EShoppingModel.Dto;
-    using EShoppingModel.Model;
-
+    using EShoppingRepository.Dto;
     public interface IUserRepository
     {
         string UserRegistration(UserRegistrationDto userRegistrationDto);
-        string VerifyUserEmail(string token);
-        User UserLogin(LoginDto loginDto);
     }
 }

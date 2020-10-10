@@ -1,8 +1,7 @@
 ﻿namespace EShoppingService.Impl
 {
-    using EShoppingModel.Dto;
-    using EShoppingModel.Infc;
-    using EShoppingModel.Model;
+    using EShoppingRepository.Dto;
+    using EShoppingRepository.Infc;
     using EShoppingService.Infc;
     public class UserService : IUserService
     {
@@ -16,15 +15,6 @@
         public string UserRegistration(UserRegistrationDto userRegistrationDto)
         {
             return UserRepository.UserRegistration(userRegistrationDto);
-        }
-
-        public string VerifyUserEmail(string token)
-        {
-            return UserRepository.VerifyUserEmail(token);
-        }
-        public User UserLogin(LoginDto loginDto)
-        {
-            return UserRepository.UserLogin(loginDto);
         }
     }
 }

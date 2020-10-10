@@ -33,20 +33,16 @@
                         SqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
-                            User user = null;
+                            User user =  new User();
                             while (rdr.Read())
                             {
-                                user = new User
-                                {
-                                    id = Convert.ToInt32(rdr["id"]),
-                                    fullName = rdr["full_name"].ToString(),
-                                    email = rdr["email"].ToString(),
-                                    password = rdr["password"].ToString(),
-                                    phoneNo = rdr["phone_no"].ToString(),
-                                    emailVerified = (bool) rdr["email_verified"],
-                                    registrationDate = (DateTime) rdr["registration_date"],
-                                    userRole = Convert.ToInt32(rdr["user_role"]),
-                                };
+                                user.id = Convert.ToInt32(rdr["id"]);
+                                user.fullName = rdr["full_name"].ToString();
+                                user.email = rdr["email"].ToString();
+                                user.password = rdr["password"].ToString();
+                                user.phoneNo = rdr["phone_no"].ToString();
+                                user.emailVerified = (bool)rdr["email_verified"];
+                                user.userRole = Convert.ToInt32(rdr["user_role"]);
                             }
                             return user;
                         }

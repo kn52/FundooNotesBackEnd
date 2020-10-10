@@ -33,6 +33,10 @@ namespace EShopping
             services.AddSingleton<IAdminService, AdminService>();
             services.AddSingleton<IAdminRepository, AdminRepository>();
 
+            //User service
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+
             //Database config
             services.AddSingleton(Configuration);
 
