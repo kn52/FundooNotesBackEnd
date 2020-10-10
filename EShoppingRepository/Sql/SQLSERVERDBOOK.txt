@@ -15,23 +15,16 @@ create table book (
 create procedure spGetBooks
 as
 begin
-	begin transaction
-	save transaction savepoint
 	begin try
 		if NOT EXISTS (select * from book)
 			print 'BOOKS NOT FOUND'
 		else
 			begin 
 				select * from book
-				commit transaction
 			end
 	end try
 	begin catch
 		select ERROR_MESSAGE() as ErrorMessage
-		if @@TRANCOUNT > 0
-			begin
-				rollback transaction savepoint
-			end
 	end catch
 end
 
@@ -51,8 +44,6 @@ create procedure spAddBook
 )
 as
 begin
-	begin transaction
-	save transaction savepoint
 	begin try
 		if NOT EXISTS (select * from book where isbn_number = @isbn_number)
 			print 'BOOKS ALREADY EXISTS'
@@ -64,17 +55,12 @@ begin
 					isbn_number,no_of_copies,publishing_year)
 				values (@auther_name,@book_detail,@book_image_src,@book_name,@book_price,
 					@isbn_number,@no_of_copies,@publishing_year)
-				commit transaction
 				set @key=SCOPE_IDENTITY()
 				return @key
 			end
 	end try
 	begin catch
 		select ERROR_MESSAGE() as ErrorMessage
-		if @@TRANCOUNT > 0
-			begin
-				rollback transaction savepoint
-			end
 	end catch
 end
 
@@ -92,8 +78,6 @@ create procedure spUpdateBook
 )
 as
 begin
-	begin transaction
-	save transaction savepoint
 	begin try
 		if NOT EXISTS (select * from book where isbn_number = @isbn_number)
 			print 'BOOK NOT FOUND'
@@ -109,14 +93,9 @@ begin
 				no_of_copies=@no_of_copies,
 				publishing_year=@publishing_year
 				where isbn_number=@isbn_number
-				commit transaction
 			end
 	end try
 	begin catch
 		select ERROR_MESSAGE() as ErrorMessage
-		if @@TRANCOUNT > 0
-			begin
-				rollback transaction savepoint
-			end
 	end catch
 end

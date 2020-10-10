@@ -7,9 +7,10 @@
     using EShoppingModel.Model;
     using EShoppingModel.Response;
     using EShoppingService.Infc;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("/books")]
+    [Route("/bookstore")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -20,6 +21,7 @@
         public IBookService BookService { get; set; }
 
         [HttpGet]
+        [Route("books")]
         public async Task<IActionResult> GetBook()
         {
             try
@@ -36,6 +38,28 @@
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Book Found",null));
+        }
+
+        [HttpGet]
+        [Route("image/{filename}")]
+        public async Task<String> UploadImage([FromForm]IFormFile file)
+        {
+            var name = await Task.FromResult(file.FileName);
+            return name;
+            //try
+            //{
+            //    var BookData = await Task.FromResult(BookService.GetBooks());
+            //    if (BookData != null)
+            //    {
+            //        return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Books Found", BookData));
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.Write(ex.ToString());
+            //    return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            //}
+            //return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Book Found", null));
         }
     }
 }

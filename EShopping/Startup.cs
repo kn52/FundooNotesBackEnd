@@ -24,10 +24,19 @@ namespace EShopping
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Book service
             services.AddSingleton<IBookService, BookService>();
             services.AddSingleton<IBookRepository, BookRepository>();
+
+            //Admin service
+            services.AddSingleton<IAdminService, AdminService>();
+            services.AddSingleton<IAdminRepository, AdminRepository>();
+
+            //Database config
             services.AddSingleton(Configuration);
 
+            //Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "e Bookstore"});
@@ -49,6 +58,7 @@ namespace EShopping
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();
 
@@ -58,7 +68,6 @@ namespace EShopping
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "e Bookstore");
             });
-
         }
     }
 }
