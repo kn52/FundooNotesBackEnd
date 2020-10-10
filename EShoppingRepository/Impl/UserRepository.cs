@@ -2,6 +2,7 @@
 {
     using EShoppingModel.Dto;
     using EShoppingModel.Infc;
+    using EShoppingModel.Util;
     using Microsoft.Extensions.Configuration;
     using System;
     using System.Data;
@@ -20,6 +21,8 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
+                var keyNew = SaltGenerator.GeneratePassword(10);
+                userRegistrationDto.password = SaltGenerator.EncodePassword(userRegistrationDto.password, keyNew);
                 using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
                 {
                     CommandType = CommandType.StoredProcedure
