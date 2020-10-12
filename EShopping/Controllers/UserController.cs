@@ -46,8 +46,8 @@
         }
 
         [HttpPost]
-        [Route("verify/email/{token}")]
-        public async Task<IActionResult> VerifyEmail(string token)
+        [Route("verify/email/")]
+        public async Task<IActionResult> VerifyEmail([FromRoute]string token)
         {
             var UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
             try
@@ -76,6 +76,27 @@
                 if (UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.Found, "User Found", UserData));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null));
+        }
+
+        [HttpPost]
+        [Route("reset/password/")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+        {
+            var UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto));
+            try
+            {
+                if (UserData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Password Reset Successfully", resetPasswordDto));
                 }
 
             }
