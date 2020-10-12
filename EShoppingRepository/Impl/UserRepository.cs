@@ -23,7 +23,8 @@
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 var keyNew = SaltGenerator.GeneratePassword(10);
-                userRegistrationDto.password = SaltGenerator.EncodePassword(userRegistrationDto.password, keyNew);
+                userRegistrationDto.password = SaltGenerator.Base64Encode(
+                    SaltGenerator.EncodePassword(userRegistrationDto.password, keyNew));
                 using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -35,6 +36,7 @@
                     cmd.Parameters.AddWithValue("@password", userRegistrationDto.password);
                     cmd.Parameters.AddWithValue("@phone_no", userRegistrationDto.phoneNo);
                     cmd.Parameters.AddWithValue("@user_role", userRegistrationDto.emailVerified);
+                    cmd.Parameters.AddWithValue("@key_new", keyNew);
                     cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                     try

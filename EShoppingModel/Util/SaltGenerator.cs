@@ -29,15 +29,12 @@
 
         public static string EncodePassword(string pass, string salt) //encrypt password    
         {
-            byte[] bytes = Encoding.Unicode.GetBytes(pass);
-            byte[] src = Encoding.Unicode.GetBytes(salt);
-            byte[] dst = new byte[src.Length + bytes.Length];
-            Buffer.BlockCopy(src, 0, dst, 0, src.Length);
-            Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
-            HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
+            byte[] bytes = Encoding.Unicode.GetBytes(pass+salt);
+            byte[] dst = new byte[bytes.Length];
+            Buffer.BlockCopy(bytes, 0, dst, 0, bytes.Length);
+            HashAlgorithm algorithm = HashAlgorithm.Create("SHA256");
             byte[] inArray = algorithm.ComputeHash(dst);
-            //return Convert.ToBase64String(inArray);    
-            return Base64Encode(Convert.ToBase64String(inArray));
+            return Convert.ToBase64String(inArray);
         }
         public static string Base64Encode(string sData) // Encode    
         {

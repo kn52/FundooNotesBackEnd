@@ -37,15 +37,19 @@
                             User user =  new User();
                             while (rdr.Read())
                             {
-                                var pass = SaltGenerator.Base64Decode(rdr["password"].ToString());
-                                Console.WriteLine(pass);
-                                user.id = Convert.ToInt32(rdr["id"]);
-                                user.fullName = rdr["full_name"].ToString();
-                                user.email = rdr["email"].ToString();
-                                user.password = rdr["password"].ToString();
-                                user.phoneNo = rdr["phone_no"].ToString();
-                                user.emailVerified = (bool)rdr["email_verified"];
-                                user.userRole = Convert.ToInt32(rdr["user_role"]);
+                                var epass = SaltGenerator.EncodePassword(loginDto.password, rdr["key_new"].ToString());
+                                var dpass = SaltGenerator.Base64Decode(rdr["password"].ToString());
+                                if (epass.Equals(dpass))
+                                {
+                                    user.id = Convert.ToInt32(rdr["id"]);
+                                    user.fullName = rdr["full_name"].ToString();
+                                    user.email = rdr["email"].ToString();
+                                    user.password = rdr["password"].ToString();
+                                    user.phoneNo = rdr["phone_no"].ToString();
+                                    user.emailVerified = (bool)rdr["email_verified"];
+                                    user.userRole = Convert.ToInt32(rdr["user_role"]);
+                                }
+                                break;
                             }
                             return user;
                         }
