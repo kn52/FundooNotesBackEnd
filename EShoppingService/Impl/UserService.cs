@@ -26,5 +26,10 @@
         {
             return UserRepository.UserLogin(loginDto);
         }
+
+        public string ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

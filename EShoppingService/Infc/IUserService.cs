@@ -8,5 +8,6 @@
         string UserRegistration(UserRegistrationDto userRegistrationDto);
         string VerifyUserEmail(string token);
         User UserLogin(LoginDto loginDto);
+        string ResetPassword(ResetPasswordDto resetPasswordDto);
     }
 }

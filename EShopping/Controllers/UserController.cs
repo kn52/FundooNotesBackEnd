@@ -96,7 +96,7 @@
             {
                 if (UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Password Reset Successfully", resetPasswordDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, resetPasswordDto));
                 }
 
             }
@@ -105,7 +105,7 @@
                 Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
         }
     }
 }
