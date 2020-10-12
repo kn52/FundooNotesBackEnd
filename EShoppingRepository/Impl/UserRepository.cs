@@ -148,6 +148,40 @@
             }
             return null;
         }
+
+        public string ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spUserPassword", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@password", resetPasswordDto.password);
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        string id = cmd.Parameters["@id"].Value.ToString();
+                        if (id != "")
+                        {
+                            return "Reset Password Successfully";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Failed To Reset Password";
+        }
         public string GenerateJSONWebToken()
         {
             return TokenGenerator.GenerateJSONWebToken(Configuration);

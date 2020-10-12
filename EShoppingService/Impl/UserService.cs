@@ -29,7 +29,7 @@
 
         public string ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            throw new System.NotImplementedException();
+            return UserRepository.ResetPassword(resetPasswordDto); ;
         }
     }
 }
