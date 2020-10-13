@@ -19,5 +19,9 @@
         {
             return AdminRepository.AddBook(bookDto);
         }
+        public string UpdateBook(BookDto bookDto)
+        {
+            return AdminRepository.UpdateBook(bookDto);
+        }
     }
 }

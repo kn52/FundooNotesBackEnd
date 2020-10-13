@@ -59,5 +59,25 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Book Not Added", null));
         }
+
+        [HttpPut]
+        [Route("book")]
+        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int id)
+        {
+            var adminData = await Task.FromResult(AdminService.AddBook(bookDto));
+            try
+            {
+                if (adminData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
+        }
     }
 }
