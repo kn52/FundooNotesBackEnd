@@ -67,7 +67,6 @@
             }
             return null;
         }
-
         public string AddBook(BookDto bookDto)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
@@ -110,7 +109,6 @@
             }
             return null;
         }
-
         public string UpdateBook(BookDto bookDto)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
@@ -151,7 +149,6 @@
             }
             return "Book Not Found";
         }
-
         public string DeleteBook(int bookId)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
@@ -184,6 +181,14 @@
                 }
             }
             return "Book Not Found";
+        }
+        public string GenerateJSONWebToken(User user)
+        {
+            return TokenGenerator.GenerateJSONWebToken(user, Configuration);
+        }
+        public int ValidateJSONWebToken(string token)
+        {
+            return TokenGenerator.ValidateJSONWebToken(token, Configuration);
         }
 
         private readonly string DBString = null;

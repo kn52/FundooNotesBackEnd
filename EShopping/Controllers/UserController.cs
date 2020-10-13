@@ -45,7 +45,7 @@
 
         [HttpPost]
         [Route("verify/email/")]
-        public async Task<IActionResult> VerifyEmail([FromRoute]string token)
+        public async Task<IActionResult> VerifyEmail([FromQuery]string token)
         {
             var UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
             try
@@ -89,7 +89,7 @@
 
         [HttpPost]
         [Route("reset/password/")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
         {
             var UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto));
             try

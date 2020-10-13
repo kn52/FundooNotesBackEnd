@@ -29,6 +29,8 @@
                 var adminData = await Task.FromResult(AdminService.AdminLogin(loginDto));
                 if (adminData != null)
                 {
+                    var token = AdminService.GenerateJSONWebToken(adminData);
+                    Response.Headers.Add("authorization",token);
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName));
                 }
             }
@@ -42,7 +44,7 @@
 
         [HttpPost]
         [Route("book")]
-        public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
+        public async Task<IActionResult> AddBook([FromBody] BookDto bookDto,[FromHeader]string token)
         {
             try
             {
@@ -61,8 +63,8 @@
         }
 
         [HttpPut]
-        [Route("book")]
-        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int id)
+        [Route("book/{bookId}")]
+        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId, [FromHeader]string token)
         {
             var adminData = await Task.FromResult(AdminService.UpdateBook(bookDto));
             try
@@ -81,8 +83,8 @@
         }
 
         [HttpDelete]
-        [Route("delete")]
-        public async Task<IActionResult> DeleteBook(int bookId)
+        [Route("delete/{bookId}")]
+        public async Task<IActionResult> DeleteBook(int bookId, [FromHeader]string token)
         {
             var adminData = await Task.FromResult(AdminService.DeleteBook(bookId));
             try

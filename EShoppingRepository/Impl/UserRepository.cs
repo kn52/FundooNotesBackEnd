@@ -67,12 +67,12 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
+                using (SqlCommand cmd = new SqlCommand("spVerifyUserEmail", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
                 {
-                    cmd.Parameters.AddWithValue("@userId", 3);
+                    cmd.Parameters.AddWithValue("@userId", 7);
                     cmd.Parameters.AddWithValue("@email_verified", true);
         
                     try
@@ -148,7 +148,6 @@
             }
             return null;
         }
-
         public string ResetPassword(ResetPasswordDto resetPasswordDto)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))

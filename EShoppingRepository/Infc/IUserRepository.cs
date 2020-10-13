@@ -10,5 +10,6 @@
         User UserLogin(LoginDto loginDto);
         string ResetPassword(ResetPasswordDto resetPasswordDto);
         string GenerateJSONWebToken(User user);
+        int ValidateJSONWebToken(string token);
     }
 }
