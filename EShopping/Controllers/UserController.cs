@@ -8,8 +8,7 @@
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Cors;
-    using System.Net.Http;
-
+    
     [Route("/bookstore/user")]
     [ApiController]
     [EnableCors("CORS")]

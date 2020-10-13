@@ -36,7 +36,7 @@
                     cmd.Parameters.AddWithValue("@full_name", userRegistrationDto.fullName);
                     cmd.Parameters.AddWithValue("@password", userRegistrationDto.password);
                     cmd.Parameters.AddWithValue("@phone_no", userRegistrationDto.phoneNo);
-                    cmd.Parameters.AddWithValue("@user_role", userRegistrationDto.emailVerified);
+                    cmd.Parameters.AddWithValue("@user_role", userRegistrationDto.userRole);
                     cmd.Parameters.AddWithValue("@key_new", keyNew);
                     cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
@@ -45,8 +45,11 @@
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         string id = cmd.Parameters["@id"].Value.ToString();
+                        //string id = "asd";
                         if (id != "")
                         {
+                            TokenGenerator.GenerateJSONWebToken(ObjectMap.MapperObject(typeof(UserRegistrationDto), typeof(User))
+                                .Map<UserRegistrationDto, User>(userRegistrationDto), Configuration);
                             return "Registered Successfully";
                         }
                     }

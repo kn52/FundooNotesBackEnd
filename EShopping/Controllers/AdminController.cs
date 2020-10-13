@@ -8,6 +8,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Cors;
+    using System.Net.Http;
 
     [Route("/bookstore/admin")]
     [ApiController]
@@ -84,7 +85,7 @@
 
         [HttpDelete]
         [Route("delete/{bookId}")]
-        public async Task<IActionResult> DeleteBook(int bookId, [FromHeader]string token)
+        public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]HttpRequestMessage httpRequestHeader)
         {
             var adminData = await Task.FromResult(AdminService.DeleteBook(bookId));
             try

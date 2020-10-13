@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace EShoppingModel.Model
+﻿namespace EShoppingModel.Model
 {
+    using System;
     public class User
     {
         public int id { get; set; }
