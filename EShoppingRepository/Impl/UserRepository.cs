@@ -36,6 +36,7 @@
                     cmd.Parameters.AddWithValue("@full_name", userRegistrationDto.fullName);
                     cmd.Parameters.AddWithValue("@password", userRegistrationDto.password);
                     cmd.Parameters.AddWithValue("@phone_no", userRegistrationDto.phoneNo);
+                    cmd.Parameters.AddWithValue("@registration_date", DateTime.Now);
                     cmd.Parameters.AddWithValue("@user_role", userRegistrationDto.userRole);
                     cmd.Parameters.AddWithValue("@key_new", keyNew);
                     cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -43,15 +44,17 @@
                     try
                     {
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        string id = cmd.Parameters["@id"].Value.ToString();
-                        //string id = "asd";
-                        if (id != "")
-                        {
-                            TokenGenerator.GenerateJSONWebToken(ObjectMap.MapperObject(typeof(UserRegistrationDto), typeof(User))
-                                .Map<UserRegistrationDto, User>(userRegistrationDto), Configuration);
+                        //cmd.ExecuteNonQuery();
+                        //string id = cmd.Parameters["@id"].Value.ToString();
+                        //if (id != "")
+                        //{
+                            //TokenGenerator.GenerateJSONWebToken(ObjectMap.MapperObject(typeof(UserRegistrationDto), typeof(User))
+                            //    .Map<UserRegistrationDto, User>(userRegistrationDto), Configuration);
+                            SendEmail.Email("Click on below given link to verify your email id " +
+                                "<br/> <a href='http://localhost:3000/verify/email'>Verify Email</a>",
+                                "ashish52922@gmail.com");
                             return "Registered Successfully";
-                        }
+                        //}
                     }
                     catch (Exception ex)
                     {

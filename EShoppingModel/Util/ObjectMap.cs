@@ -10,6 +10,8 @@
             {
                 cfg.CreateMap(source,destination);
             });
+            //return configuration.CreateMapper()
+            //    .Map<Activator.CreateInstance(source),Activator.CreateInstance(destination) > (obj);
             return configuration.CreateMapper();
         }
     }

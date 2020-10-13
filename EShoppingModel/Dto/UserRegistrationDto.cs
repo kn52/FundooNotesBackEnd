@@ -1,5 +1,6 @@
 ﻿namespace EShoppingModel.Dto
 {
+    using System;
     using System.ComponentModel;
     public class UserRegistrationDto
     {
@@ -10,6 +11,8 @@
 
         [DefaultValue(false)]
         public bool emailVerified { get; set; }
+
+        public DateTime registrationDate { get; set; }
 
         [DefaultValue(1)]
         public int userRole { get; set; } = 1;
