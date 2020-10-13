@@ -31,8 +31,6 @@
             {
                 if (UserData.Contains("Success") && UserData != null)
                 {
-                    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                    response.Headers.Add("Autherization", "Hello");
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, userRegistrationDto));
                 }
                 
@@ -75,6 +73,8 @@
             {
                 if (UserData != null)
                 {
+                    var token = UserService.GenerateJSONWebToken(UserData);
+                    Response.Headers.Add("authorization", token);
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData));
                 }
 
