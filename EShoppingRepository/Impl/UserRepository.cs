@@ -25,6 +25,7 @@
                 var keyNew = SaltGenerator.GeneratePassword(10);
                 userRegistrationDto.password = SaltGenerator.Base64Encode(
                     SaltGenerator.EncodePassword(userRegistrationDto.password, keyNew));
+
                 using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -109,6 +110,7 @@
                 {
                     cmd.Parameters.AddWithValue("@email", loginDto.email);
                     cmd.Parameters.AddWithValue("@password", loginDto.password);
+
                     try
                     {
                         conn.Open();
@@ -153,12 +155,19 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spUserPassword", conn)
+                var keyNew = SaltGenerator.GeneratePassword(10);
+                resetPasswordDto.password = SaltGenerator.Base64Encode(
+                    SaltGenerator.EncodePassword(resetPasswordDto.password, keyNew));
+
+                using (SqlCommand cmd = new SqlCommand("spUserResetPassword", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
                 {
+                    cmd.Parameters.AddWithValue("@email", "kns56@gmail.com");
                     cmd.Parameters.AddWithValue("@password", resetPasswordDto.password);
+                    cmd.Parameters.AddWithValue("@key_new", keyNew);
+
                     try
                     {
                         conn.Open();
