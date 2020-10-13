@@ -39,5 +39,25 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null));
         }
+
+        [HttpPost]
+        [Route("book")]
+        public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
+        {
+            try
+            {
+                var adminData = await Task.FromResult(AdminService.AddBook(bookDto));
+                if (adminData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Book Added Successfully", bookDto));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Book Not Added", null));
+        }
     }
 }
