@@ -1,0 +1,130 @@
+=====CREATE USER DATABASE=====
+create table userinfo (
+	id int primary key,
+	email varchar(255),
+	email_verified bit,
+	full_name varchar(255),
+	password varchar(255),
+	phone_no varchar(255),
+	registration_date DateTime,
+	user_role int,
+	key_new varchar(50)
+)
+
+=====STORE PROCEDURE FOR ADMIN LOGIN=====
+create procedure spAdminLogin
+(
+	@email varchar(255),
+	@password varchar(255)
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from userinfo where email = @email and password=@password)
+			PRINT 'NOT AN ADMIN'
+		else
+			begin 
+				select * from userinfo where email = @email and password=@password
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR ADD BOOK=====
+create procedure spAddBook
+(
+	@auther_name varchar(100),
+	@book_detail varchar(2000),
+	@book_image_src varchar(255),
+	@book_name varchar(50),
+	@book_price int,
+	@isbn_number varchar(13),
+	@no_of_copies int,
+	@publishing_year int,
+	@key int output
+)
+as
+begin
+	begin try
+		if EXISTS (select * from book where isbn_number = @isbn_number)
+			print 'BOOKS ALREADY EXISTS'
+		if EXISTS (select * from book where book_name = @book_name)
+			print 'BOOKS ALREADY EXISTS'
+		else
+			begin 
+				insert into book(auther_name,book_detail,book_image_src,book_name,book_price,
+					isbn_number,no_of_copies,publishing_year)
+				values (@auther_name,@book_detail,@book_image_src,@book_name,@book_price,
+					@isbn_number,@no_of_copies,@publishing_year)
+				set @key=SCOPE_IDENTITY()
+				return @key
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR UPDATE BOOK=====
+create procedure spUpdateBook
+(
+	@auther_name varchar(100),
+	@book_detail varchar(2000),
+	@book_image_src varchar(255),
+	@book_name varchar(50),
+	@book_price int,
+	@isbn_number varchar(13),
+	@no_of_copies int,
+	@publishing_year int,
+	@key int output
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from book where isbn_number = @isbn_number)
+			print 'BOOK NOT FOUND'
+		else
+			begin 
+				update book
+				set auther_name=@auther_name,
+				book_detail=@book_detail,
+				book_image_src=@book_image_src,
+				book_name=@book_name,
+				book_price=@book_price,
+				isbn_number=@isbn_number,
+				no_of_copies=@no_of_copies,
+				publishing_year=@publishing_year
+				where isbn_number=@isbn_number
+				set @key = SCOPE_IDENTITY();
+				return @key
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR DELETE BOOK=====
+create procedure spDeleteBook 
+(
+	@isbn_number varchar(13),
+	@key int output
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from book where isbn_number = @isbn_number)
+			print 'BOOK NOT FOUND'
+		else
+			begin 
+				delete from book where isbn_number=@isbn_number
+				set @key = SCOPE_IDENTITY();
+				return @key
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end

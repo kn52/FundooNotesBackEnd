@@ -1,0 +1,54 @@
+=====STORE PROCEDURE FOR USER REGISTRATION=====
+create procedure spUserRegistration 
+(
+	@email varchar(2000),
+	@email_verified bit,
+	@full_name varchar(100),
+	@password varchar(255),
+	@phone_no varchar(50),
+	@user_role int,
+	@id int output
+)
+as
+begin
+	begin try
+		if EXISTS (select * from userinfo where email = @email)
+			print 'Registered Successfully'
+		else
+			begin 
+				insert into userinfo(email,email_verified,full_name,password,phone_no,registration_date,user_role)
+				values (@email,@email_verified,@full_name,@password,@phone_no,null,@user_role)
+				set @id = SCOPE_IDENTITY()
+				return @id 
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR USER EMAIL VERIFICATION=====
+create procedure spVerifyUserEmail
+(
+	@userId varchar(100),
+	@email_verified bit,
+	@id int output
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from userinfo where id = @userId)
+			print 'User Not Found'
+		else
+			begin 
+				update userinfo
+				set email_verified = @email_verified
+				where id=@userId
+				set @id = SCOPE_IDENTITY()
+				return @id
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
