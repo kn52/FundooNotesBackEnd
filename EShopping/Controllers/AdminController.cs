@@ -64,7 +64,7 @@
         [Route("book")]
         public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int id)
         {
-            var adminData = await Task.FromResult(AdminService.AddBook(bookDto));
+            var adminData = await Task.FromResult(AdminService.UpdateBook(bookDto));
             try
             {
                 if (adminData != null)
@@ -78,6 +78,26 @@
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<IActionResult> DeleteBook(int bookId)
+        {
+            var adminData = await Task.FromResult(AdminService.DeleteBook(bookId));
+            try
+            {
+                if (adminData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Book Deleted Successfully", bookId));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", bookId));
         }
     }
 }
