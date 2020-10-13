@@ -47,12 +47,16 @@ namespace EShopping
             });
 
             //Cross Origin
+            //services.AddCors();
             services.AddCors(c =>
             {
                 c.AddPolicy("CORS",
                     builder =>
                     {
-                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .WithExposedHeaders();
                     });
             });
 

@@ -154,6 +154,16 @@
             return "Book Not Updated";
         }
 
+        public string GenerateJSONWebToken(User user)
+        {
+            return TokenGenerator.GenerateJSONWebToken(user, Configuration);
+        }
+
+        public int ValidateJSONWebToken(string token)
+        {
+            return TokenGenerator.ValidateJSONWebToken(token, Configuration);
+        }
+
         private readonly string DBString = null;
     }
 }

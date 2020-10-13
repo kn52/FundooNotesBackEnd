@@ -1,41 +1,46 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using EShoppingModel.Model;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace EShoppingModel.Util
 {
     public class TokenGenerator
     {
-        public static string GenerateJSONWebToken(IConfiguration configuration)
+        public static string GenerateJSONWebToken(User user,IConfiguration configuration)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
               configuration["Jwt:Issuer"],
-              null,
+              new Claim[] {
+                  new Claim("userId",user.id.ToString())
+              },
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        public static bool ValidateJSONWebToken(string token, IConfiguration configuration)
+        public static int ValidateJSONWebToken(string token, IConfiguration configuration)
         {
+            ClaimsPrincipal principal = null;
             var tokenHandler = new JwtSecurityTokenHandler();
             var validationParameters = GetValidationParameters(configuration);
             try
             {
                 SecurityToken validatedToken = tokenHandler.ReadToken(token);
-                tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+                principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return false;
+                return -1;
             }
-            return true;
+            return Convert.ToInt32(principal.FindFirst("userId").Value.Trim());
 
         }
 

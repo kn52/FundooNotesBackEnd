@@ -29,7 +29,9 @@
                 var adminData = await Task.FromResult(AdminService.AdminLogin(loginDto));
                 if (adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData));
+                    var token = AdminService.GenerateJSONWebToken(adminData);
+                    Response.Headers.Add("authorization",token);
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName));
                 }
             }
             catch (Exception ex)

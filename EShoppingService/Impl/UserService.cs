@@ -31,5 +31,10 @@
         {
             return UserRepository.ResetPassword(resetPasswordDto); ;
         }
+
+        public string GenerateJSONWebToken(User user)
+        {
+            return UserRepository.GenerateJSONWebToken(user);
+        }
     }
 }

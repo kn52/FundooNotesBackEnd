@@ -191,12 +191,12 @@
             }
             return "Failed To Reset Password";
         }
-        public string GenerateJSONWebToken()
+        public string GenerateJSONWebToken(User user)
         {
-            return TokenGenerator.GenerateJSONWebToken(Configuration);
+            return TokenGenerator.GenerateJSONWebToken(user,Configuration);
         }
 
-        public bool ValidateJSONWebToken(string token)
+        public int ValidateJSONWebToken(string token)
         {
             return TokenGenerator.ValidateJSONWebToken(token, Configuration);
         }
