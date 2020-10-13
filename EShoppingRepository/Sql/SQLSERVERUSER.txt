@@ -31,8 +31,7 @@ end
 create procedure spVerifyUserEmail
 (
 	@userId varchar(100),
-	@email_verified bit,
-	@id int output
+	@email_verified bit
 )
 as
 begin
@@ -44,8 +43,6 @@ begin
 				update userinfo
 				set email_verified = @email_verified
 				where id=@userId
-				set @id = SCOPE_IDENTITY()
-				return @id
 			end
 	end try
 	begin catch

@@ -74,14 +74,12 @@
                 {
                     cmd.Parameters.AddWithValue("@userId", 3);
                     cmd.Parameters.AddWithValue("@email_verified", true);
-                    cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
-
+        
                     try
                     {
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        string id = cmd.Parameters["@id"].Value.ToString();
-                        if (id != "")
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
                         {
                             return "User Email Verified";
                         }
@@ -171,9 +169,8 @@
                     try
                     {
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        string id = cmd.Parameters["@id"].Value.ToString();
-                        if (id != "")
+                        int id = cmd.ExecuteNonQuery();
+                        if (id > 0)
                         {
                             return "Reset Password Successfully";
                         }

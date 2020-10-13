@@ -128,14 +128,12 @@
                     cmd.Parameters.AddWithValue("@isbn_number", bookDto.isbnNumber);
                     cmd.Parameters.AddWithValue("@no_of_copies", bookDto.noOfCopies);
                     cmd.Parameters.AddWithValue("@publishing_year", bookDto.publishingYear);
-                    cmd.Parameters.Add("@key", SqlDbType.Int).Direction = ParameterDirection.Output;
-
+                    
                     try
                     {
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        string key = cmd.Parameters["@key"].Value.ToString();
-                        if (key != "")
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
                         {
                             return "Book Updated Successfully";
                         }
@@ -164,14 +162,12 @@
                 })
                 {
                     cmd.Parameters.AddWithValue("@isbn_number", bookId);
-                    cmd.Parameters.Add("@key", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                     try
                     {
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        string key = cmd.Parameters["@key"].Value.ToString();
-                        if (key != "")
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
                         {
                             return "Book Deleted Successfully";
                         }
