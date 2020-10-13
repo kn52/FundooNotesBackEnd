@@ -5,5 +5,6 @@
     public interface IAdminRepository
     {
         User AdminLogin(LoginDto loginDto);
+        string AddBook(BookDto bookDto);
     }
 }

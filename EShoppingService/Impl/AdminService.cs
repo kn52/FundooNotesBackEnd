@@ -15,5 +15,9 @@
         {
             return AdminRepository.AdminLogin(loginDto);
         }
+        public string AddBook(BookDto bookDto)
+        {
+            return AdminRepository.AddBook(bookDto);
+        }
     }
 }

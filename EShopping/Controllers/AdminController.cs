@@ -29,7 +29,7 @@
                 var adminData = await Task.FromResult(AdminService.AdminLogin(loginDto));
                 if (adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Admin Found", adminData));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData));
                 }
             }
             catch (Exception ex)
@@ -49,7 +49,7 @@
                 var adminData = await Task.FromResult(AdminService.AddBook(bookDto));
                 if (adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Book Added Successfully", bookDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Book Added Successfully", adminData));
                 }
             }
             catch (Exception ex)
