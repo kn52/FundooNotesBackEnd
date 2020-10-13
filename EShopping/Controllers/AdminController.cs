@@ -89,7 +89,7 @@
             {
                 if (adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Book Deleted Successfully", bookId));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookId));
                 }
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@
                 Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", bookId));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookId));
         }
     }
 }

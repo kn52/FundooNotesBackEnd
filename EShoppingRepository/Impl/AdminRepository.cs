@@ -151,9 +151,45 @@
                     }
                 }
             }
-            return "Book Not Updated";
+            return "Book Not Found";
         }
-      
+
+        public string DeleteBook(int bookId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spDeleteBook", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@isbn_number", bookId);
+                    cmd.Parameters.Add("@key", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        string key = cmd.Parameters["@key"].Value.ToString();
+                        if (key != "")
+                        {
+                            return "Book Deleted Successfully";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Book Not Found";
+        }
+
         private readonly string DBString = null;
     }
 }

@@ -23,5 +23,9 @@
         {
             return AdminRepository.UpdateBook(bookDto);
         }
+        public string DeleteBook(int bookId)
+        {
+            return AdminRepository.DeleteBook(bookId);
+        }
     }
 }
