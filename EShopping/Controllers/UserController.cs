@@ -33,7 +33,7 @@
                 {
                     HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
                     response.Headers.Add("Autherization", "Hello");
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, userRegistrationDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, userRegistrationDto));
                 }
                 
             }
@@ -54,7 +54,7 @@
             {
                 if (UserData.Contains("Verified") && UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, UserData));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, UserData));
                 }
 
             }
@@ -75,7 +75,7 @@
             {
                 if (UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "User Found", UserData));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData));
                 }
 
             }
@@ -96,7 +96,7 @@
             {
                 if (UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, resetPasswordDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, resetPasswordDto));
                 }
 
             }

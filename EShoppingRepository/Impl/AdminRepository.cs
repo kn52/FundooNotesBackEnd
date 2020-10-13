@@ -72,7 +72,7 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spAdminLogin", conn)
+                using (SqlCommand cmd = new SqlCommand("spAddBook", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
@@ -109,6 +109,49 @@
                 }
             }
             return null;
+        }
+
+        public string UpdateBook(BookDto bookDto)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spUpdateBook", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@auther_name", bookDto.authorName);
+                    cmd.Parameters.AddWithValue("@book_detail", bookDto.bookDetail);
+                    cmd.Parameters.AddWithValue("@book_image_src", bookDto.bookImageSrc);
+                    cmd.Parameters.AddWithValue("@book_name", bookDto.bookName);
+                    cmd.Parameters.AddWithValue("@book_price", bookDto.bookPrice);
+                    cmd.Parameters.AddWithValue("@isbn_number", bookDto.isbnNumber);
+                    cmd.Parameters.AddWithValue("@no_of_copies", bookDto.noOfCopies);
+                    cmd.Parameters.AddWithValue("@publishing_year", bookDto.publishingYear);
+                    cmd.Parameters.Add("@key", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        string key = cmd.Parameters["@key"].Value.ToString();
+                        if (key != "")
+                        {
+                            return "Book Updated Successfully";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Book Not Updated";
         }
 
         private readonly string DBString = null;
