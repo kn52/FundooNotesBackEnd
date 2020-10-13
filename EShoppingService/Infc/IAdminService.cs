@@ -7,6 +7,5 @@
         User AdminLogin(LoginDto loginDto);
         string AddBook(BookDto bookDto);
         string UpdateBook(BookDto bookDto);
-        string GenerateJSONWebToken(User user);
     }
 }

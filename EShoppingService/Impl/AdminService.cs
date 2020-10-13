@@ -23,9 +23,5 @@
         {
             return AdminRepository.UpdateBook(bookDto);
         }
-        public string GenerateJSONWebToken(User user)
-        {
-            return AdminRepository.GenerateJSONWebToken(user);
-        }
     }
 }
