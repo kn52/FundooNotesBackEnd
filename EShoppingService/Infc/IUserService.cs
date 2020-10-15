@@ -9,6 +9,6 @@
         string VerifyUserEmail(string token);
         User UserLogin(LoginDto loginDto);
         string ResetPassword(ResetPasswordDto resetPasswordDto);
-        string GenerateJSONWebToken(User user);
+        string GenerateJSONWebToken(int userId);
     }
 }

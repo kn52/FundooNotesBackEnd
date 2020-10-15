@@ -30,7 +30,8 @@
             {
                 if (UserData.Contains("Success") && UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, userRegistrationDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Registered Successfully.Email Verification " +
+                        "Link Is Sent To Your Registered Email Id", UserData));
                 }
                 
             }
@@ -39,7 +40,7 @@
                 Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Email Already Exist", UserData));
         }
 
         [HttpPost]

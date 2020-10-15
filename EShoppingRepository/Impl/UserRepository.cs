@@ -48,12 +48,13 @@
                         //string id = cmd.Parameters["@id"].Value.ToString();
                         //if (id != "")
                         //{
-                            //TokenGenerator.GenerateJSONWebToken(ObjectMap.MapperObject(typeof(UserRegistrationDto), typeof(User))
-                            //    .Map<UserRegistrationDto, User>(userRegistrationDto), Configuration);
-                            SendEmail.Email("Click on below given link to verify your email id " +
-                                "<br/> <a href='http://localhost:3000/verify/email'>Verify Email</a>",
+                        //TokenGenerator.GenerateJSONWebToken(id, Configuration);
+                        string id = "";
+                        var GeneratedToken = "sad";
+                        SendEmail.Email("Click on below given link to verify your email id " +
+                                "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
-                            return "Registered Successfully";
+                            return id;
                         //}
                     }
                     catch (Exception ex)
@@ -67,7 +68,7 @@
                     }
                 }
             }
-            return "User Already Exist";
+            return "";
         }
         public string VerifyUserEmail(string token)
         {
@@ -87,7 +88,7 @@
                         int count = cmd.ExecuteNonQuery();
                         if (count > 0)
                         {
-                            return "User Email Verified";
+                            return "Email Verified";
                         }
                     }
                     catch (Exception ex)
@@ -101,7 +102,7 @@
                     }
                 }
             }
-            return "User Email Not Verified";
+            return "Not Verified";
         }
         public User UserLogin(LoginDto loginDto)
         {
@@ -193,9 +194,9 @@
             }
             return "Failed To Reset Password";
         }
-        public string GenerateJSONWebToken(User user)
+        public string GenerateJSONWebToken(int userId)
         {
-            return TokenGenerator.GenerateJSONWebToken(user,Configuration);
+            return TokenGenerator.GenerateJSONWebToken(userId,Configuration);
         }
 
         public int ValidateJSONWebToken(string token)

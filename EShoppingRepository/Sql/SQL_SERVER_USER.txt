@@ -1,3 +1,16 @@
+=====CREATE USER DATABASE=====
+create table userinfo (
+	id int primary key,
+	email varchar(255),
+	email_verified bit,
+	full_name varchar(255),
+	password varchar(255),
+	phone_no varchar(255),
+	registration_date DateTime,
+	user_role int,
+	key_new varchar(50)
+)
+
 =====STORE PROCEDURE FOR USER REGISTRATION=====
 create procedure spUserRegistration 
 (
@@ -49,3 +62,50 @@ begin
 		select ERROR_MESSAGE() as ErrorMessage
 	end catch
 end
+
+=====STORE PROCEDURE FOR USER LOGIN=====
+create procedure spUserLogin
+(
+	@email varchar(255),
+	@password char(255)
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from userinfo where email = @email)
+			PRINT 'NOT AN ADMIN'
+		else
+			begin 
+				select * from userinfo where email = @email
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR USER RESET PASSWORD=====
+create procedure spUserResetPassword
+(
+	@email varchar(255),
+	@password varchar(255),
+	@key_new varchar(50)
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from userinfo where email = @email)
+			print 'User NOT FOUND'
+		else
+			begin 
+				update userinfo
+				set password=@password,
+				key_new=@key_new
+				where email=@email
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+

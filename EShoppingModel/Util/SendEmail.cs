@@ -18,7 +18,7 @@
                 message.Subject = "Test";
                 message.IsBodyHtml = true;  
                 message.Body = htmlString;
-                smtp.Port = 587;
+                smtp.Port = 25;
                 smtp.Host = "smtp.gmail.com";  
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;

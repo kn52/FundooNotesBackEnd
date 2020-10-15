@@ -8,6 +8,6 @@
         string AddBook(BookDto bookDto);
         string UpdateBook(BookDto bookDto);
         string DeleteBook(int bookId);
-        string GenerateJSONWebToken(User user);
+        string GenerateJSONWebToken(int userId);
     }
 }

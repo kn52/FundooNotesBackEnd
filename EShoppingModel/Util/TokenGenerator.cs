@@ -10,7 +10,7 @@ namespace EShoppingModel.Util
 {
     public class TokenGenerator
     {
-        public static string GenerateJSONWebToken(User user,IConfiguration configuration)
+        public static string GenerateJSONWebToken(int userId,IConfiguration configuration)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -18,7 +18,7 @@ namespace EShoppingModel.Util
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
               configuration["Jwt:Issuer"],
               new Claim[] {
-                  new Claim("userId",user.id.ToString())
+                  new Claim("userId",userId.ToString())
               },
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
