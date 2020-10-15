@@ -1,0 +1,5 @@
+=====CREATE WISHLIST TABLE=====
+create table wishlist (
+	wish_id int primary key identity(1,1),
+	user_id int
+)
