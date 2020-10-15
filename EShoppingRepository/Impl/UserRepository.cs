@@ -44,18 +44,16 @@
                     try
                     {
                         conn.Open();
-                        //cmd.ExecuteNonQuery();
-                        //string id = cmd.Parameters["@id"].Value.ToString();
-                        //if (id != "")
-                        //{
-                        //TokenGenerator.GenerateJSONWebToken(id, Configuration);
-                        string id = "";
-                        var GeneratedToken = "sad";
-                        SendEmail.Email("Click on below given link to verify your email id " +
+                        cmd.ExecuteNonQuery();
+                        string id = cmd.Parameters["@id"].Value.ToString();
+                        if (id != "")
+                        {
+                            var GeneratedToken = "sad";
+                            SendEmail.Email("Click on below given link to verify your email id " +
                                 "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
                             return id;
-                        //}
+                        }
                     }
                     catch (Exception ex)
                     {

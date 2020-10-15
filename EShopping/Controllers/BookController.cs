@@ -48,20 +48,6 @@
         {
             var name = await Task.FromResult(file.FileName);
             return name;
-            //try
-            //{
-            //    var BookData = await Task.FromResult(BookService.GetBooks());
-            //    if (BookData != null)
-            //    {
-            //        return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Books Found", BookData));
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.Write(ex.ToString());
-            //    return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
-            //}
-            //return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Book Found", null));
         }
     }
 }

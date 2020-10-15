@@ -30,8 +30,7 @@
                 var adminData = await Task.FromResult(AdminService.AdminLogin(loginDto));
                 if (adminData != null)
                 {
-                    var token = AdminService.GenerateJSONWebToken(adminData);
-                    Response.Headers.Add("authorization",token);
+                    var token = AdminService.GenerateJSONWebToken(adminData.id);
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName));
                 }
             }

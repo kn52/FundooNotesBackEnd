@@ -73,8 +73,7 @@
             {
                 if (UserData != null)
                 {
-                    var token = UserService.GenerateJSONWebToken(UserData);
-                    Response.Headers.Add("authorization", token);
+                    var token = UserService.GenerateJSONWebToken(UserData.id);
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData));
                 }
 
