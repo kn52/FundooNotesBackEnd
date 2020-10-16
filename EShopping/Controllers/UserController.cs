@@ -88,9 +88,9 @@
 
         [HttpPost]
         [Route("forget/password/")]
-        public async Task<IActionResult> ForgetPassword(string email, [FromQuery] string token)
+        public async Task<IActionResult> ForgetPassword(string email)
         {
-            var UserData = await Task.FromResult(UserService.ForgetPassword(email,token));
+            var UserData = await Task.FromResult(UserService.ForgetPassword(email));
             try
             {
                 if (UserData != null)
