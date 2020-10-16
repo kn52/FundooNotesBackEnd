@@ -15,17 +15,17 @@
         {
             return AdminRepository.AdminLogin(loginDto);
         }
-        public string AddBook(BookDto bookDto)
+        public string AddBook(BookDto bookDto, string token)
         {
-            return AdminRepository.AddBook(bookDto);
+            return AdminRepository.AddBook(bookDto,token);
         }
-        public string UpdateBook(BookDto bookDto)
+        public string UpdateBook(BookDto bookDto, string token)
         {
-            return AdminRepository.UpdateBook(bookDto);
+            return AdminRepository.UpdateBook(bookDto,token);
         }
-        public string DeleteBook(int bookId)
+        public string DeleteBook(int bookId, string token)
         {
-            return AdminRepository.DeleteBook(bookId);
+            return AdminRepository.DeleteBook(bookId,token);
         }
         public string GenerateJSONWebToken(int userId)
         {

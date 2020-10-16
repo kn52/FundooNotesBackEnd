@@ -49,7 +49,7 @@
         {
             try
             {
-                var adminData = await Task.FromResult(AdminService.AddBook(bookDto));
+                var adminData = await Task.FromResult(AdminService.AddBook(bookDto,token));
                 if (adminData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Book Added Successfully", adminData));
@@ -63,16 +63,16 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Book Not Added", null));
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("book/{bookId}")]
         public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId, [FromHeader]string token)
         {
-            var adminData = await Task.FromResult(AdminService.UpdateBook(bookDto));
+            var adminData = await Task.FromResult(AdminService.UpdateBook(bookDto,token));
             try
             {
                 if (adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto);
                 }
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@
         [Route("delete/{bookId}")]
         public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]string token)
         {
-            var adminData = await Task.FromResult(AdminService.DeleteBook(bookId));
+            var adminData = await Task.FromResult(AdminService.DeleteBook(bookId,token));
             try
             {
                 if (adminData != null)

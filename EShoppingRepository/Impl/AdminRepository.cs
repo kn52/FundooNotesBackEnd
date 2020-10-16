@@ -67,8 +67,14 @@
             }
             return null;
         }
-        public string AddBook(BookDto bookDto)
+        public string AddBook(BookDto bookDto, string token)
         {
+            var userId = -1;
+            userId = this.ValidateJSONWebToken(token);
+            if (userId == -1)
+            {
+                return "Invalid Token";
+            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spAddBook", conn)
@@ -109,8 +115,14 @@
             }
             return null;
         }
-        public string UpdateBook(BookDto bookDto)
+        public string UpdateBook(BookDto bookDto, string token)
         {
+            var userId = -1;
+            userId = this.ValidateJSONWebToken(token);
+            if (userId == -1)
+            {
+                return "Invalid Token";
+            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spUpdateBook", conn)
@@ -149,8 +161,14 @@
             }
             return "Book Not Found";
         }
-        public string DeleteBook(int bookId)
+        public string DeleteBook(int bookId, string token)
         {
+            var userId = -1;
+            userId = this.ValidateJSONWebToken(token);
+            if (userId == -1)
+            {
+                return "Invalid Token";
+            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spDeleteBook", conn)

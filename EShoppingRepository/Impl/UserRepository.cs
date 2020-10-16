@@ -70,8 +70,9 @@
         }
         public string VerifyUserEmail(string token)
         {
-            var userId = this.ValidateJSONWebToken(token);
-            if(userId == 0 )
+            var userId = -1;
+            userId = this.ValidateJSONWebToken(token);
+            if(userId == -1 )
             {
                 return "Invalid User Token";
             }
@@ -195,8 +196,9 @@
         }
         public string ResetPassword(ResetPasswordDto resetPasswordDto, string token)
         {
-            var userId = this.ValidateJSONWebToken(token);
-            if (userId == 0)
+            var userId = -1;
+            userId = this.ValidateJSONWebToken(token);
+            if (userId == -1)
             {
                 return "Invalid User Token";
             }
