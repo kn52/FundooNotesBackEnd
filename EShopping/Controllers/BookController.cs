@@ -1,10 +1,8 @@
 ﻿namespace EShopping.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
-    using EShoppingModel.Model;
     using EShoppingModel.Response;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Cors;

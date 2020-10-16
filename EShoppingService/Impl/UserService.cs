@@ -26,7 +26,10 @@
         {
             return UserRepository.UserLogin(loginDto);
         }
-
+        public string ForgetPassword(string email)
+        {
+            return UserRepository.ForgetPassword(email);
+        }
         public string ResetPassword(ResetPasswordDto resetPasswordDto)
         {
             return UserRepository.ResetPassword(resetPasswordDto); ;

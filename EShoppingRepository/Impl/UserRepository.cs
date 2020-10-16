@@ -153,6 +153,40 @@
             }
             return null;
         }
+        public string ForgetPassword(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spAdminLogin", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@email", email);
+                    
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            SendEmail.Email("Reset your password by clicking on below link", email);
+                            return "Reset Password Link Is Sent To Your Registered Email";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        return "Reset Password Link Not Sent";
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Email Not Found";
+        }
         public string ResetPassword(ResetPasswordDto resetPasswordDto)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
