@@ -48,7 +48,7 @@
                         string id = cmd.Parameters["@id"].Value.ToString();
                         if (id != "")
                         {
-                            var GeneratedToken = "sad";
+                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(id));
                             SendEmail.Email("Click on below given link to verify your email id " +
                                 "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
@@ -70,6 +70,11 @@
         }
         public string VerifyUserEmail(string token)
         {
+            var userId = this.ValidateJSONWebToken(token);
+            if(userId == 0 )
+            {
+                return "Invalid User Token";
+            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spVerifyUserEmail", conn)
@@ -77,7 +82,7 @@
                     CommandType = CommandType.StoredProcedure
                 })
                 {
-                    cmd.Parameters.AddWithValue("@userId", 7);
+                    cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.Parameters.AddWithValue("@email_verified", true);
         
                     try
@@ -170,6 +175,7 @@
                         SqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
+                            this.GenerateJSONWebToken(Convert.ToInt32(rdr["id"]));
                             SendEmail.Email("Reset your password by clicking on below link", email);
                             return "Reset Password Link Is Sent To Your Registered Email";
                         }
@@ -187,8 +193,13 @@
             }
             return "Email Not Found";
         }
-        public string ResetPassword(ResetPasswordDto resetPasswordDto)
+        public string ResetPassword(ResetPasswordDto resetPasswordDto, string token)
         {
+            var userId = this.ValidateJSONWebToken(token);
+            if (userId == 0)
+            {
+                return "Invalid User Token";
+            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 var keyNew = SaltGenerator.GeneratePassword(10);
@@ -231,7 +242,7 @@
             return TokenGenerator.GenerateJSONWebToken(userId,Configuration);
         }
 
-        public int ValidateJSONWebToken(string token)
+        private int ValidateJSONWebToken(string token)
         {
             return TokenGenerator.ValidateJSONWebToken(token, Configuration);
         }

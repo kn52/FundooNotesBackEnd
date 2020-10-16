@@ -31,6 +31,7 @@
                 if (adminData != null)
                 {
                     var token = AdminService.GenerateJSONWebToken(adminData.id);
+                    Response.Headers.Add("authorization",token);
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName));
                 }
             }
@@ -84,7 +85,7 @@
 
         [HttpDelete]
         [Route("delete/{bookId}")]
-        public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]HttpRequestMessage httpRequestHeader)
+        public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]string token)
         {
             var adminData = await Task.FromResult(AdminService.DeleteBook(bookId));
             try

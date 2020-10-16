@@ -9,7 +9,7 @@
         string VerifyUserEmail(string token);
         User UserLogin(LoginDto loginDto);
         string ForgetPassword(string email);
-        string ResetPassword(ResetPasswordDto resetPasswordDto);
+        string ResetPassword(ResetPasswordDto resetPasswordDto, string token);
         string GenerateJSONWebToken(int userId);
     }
 }

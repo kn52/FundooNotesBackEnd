@@ -10,14 +10,11 @@
         {
             this.UserRepository = repository;
         }
-
         IUserRepository UserRepository { get; set; }
-
         public string UserRegistration(UserRegistrationDto userRegistrationDto)
         {
             return UserRepository.UserRegistration(userRegistrationDto);
         }
-
         public string VerifyUserEmail(string token)
         {
             return UserRepository.VerifyUserEmail(token);
@@ -30,11 +27,10 @@
         {
             return UserRepository.ForgetPassword(email);
         }
-        public string ResetPassword(ResetPasswordDto resetPasswordDto)
+        public string ResetPassword(ResetPasswordDto resetPasswordDto, string token)
         {
-            return UserRepository.ResetPassword(resetPasswordDto); ;
+            return UserRepository.ResetPassword(resetPasswordDto, token);
         }
-
         public string GenerateJSONWebToken(int userId)
         {
             return UserRepository.GenerateJSONWebToken(userId);

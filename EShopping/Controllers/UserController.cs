@@ -20,7 +20,6 @@
         }
         IUserService UserService { get; set; }
 
-        // POST: api/User
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
@@ -74,6 +73,7 @@
                 if (UserData != null)
                 {
                     var token = UserService.GenerateJSONWebToken(UserData.id);
+                    Response.Headers.Add("authorization", token);
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData));
                 }
 
@@ -111,7 +111,7 @@
         [Route("reset/password/")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
         {
-            var UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto));
+            var UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto,token));
             try
             {
                 if (UserData != null)

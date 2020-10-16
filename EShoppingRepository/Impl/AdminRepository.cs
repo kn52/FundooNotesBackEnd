@@ -186,7 +186,7 @@
         {
             return TokenGenerator.GenerateJSONWebToken(userId, Configuration);
         }
-        public int ValidateJSONWebToken(string token)
+        private int ValidateJSONWebToken(string token)
         {
             return TokenGenerator.ValidateJSONWebToken(token, Configuration);
         }
