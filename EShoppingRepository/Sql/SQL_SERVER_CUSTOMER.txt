@@ -10,8 +10,29 @@ create table customer (
 	user_id int
 )
 
+=====STORE PROCEDURE TO GET CUSTOMER DETAIL=====
+create procedure spGetCustomerDetail 
+(
+	@customer_address_type int,
+	@user_id int
+)
+as
+begin
+	begin try
+		if EXISTS (select * from customer where user_id = @user_id and customer_address_type = @customer_address_type)
+			print 'Customer Details Not Found'
+		else
+			begin
+				select * from customer where user_id = @user_id and  customer_address_type = @customer_address_type
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
 =====STORE PROCEDURE FOR ADD UPDATE CUSTOMER DETAIL=====
-create procedure spCustomerDetail 
+create procedure spAddUpdateCustomerDetail 
 (
 	@customer_address varchar(255),
 	@customer_address_type int,
