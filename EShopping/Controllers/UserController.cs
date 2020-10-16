@@ -87,6 +87,27 @@
         }
 
         [HttpPost]
+        [Route("forget/password/")]
+        public async Task<IActionResult> ForgetPassword(string email, [FromQuery] string token)
+        {
+            var UserData = await Task.FromResult(UserService.ForgetPassword(email,token));
+            try
+            {
+                if (UserData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, email));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+        }
+
+        [HttpPost]
         [Route("reset/password/")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
         {
