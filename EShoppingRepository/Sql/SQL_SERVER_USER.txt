@@ -51,11 +51,15 @@ begin
 	begin try
 		if NOT EXISTS (select * from userinfo where id = @userId)
 			print 'User Not Found'
+		if EXISTS (select * from userinfo where id = @userId and email_verified = 'true')
+			print 'Email Already Verified'
 		else
 			begin 
 				update userinfo
 				set email_verified = @email_verified
-				where id=@userId
+				where id=@userId;				
+				exec spCreateCart @userId;
+				exec spCreateWishList @userId;
 			end
 	end try
 	begin catch
