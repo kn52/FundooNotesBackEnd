@@ -8,8 +8,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Cors;
-    using System.Net.Http;
-
+    
     [Route("/bookstore/admin")]
     [ApiController]
     [EnableCors("CORS")]
@@ -72,7 +71,7 @@
             {
                 if (adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto);
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
                 }
             }
             catch (Exception ex)
