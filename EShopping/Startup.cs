@@ -145,6 +145,7 @@ namespace EShopping
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "e Bookstore");
             });
 
+            app.UseAuthentication();
             //CORS
             app.UseCors();
         }

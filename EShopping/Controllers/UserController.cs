@@ -5,6 +5,7 @@
     using EShoppingModel.Response;
     using EShoppingModel.Dto;
     using EShoppingService.Infc;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Cors;
     
@@ -41,7 +42,7 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, ""));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         [Route("verify/email/")]
         public async Task<IActionResult> VerifyEmail([FromQuery]string token)
         {
@@ -105,7 +106,7 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         [Route("reset/password/")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
         {

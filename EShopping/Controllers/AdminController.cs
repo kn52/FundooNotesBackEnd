@@ -3,12 +3,12 @@
     using EShoppingModel.Response;
     using EShoppingModel.Dto;
     using EShoppingService.Infc;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System;
     using System.Net;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Cors;
-    
+
     [Route("/bookstore/admin")]
     [ApiController]
     [EnableCors("CORS")]
@@ -41,7 +41,7 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null));
         }
 
-        [HttpPost]
+        [HttpPost,Authorize]
         [Route("book")]
         public async Task<IActionResult> AddBook([FromBody] BookDto bookDto,[FromHeader]string token)
         {
@@ -65,7 +65,7 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         [Route("book/{bookId}")]
         public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId, [FromHeader]string token)
         {
@@ -85,7 +85,7 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
         }
 
-        [HttpDelete]
+        [HttpDelete, Authorize]
         [Route("delete/{bookId}")]
         public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]string token)
         {
