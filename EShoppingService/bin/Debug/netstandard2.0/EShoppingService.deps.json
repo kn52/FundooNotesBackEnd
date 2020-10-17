@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "7260eab2a72d5336eba05c24e864b881325b65a5"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
@@ -245,14 +245,13 @@
       "EShoppingRepository/1.0.0": {
         "dependencies": {
           "EShoppingModel": "1.0.0",
-          "System.Data.SqlClient": "4.8.2",
-          "Microsoft.Extensions.Configuration.Abstractions": "2.1.1.0"
+          "System.Data.SqlClient": "4.8.2"
         },
         "runtime": {
           "EShoppingRepository.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions.Reference/2.1.1.0": {
+      "Microsoft.Extensions.Configuration.Abstractions/2.1.1.0": {
         "runtime": {
           "Microsoft.Extensions.Configuration.Abstractions.dll": {
             "assemblyVersion": "2.1.1.0",
@@ -453,7 +452,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Extensions.Configuration.Abstractions.Reference/2.1.1.0": {
+    "Microsoft.Extensions.Configuration.Abstractions/2.1.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -1,5 +1,6 @@
 ﻿namespace EShoppingModel.Response
 {
+    using System.ComponentModel;
     using System.Net;
     public class ResponseEntity
     {

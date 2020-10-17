@@ -19,3 +19,7 @@ D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.Raz
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.csproj.CopyComplete
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.dll
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.pdb
+D:\AAA\VisualStudio\EShoppingSln\EShopping\bin\Debug\netcoreapp2.1\appsettings.Development.json
+D:\AAA\VisualStudio\EShoppingSln\EShopping\bin\Debug\netcoreapp2.1\appsettings.json
+D:\AAA\VisualStudio\EShoppingSln\EShopping\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.genruntimeconfig.cache
