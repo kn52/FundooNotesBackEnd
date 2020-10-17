@@ -51,9 +51,8 @@
                             return bookList;
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally

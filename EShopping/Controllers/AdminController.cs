@@ -34,9 +34,8 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName));
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null));
@@ -59,9 +58,8 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
@@ -80,9 +78,8 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
@@ -101,9 +98,8 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookId));
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookId));

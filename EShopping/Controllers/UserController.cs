@@ -35,9 +35,8 @@
                 }
                 
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, ""));
@@ -57,9 +56,8 @@
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
@@ -80,9 +78,8 @@
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null));
@@ -102,9 +99,8 @@
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
@@ -124,9 +120,8 @@
                 } 
 
             }
-            catch (Exception ex)
+            catch
             {
-                Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));

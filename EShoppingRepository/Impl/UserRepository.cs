@@ -8,7 +8,6 @@
     using System;
     using System.Data;
     using System.Data.SqlClient;
-
     public class UserRepository : IUserRepository
     {
         public UserRepository(IConfiguration configuration)
@@ -55,9 +54,8 @@
                             return id;
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally
@@ -95,9 +93,8 @@
                             return "Email Verified";
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally
@@ -112,14 +109,13 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spAdminLogin", conn)
+                using (SqlCommand cmd = new SqlCommand("spLogin", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
                 {
                     cmd.Parameters.AddWithValue("@email", loginDto.email);
-                    cmd.Parameters.AddWithValue("@password", loginDto.password);
-
+                    
                     try
                     {
                         conn.Open();
@@ -141,14 +137,13 @@
                                     user.emailVerified = (bool)rdr["email_verified"];
                                     user.userRole = Convert.ToInt32(rdr["user_role"]);
                                 }
-                                break;
+                                return user;
                             }
-                            return user;
+                            return null;
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally
@@ -181,9 +176,8 @@
                             return "Reset Password Link Is Sent To Your Registered Email";
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return "Reset Password Link Not Sent";
                     }
                     finally
@@ -226,9 +220,8 @@
                             return "Reset Password Successfully";
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally

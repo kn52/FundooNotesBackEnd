@@ -21,13 +21,13 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spAdminLogin", conn)
+                using (SqlCommand cmd = new SqlCommand("spLogin", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
                 {
                     cmd.Parameters.AddWithValue("@email", loginDto.email);
-                    cmd.Parameters.AddWithValue("@password", loginDto.password);
+                    
                     try
                     {
                         conn.Open();
@@ -49,14 +49,13 @@
                                     admin.emailVerified = (bool)rdr["email_verified"];
                                     admin.userRole = Convert.ToInt32(rdr["user_role"]);
                                 }
-                                break;
+                                return admin;
                             }
-                            return admin;
+                            return null;
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally
@@ -102,9 +101,8 @@
                             return key;
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally
@@ -148,9 +146,8 @@
                             return "Book Updated Successfully";
                         }
                     }
-                    catch (Exception ex)
+                    catch                    
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally
@@ -187,9 +184,8 @@
                             return "Book Deleted Successfully";
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine(ex);
                         return null;
                     }
                     finally

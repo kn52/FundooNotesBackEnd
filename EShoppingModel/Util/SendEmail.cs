@@ -25,7 +25,6 @@
                 smtp.Credentials = new NetworkCredential("bookstore.engima@gmail.com", "Engima@123");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
-
             }
             catch (Exception) { }
         }
