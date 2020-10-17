@@ -1,5 +1,4 @@
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.csprojAssemblyReference.cache
-D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.csproj.CoreCompileInputs.cache
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.RazorAssemblyInfo.cache
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.RazorAssemblyInfo.cs
 D:\AAA\VisualStudio\EShoppingSln\EShopping\obj\Debug\netcoreapp2.1\EShopping.AssemblyInfoInputs.cache
