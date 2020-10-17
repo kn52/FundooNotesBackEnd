@@ -74,7 +74,7 @@
             userId = this.ValidateJSONWebToken(token);
             if(userId == -1 )
             {
-                return "Invalid User Token";
+                return "Invalid Token";
             }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
@@ -200,7 +200,7 @@
             userId = this.ValidateJSONWebToken(token);
             if (userId == -1)
             {
-                return "Invalid User Token";
+                return "Invalid Token";
             }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {

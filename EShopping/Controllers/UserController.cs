@@ -24,10 +24,11 @@
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
         {
-            var UserData = await Task.FromResult(UserService.UserRegistration(userRegistrationDto));
+            string UserData; 
             try
             {
-                if (UserData.Contains("Success") && UserData != null)
+                UserData = await Task.FromResult(UserService.UserRegistration(userRegistrationDto));
+                if (UserData != "" && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Registered Successfully.Email Verification " +
                         "Link Is Sent To Your Registered Email Id", UserData));
@@ -39,19 +40,20 @@
                 Console.Write(ex.ToString());
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Email Already Exist", UserData));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, ""));
         }
 
         [HttpPost]
         [Route("verify/email/")]
         public async Task<IActionResult> VerifyEmail([FromQuery]string token)
         {
-            var UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
+            string UserData;
             try
             {
-                if (UserData.Contains("Verified") && UserData != null)
+                UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
+                if (!UserData.Contains("Not") && UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, UserData));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, ""));
                 }
 
             }
@@ -67,9 +69,9 @@
         [Route("login")]
         public async Task<IActionResult> UserLogin([FromBody] LoginDto loginDto)
         {
-            var UserData = await Task.FromResult(UserService.UserLogin(loginDto));
             try
             {
+                var UserData = await Task.FromResult(UserService.UserLogin(loginDto));
                 if (UserData != null)
                 {
                     var token = UserService.GenerateJSONWebToken(UserData.id);
@@ -90,10 +92,11 @@
         [Route("forget/password/")]
         public async Task<IActionResult> ForgetPassword(string email)
         {
-            var UserData = await Task.FromResult(UserService.ForgetPassword(email));
+            string UserData;
             try
             {
-                if (UserData != null)
+                UserData = await Task.FromResult(UserService.ForgetPassword(email));
+                if (!UserData.Contains("Not") && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, email));
                 }
@@ -111,13 +114,14 @@
         [Route("reset/password/")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
         {
-            var UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto,token));
+            string UserData;
             try
             {
-                if (UserData != null)
+                UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto, token));
+                if (UserData.Contains("Success") && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, resetPasswordDto));
-                }
+                } 
 
             }
             catch (Exception ex)

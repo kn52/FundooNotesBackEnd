@@ -1,6 +1,5 @@
 ﻿namespace EShoppingModel.Response
 {
-    using System.ComponentModel;
     using System.Net;
     public class ResponseEntity
     {
@@ -14,7 +13,7 @@
         {
             this.httpStatusCode = httpStatusCode;
             this.message = message;
-            this.data = data;
+            this.data = message.Contains("Invalid Token") ? "" : data;
         }
     }
 }

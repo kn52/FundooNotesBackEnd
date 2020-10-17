@@ -50,8 +50,12 @@
             try
             {
                 adminData = await Task.FromResult(AdminService.AddBook(bookDto,token));
-                if (adminData != null)
+                if (!adminData.Contains("Not") && adminData != null)
                 {
+                    if (!adminData.Contains("Invalid"))
+                    {
+                        adminData = "Book Added Successfully";
+                    }
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
                 }
             }
@@ -71,7 +75,7 @@
             try
             {
                 adminData = await Task.FromResult(AdminService.UpdateBook(bookDto, token));
-                if (adminData != null)
+                if (!adminData.Contains("Not") && adminData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
                 }
@@ -92,7 +96,7 @@
             try
             {
                 adminData = await Task.FromResult(AdminService.DeleteBook(bookId, token));
-                if (adminData != null)
+                if (!adminData.Contains("Not") && adminData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookId));
                 }
