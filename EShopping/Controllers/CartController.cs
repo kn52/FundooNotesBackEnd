@@ -43,18 +43,18 @@
         [Route("cart")]
         public async Task<IActionResult> fetchCartBook([FromHeader]string token)
         {
-            try
-            {
-                var CartData = await Task.FromResult(CartService.fetchCartBook(token));
-                if (CartData != null)
-                {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
-                }
-            }
-            catch
-            {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
-            }
+            //try
+            //{
+            //    var CartData = await Task.FromResult(CartService.fetchCartBook(token));
+            //    if (CartData != null)
+            //    {
+            //        return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
+            //    }
+            //}
+            //catch
+            //{
+            //    return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            //}
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", null, ""));
         }
     }

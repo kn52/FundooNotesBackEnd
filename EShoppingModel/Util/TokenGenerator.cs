@@ -18,7 +18,8 @@ namespace EShoppingModel.Util
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
               configuration["Jwt:Issuer"],
               new Claim[] {
-                  new Claim("userId",userId.ToString())
+                  new Claim("userId",userId.ToString()),
+                  new Claim("userRole",userId.ToString())
               },
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);

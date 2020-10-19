@@ -15,6 +15,10 @@
     using Microsoft.OpenApi.Models;
     using EShoppingRepository.Infc;
     using EShoppingRepository.Impl;
+    using EShoppingModel.Util.Infc;
+    using Experimental.System.Messaging;
+    using EShoppingModel.Util;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -28,6 +32,9 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //MSMQ
+            services.AddSingleton<IMessagingService, MessagingService>();
 
             //Book service
             services.AddSingleton<IBookService, BookService>();
@@ -56,9 +63,9 @@
             services.AddSwaggerGen(swagger =>
             {
                 //This is to generate the Default UI of Swagger Documentation  
-                swagger.SwaggerDoc("v1", new OpenApiInfo
+                swagger.SwaggerDoc("v2", new OpenApiInfo
                 {
-                    Version = "v1",
+                    Version = "v2",
                     Title = "JWT Token Authentication API",
                     Description = "ASP.NET Core 2.1 Web API"
                 });

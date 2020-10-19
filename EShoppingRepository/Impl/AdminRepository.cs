@@ -8,6 +8,10 @@
     using System.Data;
     using System.Data.SqlClient;
     using EShoppingModel.Util;
+    using Microsoft.AspNetCore.Http;
+    using System.Security.Claims;
+    using System.Security.Permissions;
+
 
     public class AdminRepository : IAdminRepository
     {
@@ -69,7 +73,7 @@
         public string AddBook(BookDto bookDto, string token)
         {
             var userId = -1;
-            userId = this.ValidateJSONWebToken(token);
+            userId = ValidateJSONWebToken(token);
             if (userId == -1)
             {
                 return "Invalid Token";
@@ -204,6 +208,11 @@
         {
             return TokenGenerator.ValidateJSONWebToken(token, Configuration);
         }
+        //private static string GetUserInformation(string key)
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    return identity.FindFirst(key).Value;
+        //}
 
         private readonly string DBString = null;
     }

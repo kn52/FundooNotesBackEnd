@@ -40,7 +40,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null, ""));
         }
 
-        [HttpPost,Authorize]
+        [HttpPost, Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book")]
         public async Task<IActionResult> AddBook([FromBody] BookDto bookDto,[FromHeader]string token)
         {
@@ -64,7 +65,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book/{bookId}")]
         public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId, [FromHeader]string token)
         {
@@ -84,7 +86,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
-        [HttpDelete, Authorize]
+        [HttpDelete, Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("delete/{bookId}")]
         public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]string token)
         {

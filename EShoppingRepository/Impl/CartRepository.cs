@@ -4,8 +4,10 @@
     using EShoppingModel.Util;
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
+    using System;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Security.Claims;
 
     public class CartRepository : ICartRepository
     {
@@ -26,7 +28,7 @@
                 {
                     cmd.Parameters.AddWithValue("@quantity", cartDto.quantity);
                     cmd.Parameters.AddWithValue("@book_id", cartDto.bookId);
-                    cmd.Parameters.AddWithValue("@user_id", 7);
+                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(this.GetUserInformation("userId")));
 
                     try
                     {
@@ -55,9 +57,9 @@
         {
             return TokenGenerator.GenerateJSONWebToken(userId, Configuration);
         }
-        private int ValidateJSONWebToken(string token)
+        private string GetUserInformation(string key)
         {
-            return TokenGenerator.ValidateJSONWebToken(token, Configuration);
+            return ClaimsPrincipal.Current.FindFirst(key).Value; 
         }
 
         private readonly string DBString = null;

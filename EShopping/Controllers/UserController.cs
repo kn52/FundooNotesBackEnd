@@ -33,7 +33,6 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Registered Successfully.Email Verification " +
                         "Link Is Sent To Your Registered Email Id", UserData, ""));
                 }
-                
             }
             catch
             {
@@ -42,7 +41,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, "", ""));
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("verify/email/")]
         public async Task<IActionResult> VerifyEmail([FromQuery]string token)
         {
@@ -84,7 +84,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null, ""));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("forget/password/")]
         public async Task<IActionResult> ForgetPassword(string email)
         {
@@ -105,7 +106,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("reset/password/")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
         {
