@@ -70,5 +70,30 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", null, ""));
         }
+
+        [HttpDelete]
+        [Route("cart")]
+        public async Task<IActionResult> DeleteFromCartBook(int cartItemId,[FromHeader] string token)
+        {
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                var CartData = await Task.FromResult(CartService.DeleteFromCartBook(cartItemId, userId));
+                if (CartData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", null, ""));
+        }
     }
 }

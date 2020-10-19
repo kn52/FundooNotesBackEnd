@@ -15,10 +15,13 @@
         {
             return CartRepository.AddToCart(cartDto,userId);
         }
-
         public CartItems FetchCartBook(string userId)
         {
             return CartRepository.FetchCartBook(userId);
+        }
+        public string DeleteFromCartBook(int cartItemId, string userId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
