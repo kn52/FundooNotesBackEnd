@@ -8,5 +8,6 @@
         string AddToCart(CartDto cartDto,string userId);
         CartItems FetchCartBook(string userId);
         string DeleteFromCartBook(int cartItemId);
+        string UpdateCartBookQuantity(int cartItemsId, int quantity);
     }
 }

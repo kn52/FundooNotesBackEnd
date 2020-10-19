@@ -23,5 +23,10 @@
         {
             return CartRepository.DeleteFromCartBook(cartItemId);
         }
+
+        public string UpdateCartBookQuantity(int cartItemsId, int quantity)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

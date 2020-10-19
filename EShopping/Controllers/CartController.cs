@@ -72,7 +72,7 @@
         }
 
         [HttpDelete]
-        [Route("cart")]
+        [Route("cart/{cartItemId}")]
         public async Task<IActionResult> DeleteFromCartBook(int cartItemId,[FromHeader] string token)
         {
             string CartData;
@@ -85,6 +85,32 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
                 CartData = await Task.FromResult(CartService.DeleteFromCartBook(cartItemId));
+                if (CartData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CartData, cartItemId, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CartData, cartItemId, ""));
+        }
+
+        [HttpPut]
+        [Route("cart/{cartItemId}/{quantity}")]
+        public async Task<IActionResult> UpdateCartBookQuantity(int cartItemId,int quantity, [FromHeader] string token)
+        {
+            string CartData;
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                CartData = await Task.FromResult(CartService.UpdateCartBookQuantity(cartItemId,quantity));
                 if (CartData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, CartData, cartItemId, ""));
