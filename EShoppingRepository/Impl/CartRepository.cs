@@ -19,7 +19,7 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spLogin", conn)
+                using (SqlCommand cmd = new SqlCommand("spAddToCart", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
