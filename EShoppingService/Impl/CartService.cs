@@ -1,6 +1,7 @@
 ﻿namespace EShoppingService.Impl
 {
     using EShoppingModel.Dto;
+    using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using EShoppingService.Infc;
     public class CartService : ICartService
@@ -10,9 +11,14 @@
             this.CartRepository = repository;
         }
         public ICartRepository CartRepository { get; set; }
-        public string AddToCart(CartDto cartDto)
+        public string AddToCart(CartDto cartDto, string userId)
         {
-            return CartRepository.AddToCart(cartDto);
+            return CartRepository.AddToCart(cartDto,userId);
+        }
+
+        public CartItems FetchCartBook(string userId)
+        {
+            return CartRepository.FetchCartBook(userId);
         }
     }
 }

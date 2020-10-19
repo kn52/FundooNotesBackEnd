@@ -5,7 +5,7 @@
 
     public interface ICartRepository
     {
-        string AddToCart(CartDto cartDto);
-        CartItems fetchCart();
+        string AddToCart(CartDto cartDto, string userId);
+        CartItems FetchCartBook(string userId);
     }
 }

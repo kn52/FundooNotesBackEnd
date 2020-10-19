@@ -1,6 +1,7 @@
 ﻿namespace EShoppingRepository.Impl
 {
     using EShoppingModel.Dto;
+    using EShoppingModel.Model;
     using EShoppingModel.Util;
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
@@ -17,7 +18,7 @@
             DBString = this.Configuration["ConnectionString:DBConnection"]; 
         }
         public IConfiguration Configuration { get; set; }
-        public string AddToCart(CartDto cartDto)
+        public string AddToCart(CartDto cartDto,string userId)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
@@ -28,7 +29,7 @@
                 {
                     cmd.Parameters.AddWithValue("@quantity", cartDto.quantity);
                     cmd.Parameters.AddWithValue("@book_id", cartDto.bookId);
-                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(this.GetUserInformation("userId")));
+                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(userId));
 
                     try
                     {
@@ -57,9 +58,47 @@
         {
             return TokenGenerator.GenerateJSONWebToken(userId, Configuration);
         }
-        private string GetUserInformation(string key)
+        public CartItems FetchCartBook(string userId)
         {
-            return ClaimsPrincipal.Current.FindFirst(key).Value; 
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spFetchCartBook", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@user_id",Convert.ToInt32(userId));
+
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            CartItems cartItems = new CartItems();
+                            while (rdr.Read())
+                            {
+                                    cartItems.cartItemId = Convert.ToInt32(rdr["cart_items_id"]);
+                                    cartItems.addToCartDate = (DateTime)rdr["add_to_cart_date"];
+                                    cartItems.quantity = Convert.ToInt32(rdr["quantity"]) ;
+                                    cartItems.bookId = Convert.ToInt32(rdr["book_id"]);
+                                    cartItems.cartId = Convert.ToInt32(rdr["cart_id"]);
+                            }
+                            return cartItems;
+                        }
+                        return null;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
         }
 
         private readonly string DBString = null;

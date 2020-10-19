@@ -27,7 +27,13 @@
             string CartData;
             try
             {
-                CartData = await Task.FromResult(CartService.AddToCart(cartDto));
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                CartData = await Task.FromResult(CartService.AddToCart(cartDto,userId));
                 if (!CartData.Contains("Not") && CartData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, CartData, cartDto, ""));
@@ -42,17 +48,17 @@
 
         [HttpGet]
         [Route("cart")]
-        public async Task<IActionResult> fetchCartBook([FromHeader]string token)
+        public async Task<IActionResult> FetchCartBook([FromHeader]string token)
         {
             try
             {
-                int userId = -1;
-                userId= Convert.ToInt32(User.FindFirst("userId").Value);
-                if(userId == -1)
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                var CartData = await Task.FromResult(CartService.fetchCartBook(userId));
+                var CartData = await Task.FromResult(CartService.FetchCartBook(userId));
                 if (CartData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
