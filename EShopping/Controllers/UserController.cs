@@ -49,7 +49,13 @@
             string UserData;
             try
             {
-                UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                UserData = await Task.FromResult(UserService.VerifyUserEmail(userId));
                 if (!UserData.Contains("Not") && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, "", ""));
@@ -114,7 +120,13 @@
             string UserData;
             try
             {
-                UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto, token));
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto, userId));
                 if (UserData.Contains("Success") && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, resetPasswordDto, ""));

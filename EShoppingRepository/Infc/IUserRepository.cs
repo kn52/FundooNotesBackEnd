@@ -6,10 +6,10 @@
     public interface IUserRepository
     {
         string UserRegistration(UserRegistrationDto userRegistrationDto);
-        string VerifyUserEmail(string token);
+        string VerifyUserEmail(string userId);
         User UserLogin(LoginDto loginDto);
         string ForgetPassword(string email);
-        string ResetPassword(ResetPasswordDto resetPasswordDto, string token);
+        string ResetPassword(ResetPasswordDto resetPasswordDto, string userId);
         string GenerateJSONWebToken(int userId);
     }
 }

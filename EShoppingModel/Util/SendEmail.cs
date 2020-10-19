@@ -10,23 +10,8 @@
     using System.Text;
     public class SendEmail
     {
-        static Message[] messages;
-        public SendEmail(IMessagingService messagingService)
-        {
-            this.MessagingService = messagingService;
-            messages = MessagingService.ReceiveMsg();
-        }
-
-        public IMessagingService MessagingService { get; set; }
-
         public static void Email(string htmlString, string to)
         {
-            //foreach (Message message in messages)
-            //{
-            //    message.Formatter = new XmlMessageFormatter(new String[] { "System.String,mscorlib" });
-            //    SendMessage(message.Body.ToString(),to);
-                
-            //}
             SendMessage(htmlString, to);
         }
 
@@ -34,20 +19,25 @@
         {
             try
             {
-                MailMessage message = new MailMessage();
+                MailMessage mailMessage = new MailMessage();
+
+                mailMessage.From = new MailAddress("countrybookshop@gmail.com");
+                mailMessage.Subject = "hsdjfd";
+                mailMessage.Body = "bshdjkv";
+                mailMessage.IsBodyHtml = true;
+                mailMessage.To.Add(new MailAddress("ashish52922@gmail.com"));
+
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("bookstore.engima@gmail.com");
-                message.To.Add(new MailAddress("ashish52922@gmail.com"));
-                message.Subject = "Test";
-                message.IsBodyHtml = true;
-                message.Body = htmlString;
-                smtp.Port = 25;
                 smtp.Host = "smtp.gmail.com";
+
                 smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("bookstore.engima@gmail.com", "Engima@123");
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Send(message);
+                NetworkCredential networkCredential = new NetworkCredential();
+                networkCredential.UserName = mailMessage.From.Address;
+                networkCredential.Password = "RuntimeTerror@123";
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCredential;
+                smtp.Port = 587;
+                smtp.Send(mailMessage);
             }
             catch (Exception e) 
             {

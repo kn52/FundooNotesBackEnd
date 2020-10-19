@@ -48,7 +48,13 @@
             string adminData;
             try
             {
-                adminData = await Task.FromResult(AdminService.AddBook(bookDto,token));
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                adminData = await Task.FromResult(AdminService.AddBook(bookDto));
                 if (!adminData.Contains("Not") && adminData != null)
                 {
                     if (!adminData.Contains("Invalid"))
@@ -73,7 +79,13 @@
             string adminData;
             try
             {
-                adminData = await Task.FromResult(AdminService.UpdateBook(bookDto, token));
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                adminData = await Task.FromResult(AdminService.UpdateBook(bookDto));
                 if (!adminData.Contains("Not") && adminData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto, ""));
@@ -94,7 +106,13 @@
             string adminData;
             try
             {
-                adminData = await Task.FromResult(AdminService.DeleteBook(bookId, token));
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                adminData = await Task.FromResult(AdminService.DeleteBook(bookId));
                 if (!adminData.Contains("Not") && adminData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookId, ""));

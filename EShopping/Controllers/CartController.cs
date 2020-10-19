@@ -5,6 +5,7 @@
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System;
     using System.Net;
     using System.Threading.Tasks;
 
@@ -43,18 +44,24 @@
         [Route("cart")]
         public async Task<IActionResult> fetchCartBook([FromHeader]string token)
         {
-            //try
-            //{
-            //    var CartData = await Task.FromResult(CartService.fetchCartBook(token));
-            //    if (CartData != null)
-            //    {
-            //        return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
-            //    }
-            //}
-            //catch
-            //{
-            //    return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
-            //}
+            try
+            {
+                int userId = -1;
+                userId= Convert.ToInt32(User.FindFirst("userId").Value);
+                if(userId == -1)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                var CartData = await Task.FromResult(CartService.fetchCartBook(userId));
+                if (CartData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", null, ""));
         }
     }

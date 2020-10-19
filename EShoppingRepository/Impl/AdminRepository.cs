@@ -8,11 +8,6 @@
     using System.Data;
     using System.Data.SqlClient;
     using EShoppingModel.Util;
-    using Microsoft.AspNetCore.Http;
-    using System.Security.Claims;
-    using System.Security.Permissions;
-
-
     public class AdminRepository : IAdminRepository
     {
         public AdminRepository(IConfiguration configuration)
@@ -70,14 +65,8 @@
             }
             return null;
         }
-        public string AddBook(BookDto bookDto, string token)
+        public string AddBook(BookDto bookDto)
         {
-            var userId = -1;
-            userId = ValidateJSONWebToken(token);
-            if (userId == -1)
-            {
-                return "Invalid Token";
-            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spAddBook", conn)
@@ -117,14 +106,8 @@
             }
             return "Book Not Added";
         }
-        public string UpdateBook(BookDto bookDto, string token)
+        public string UpdateBook(BookDto bookDto)
         {
-            var userId = -1;
-            userId = this.ValidateJSONWebToken(token);
-            if (userId == -1)
-            {
-                return "Invalid Token";
-            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spUpdateBook", conn)
@@ -162,14 +145,8 @@
             }
             return "Book Not Found";
         }
-        public string DeleteBook(int bookId, string token)
+        public string DeleteBook(int bookId)
         {
-            var userId = -1;
-            userId = this.ValidateJSONWebToken(token);
-            if (userId == -1)
-            {
-                return "Invalid Token";
-            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spDeleteBook", conn)
@@ -204,16 +181,7 @@
         {
             return TokenGenerator.GenerateJSONWebToken(userId, Configuration);
         }
-        private int ValidateJSONWebToken(string token)
-        {
-            return TokenGenerator.ValidateJSONWebToken(token, Configuration);
-        }
-        //private static string GetUserInformation(string key)
-        //{
-        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
-        //    return identity.FindFirst(key).Value;
-        //}
-
+        
         private readonly string DBString = null;
     }
 }

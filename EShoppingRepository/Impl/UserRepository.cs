@@ -23,60 +23,55 @@
         private readonly IConfiguration Configuration;
         public string UserRegistration(UserRegistrationDto userRegistrationDto)
         {
-            //using (SqlConnection conn = new SqlConnection(this.DBString))
-            //{
-            //    var keyNew = SaltGenerator.GeneratePassword(10);
-            //    userRegistrationDto.password = SaltGenerator.Base64Encode(
-            //        SaltGenerator.EncodePassword(userRegistrationDto.password, keyNew));
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                var keyNew = SaltGenerator.GeneratePassword(10);
+                userRegistrationDto.password = SaltGenerator.Base64Encode(
+                    SaltGenerator.EncodePassword(userRegistrationDto.password, keyNew));
 
-            //    using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
-            //    {
-            //        CommandType = CommandType.StoredProcedure
-            //    })
-            //    {
-            //        cmd.Parameters.AddWithValue("@email", userRegistrationDto.email);
-            //        cmd.Parameters.AddWithValue("@email_verified", userRegistrationDto.emailVerified);
-            //        cmd.Parameters.AddWithValue("@full_name", userRegistrationDto.fullName);
-            //        cmd.Parameters.AddWithValue("@password", userRegistrationDto.password);
-            //        cmd.Parameters.AddWithValue("@phone_no", userRegistrationDto.phoneNo);
-            //        cmd.Parameters.AddWithValue("@registration_date", DateTime.Now);
-            //        cmd.Parameters.AddWithValue("@user_role", userRegistrationDto.userRole);
-            //        cmd.Parameters.AddWithValue("@key_new", keyNew);
-            //        cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
+                using (SqlCommand cmd = new SqlCommand("spUserRegistration", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@email", userRegistrationDto.email);
+                    cmd.Parameters.AddWithValue("@email_verified", userRegistrationDto.emailVerified);
+                    cmd.Parameters.AddWithValue("@full_name", userRegistrationDto.fullName);
+                    cmd.Parameters.AddWithValue("@password", userRegistrationDto.password);
+                    cmd.Parameters.AddWithValue("@phone_no", userRegistrationDto.phoneNo);
+                    cmd.Parameters.AddWithValue("@registration_date", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@user_role", userRegistrationDto.userRole);
+                    cmd.Parameters.AddWithValue("@key_new", keyNew);
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
-            //        try
-            //        {
-            //            conn.Open();
-            //            cmd.ExecuteNonQuery();
-            //            string id = cmd.Parameters["@id"].Value.ToString();
-            //            if (id != "")
-            //            {
-                            //var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(id));
-                            SendEmail.Email("Click on below given link to verify your email id " +
-                                "<br/> <a href='http://localhost:3000/verify/email/?token=" + "asdfgh" + "'" + ">Verify Email</a>","ashish52922@gmail.com");
-                            return "";
-            //            }
-            //        }
-            //        catch
-            //        {
-            //            return null;
-            //        }
-            //        finally
-            //        {
-            //            conn.Close();
-            //        }
-            //    }
-            //}
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        string id = cmd.Parameters["@id"].Value.ToString();
+                        if (id != "")
+                        {
+                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(id));
+                            MessagingService.Send("Click on below given link to verify your email id " +
+                                "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
+                                "ashish52922@gmail.com");
+                            return id;
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
             return "";
         }
-        public string VerifyUserEmail(string token)
+        public string VerifyUserEmail(string userId)
         {
-            var userId = -1;
-            userId = this.ValidateJSONWebToken(token);
-            if(userId == -1 )
-            {
-                return "Invalid Token";
-            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 using (SqlCommand cmd = new SqlCommand("spVerifyUserEmail", conn)
@@ -84,7 +79,7 @@
                     CommandType = CommandType.StoredProcedure
                 })
                 {
-                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@userId", Convert.ToInt32(userId));
                     cmd.Parameters.AddWithValue("@email_verified", true);
         
                     try
@@ -191,14 +186,8 @@
             }
             return "Email Not Found";
         }
-        public string ResetPassword(ResetPasswordDto resetPasswordDto, string token)
+        public string ResetPassword(ResetPasswordDto resetPasswordDto, string userId)
         {
-            var userId = -1;
-            userId = this.ValidateJSONWebToken(token);
-            if (userId == -1)
-            {
-                return "Invalid Token";
-            }
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
                 var keyNew = SaltGenerator.GeneratePassword(10);
@@ -238,11 +227,6 @@
         public string GenerateJSONWebToken(int userId)
         {
             return TokenGenerator.GenerateJSONWebToken(userId,Configuration);
-        }
-
-        private int ValidateJSONWebToken(string token)
-        {
-            return TokenGenerator.ValidateJSONWebToken(token, Configuration);
         }
 
         private readonly string DBString = null;

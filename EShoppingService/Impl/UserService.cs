@@ -15,9 +15,9 @@
         {
             return UserRepository.UserRegistration(userRegistrationDto);
         }
-        public string VerifyUserEmail(string token)
+        public string VerifyUserEmail(string userId)
         {
-            return UserRepository.VerifyUserEmail(token);
+            return UserRepository.VerifyUserEmail(userId);
         }
         public User UserLogin(LoginDto loginDto)
         {
@@ -27,9 +27,9 @@
         {
             return UserRepository.ForgetPassword(email);
         }
-        public string ResetPassword(ResetPasswordDto resetPasswordDto, string token)
+        public string ResetPassword(ResetPasswordDto resetPasswordDto, string userId)
         {
-            return UserRepository.ResetPassword(resetPasswordDto, token);
+            return UserRepository.ResetPassword(resetPasswordDto, userId);
         }
         public string GenerateJSONWebToken(int userId)
         {
