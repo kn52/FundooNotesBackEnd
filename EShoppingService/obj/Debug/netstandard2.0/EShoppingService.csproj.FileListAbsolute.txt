@@ -8,9 +8,9 @@ D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\EShop
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\EShoppingModel.pdb
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.xml
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.csprojAssemblyReference.cache
-D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.csproj.CoreCompileInputs.cache
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.AssemblyInfoInputs.cache
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.AssemblyInfo.cs
+D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.csproj.CoreCompileInputs.cache
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.csproj.CopyComplete
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.dll
 D:\AAA\VisualStudio\EShoppingSln\EShoppingService\obj\Debug\netstandard2.0\EShoppingService.pdb

@@ -1,19 +1,20 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using EShoppingService.Infc;
-using EShoppingService.Impl;
-using EShoppingModel.Infc;
-using EShoppingModel.Impl;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
-using Microsoft.OpenApi.Models;
-
-namespace EShopping
+﻿namespace EShopping
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using EShoppingService.Infc;
+    using EShoppingService.Impl;
+    using EShoppingModel.Infc;
+    using EShoppingModel.Impl;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using System.Text;
+    using Microsoft.OpenApi.Models;
+    using EShoppingRepository.Infc;
+    using EShoppingRepository.Impl;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -39,6 +40,10 @@ namespace EShopping
             //User service
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserRepository, UserRepository>();
+
+            //Cart service
+            services.AddSingleton<ICartService, CartService>();
+            services.AddSingleton<ICartRepository, CartRepository>();
 
             //Database config
             services.AddSingleton(Configuration);

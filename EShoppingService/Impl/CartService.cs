@@ -1,13 +1,18 @@
-﻿using EShoppingModel.Dto;
-using EShoppingService.Infc;
-
-namespace EShoppingService.Impl
+﻿namespace EShoppingService.Impl
 {
+    using EShoppingModel.Dto;
+    using EShoppingRepository.Infc;
+    using EShoppingService.Infc;
     public class CartService : ICartService
     {
+        public CartService(ICartRepository repository)
+        {
+            this.CartRepository = repository;
+        }
+        public ICartRepository CartRepository { get; set; }
         public string AddToCart(CartDto cartDto)
         {
-            throw new System.NotImplementedException();
+            return CartRepository.AddToCart(cartDto);
         }
     }
 }
