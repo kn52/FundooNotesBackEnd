@@ -30,15 +30,14 @@
                 if (adminData != null)
                 {
                     var token = AdminService.GenerateJSONWebToken(adminData.id);
-                    Response.Headers.Add("authorization",token);
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName,token));
                 }
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null,""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null, ""));
         }
 
         [HttpPost,Authorize]
@@ -55,14 +54,14 @@
                     {
                         adminData = "Book Added Successfully";
                     }
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto, ""));
                 }
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
         [HttpPost, Authorize]
@@ -75,14 +74,14 @@
                 adminData = await Task.FromResult(AdminService.UpdateBook(bookDto, token));
                 if (!adminData.Contains("Not") && adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookDto, ""));
                 }
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
         [HttpDelete, Authorize]
@@ -95,14 +94,14 @@
                 adminData = await Task.FromResult(AdminService.DeleteBook(bookId, token));
                 if (!adminData.Contains("Not") && adminData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookId));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, adminData, bookId, ""));
                 }
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookId));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookId, ""));
         }
     }
 }

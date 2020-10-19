@@ -29,15 +29,15 @@
                 var BookData = await Task.FromResult(BookService.GetBooks());
                 if (BookData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Books Found", BookData));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Books Found", BookData, ""));
                 }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Book Found",null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Book Found",null, ""));
         }
 
         [HttpGet]

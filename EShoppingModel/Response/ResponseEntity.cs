@@ -9,11 +9,13 @@
 
         public object data;
 
-        public ResponseEntity(HttpStatusCode httpStatusCode, string message, object data)
+        public string token;
+        public ResponseEntity(HttpStatusCode httpStatusCode, string message, object data,string token)
         {
             this.httpStatusCode = httpStatusCode;
             this.message = message;
             this.data = message.Contains("Invalid Token") ? "" : data;
+            this.token = token;
         }
     }
 }

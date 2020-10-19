@@ -31,15 +31,15 @@
                 if (UserData != "" && UserData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Registered Successfully.Email Verification " +
-                        "Link Is Sent To Your Registered Email Id", UserData));
+                        "Link Is Sent To Your Registered Email Id", UserData, ""));
                 }
                 
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, ""));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, "", ""));
         }
 
         [HttpPost, Authorize]
@@ -52,15 +52,15 @@
                 UserData = await Task.FromResult(UserService.VerifyUserEmail(token));
                 if (!UserData.Contains("Not") && UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, ""));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, "", ""));
                 }
 
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
 
         [HttpPost]
@@ -73,16 +73,15 @@
                 if (UserData != null)
                 {
                     var token = UserService.GenerateJSONWebToken(UserData.id);
-                    Response.Headers.Add("authorization", token);
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData, token));
                 }
 
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null, ""));
         }
 
         [HttpPost]
@@ -95,15 +94,15 @@
                 UserData = await Task.FromResult(UserService.ForgetPassword(email));
                 if (!UserData.Contains("Not") && UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, email));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, email, ""));
                 }
 
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
 
         [HttpPost, Authorize]
@@ -116,15 +115,15 @@
                 UserData = await Task.FromResult(UserService.ResetPassword(resetPasswordDto, token));
                 if (UserData.Contains("Success") && UserData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, resetPasswordDto));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, UserData, resetPasswordDto, ""));
                 } 
 
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null));
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
     }
 }
