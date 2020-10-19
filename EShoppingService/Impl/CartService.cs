@@ -19,9 +19,9 @@
         {
             return CartRepository.FetchCartBook(userId);
         }
-        public string DeleteFromCartBook(int cartItemId, string userId)
+        public string DeleteFromCartBook(int cartItemId)
         {
-            throw new System.NotImplementedException();
+            return CartRepository.DeleteFromCartBook(cartItemId);
         }
     }
 }

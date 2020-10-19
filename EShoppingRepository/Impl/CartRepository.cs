@@ -101,6 +101,39 @@
             return null;
         }
 
+        public string DeleteFromCartBook(int cartItemId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spDeleteBookFromCart", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@cart_items_id", cartItemId);
+
+                    try
+                    {
+                        conn.Open();
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
+                        {
+                            return "Book Deleted Successfully";
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Book Not Found";
+        }
+
         private readonly string DBString = null;
     }
 }

@@ -75,6 +75,7 @@
         [Route("cart")]
         public async Task<IActionResult> DeleteFromCartBook(int cartItemId,[FromHeader] string token)
         {
+            string CartData;
             try
             {
                 string userId = null;
@@ -83,17 +84,17 @@
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                var CartData = await Task.FromResult(CartService.DeleteFromCartBook(cartItemId, userId));
+                CartData = await Task.FromResult(CartService.DeleteFromCartBook(cartItemId));
                 if (CartData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Books Found", CartData, ""));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CartData, cartItemId, ""));
                 }
             }
             catch
             {
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Books Not Found", null, ""));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CartData, cartItemId, ""));
         }
     }
 }

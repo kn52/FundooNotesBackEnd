@@ -7,6 +7,6 @@
     {
         string AddToCart(CartDto cartDto,string userId);
         CartItems FetchCartBook(string userId);
-        string DeleteFromCartBook(int cartItemId, string userId);
+        string DeleteFromCartBook(int cartItemId);
     }
 }
