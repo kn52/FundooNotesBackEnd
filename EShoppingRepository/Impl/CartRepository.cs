@@ -85,7 +85,6 @@
                             }
                             return cartItems;
                         }
-                        return null;
                     }
                     catch
                     {

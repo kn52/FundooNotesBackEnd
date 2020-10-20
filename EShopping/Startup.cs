@@ -18,6 +18,8 @@
     using EShoppingModel.Util.Infc;
     using Experimental.System.Messaging;
     using EShoppingModel.Util;
+    using EShoppingService.Infc;
+    using EShoppingService.Impl;
 
     public class Startup
     {
@@ -51,6 +53,18 @@
             //Cart service
             services.AddSingleton<ICartService, CartService>();
             services.AddSingleton<ICartRepository, CartRepository>();
+
+            //Customer service
+            services.AddSingleton<ICustomerService, CustomerService>();
+            services.AddSingleton<ICustomerRepository, CustomerRepository>();
+
+            //WishList service
+            services.AddSingleton<IWishListService, WishListService>();
+            services.AddSingleton<IWishListRepository, WishListRepository>();
+
+            //Order service
+            services.AddSingleton<IOrderService, OrderService>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
 
             //Database config
             services.AddSingleton(Configuration);
