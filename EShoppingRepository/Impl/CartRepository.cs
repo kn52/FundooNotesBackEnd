@@ -8,8 +8,7 @@
     using System;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Security.Claims;
-
+    
     public class CartRepository : ICartRepository
     {
         public CartRepository(IConfiguration configuration)
@@ -131,7 +130,7 @@
                     }
                 }
             }
-            return "Book Not Found";
+            return "Cart Items Id Not Found";
         }
 
         public string UpdateCartBookQuantity(int cartItemsId, int quantity)
@@ -165,7 +164,7 @@
                     }
                 }
             }
-            return "Book Not Found";
+            return "Cart Items Id Not Found";
         }
 
         private readonly string DBString = null;

@@ -11,6 +11,7 @@
 
     [Route("/bookstore")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     public class CartController : ControllerBase
     {
         public CartController(ICartService service)
@@ -85,7 +86,7 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
                 CartData = await Task.FromResult(CartService.DeleteFromCartBook(cartItemId));
-                if (CartData != null)
+                if (!CartData.Contains("Not") && CartData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, CartData, cartItemId, ""));
                 }
@@ -111,7 +112,7 @@
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
                 CartData = await Task.FromResult(CartService.UpdateCartBookQuantity(cartItemId,quantity));
-                if (CartData != null)
+                if (!CartData.Contains("Not") && CartData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, CartData, cartItemId, ""));
                 }
