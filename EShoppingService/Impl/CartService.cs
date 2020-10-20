@@ -26,7 +26,7 @@
 
         public string UpdateCartBookQuantity(int cartItemsId, int quantity)
         {
-            throw new System.NotImplementedException();
+            return CartRepository.UpdateCartBookQuantity(cartItemsId,quantity);
         }
     }
 }

@@ -134,6 +134,40 @@
             return "Book Not Found";
         }
 
+        public string UpdateCartBookQuantity(int cartItemsId, int quantity)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spUpdateCartBookQuantity", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@cart_items_id", cartItemsId);
+                    cmd.Parameters.AddWithValue("@quantity", quantity);
+                    
+                    try
+                    {
+                        conn.Open();
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
+                        {
+                            return "Book Quantity Updated Successfully";
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Book Not Found";
+        }
+
         private readonly string DBString = null;
     }
 }
