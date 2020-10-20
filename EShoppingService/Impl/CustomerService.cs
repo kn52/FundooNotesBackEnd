@@ -1,5 +1,6 @@
 ﻿namespace EShoppingService.Impl
 {
+    using EShoppingModel.Dto;
     using EShoppingRepository.Infc;
     using EShoppingService.Infc;
 
@@ -10,5 +11,10 @@
             this.CustomerRepository = repository;
         }
         public ICustomerRepository CustomerRepository { get; set; }
+
+        public string AddCustomerDetails(CustomerDto customerDto, string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
