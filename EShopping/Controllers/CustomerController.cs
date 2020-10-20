@@ -91,9 +91,34 @@
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
+        }
+
+        [HttpGet]
+        [Route("comments")]
+        public async Task<IActionResult> getBookFeedback(int isbnNumber)
+        {
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                var CustomerData = await Task.FromResult(CustomerService.getBookFeedback(isbnNumber));
+                if (CustomerData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Feedback Found", CustomerData, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Feedback Found", null, ""));
         }
     }
 }

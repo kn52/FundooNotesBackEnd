@@ -25,5 +25,9 @@
         {
             return CustomerRepository.AddUserFeedBack(feedBackDto, userId);        
         }
+        public FeedBack getBookFeedback(int isbnNumber)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
