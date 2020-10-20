@@ -47,9 +47,8 @@
 
         [HttpPost]
         [Route("customer")]
-        public async Task<IActionResult> AddCustomerDetails([FromBody] CustomerDto customerDto)
+        public async Task<IActionResult> FetchCustomerDetails(int addressType)
         {
-            string CustomerData;
             try
             {
                 string userId = null;
@@ -58,17 +57,17 @@
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                CustomerData = await Task.FromResult(CustomerService.AddCustomerDetails(customerDto, userId));
-                if (!CustomerData.Contains("Not") && CustomerData != null)
+                var CustomerData = await Task.FromResult(CustomerService.FetchCustomerDetails(addressType, userId));
+                if (CustomerData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CustomerData, customerDto, ""));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Address Found", CustomerData, ""));
                 }
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Address Not Found", null, ""));
         }
     }
 }

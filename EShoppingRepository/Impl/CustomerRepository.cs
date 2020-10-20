@@ -3,6 +3,7 @@
     using EShoppingModel.Dto;
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
+    using System;
     using System.Data;
     using System.Data.SqlClient;
 
@@ -29,7 +30,7 @@
                     cmd.Parameters.AddWithValue("@customer_locality", customerDto.customerLocality);
                     cmd.Parameters.AddWithValue("@customer_pin_code", customerDto.customerPinCode);
                     cmd.Parameters.AddWithValue("@customer_town", customerDto.customerTown);
-                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(userId));
                     
                     try
                     {
