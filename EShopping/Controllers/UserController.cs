@@ -41,10 +41,11 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, "", ""));
         }
 
-        [HttpPost, Authorize(AuthenticationSchemes =
+        [HttpPost]
+        [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("verify/email/")]
-        public async Task<IActionResult> VerifyEmail([FromQuery]string token)
+        public async Task<IActionResult> VerifyEmail()
         {
             string UserData;
             try
@@ -90,7 +91,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null, ""));
         }
 
-        [HttpPost, Authorize(AuthenticationSchemes =
+        [HttpPost]
+        [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("forget/password/")]
         public async Task<IActionResult> ForgetPassword(string email)
@@ -112,10 +114,11 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
 
-        [HttpPost, Authorize(AuthenticationSchemes =
+        [HttpPost]
+        [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("reset/password/")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto,[FromQuery]string token)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
             string UserData;
             try

@@ -2,12 +2,14 @@
 {
     using EShoppingModel.Response;
     using EShoppingService.Infc;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;
     using System.Threading.Tasks;
 
     [Route("/bookstore")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     public class WishListController : ControllerBase
     {
         public WishListController(IWishListService service)
@@ -17,8 +19,8 @@
         public IWishListService WishListService { get; set; }
 
         [HttpPost]
-        [Route("wishlist/{bookid}")]
-        public async Task<IActionResult> AddToWishList(int bookId)
+        [Route("wishlist/{bookId}")]
+        public async Task<IActionResult> AddToWishList([FromRoute]int bookId)
         {
             string WishListData;
             try
@@ -44,7 +46,7 @@
 
         [HttpGet]
         [Route("wishlist")]
-        public async Task<IActionResult> FetchWishList(int addressType)
+        public async Task<IActionResult> FetchWishList()
         {
             try
             {
@@ -68,8 +70,8 @@
         }
 
         [HttpDelete]
-        [Route("wishlist/{bookid}")]
-        public async Task<IActionResult> DeleteBookFromWishList(int bookId)
+        [Route("wishlist/{bookId}")]
+        public async Task<IActionResult> DeleteBookFromWishList([FromRoute]int bookId)
         {
             string WishListData;
             try

@@ -199,7 +199,7 @@
                     CommandType = CommandType.StoredProcedure
                 })
                 {
-                    cmd.Parameters.AddWithValue("@email", "kns56@gmail.com");
+                    cmd.Parameters.AddWithValue("@user_id", userId);
                     cmd.Parameters.AddWithValue("@password", resetPasswordDto.password);
                     cmd.Parameters.AddWithValue("@key_new", keyNew);
 

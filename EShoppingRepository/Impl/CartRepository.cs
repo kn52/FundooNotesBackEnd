@@ -50,7 +50,7 @@
                     }
                 }
             }
-            return "Not Added To Cart";
+            return "Already Added To Cart";
         }
 
         public string GenerateJSONWebToken(int userId)
@@ -78,7 +78,7 @@
                             while (rdr.Read())
                             {
                                     cartItems.cartItemId = Convert.ToInt32(rdr["cart_items_id"]);
-                                    cartItems.addToCartDate = (DateTime)rdr["add_to_cart_date"];
+                                    cartItems.addToCartDate = (DateTime)rdr["added_to_cart_date"];
                                     cartItems.quantity = Convert.ToInt32(rdr["quantity"]) ;
                                     cartItems.bookId = Convert.ToInt32(rdr["book_id"]);
                                     cartItems.cartId = Convert.ToInt32(rdr["cart_id"]);
@@ -121,7 +121,7 @@
                     }
                     catch
                     {
-                        return null;
+                        return "";
                     }
                     finally
                     {

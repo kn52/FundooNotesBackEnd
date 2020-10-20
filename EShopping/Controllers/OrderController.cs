@@ -1,10 +1,15 @@
 ﻿namespace EShopping.Controllers
 {
+    using EShoppingModel.Response;
     using EShoppingService.Infc;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Net;
+    using System.Threading.Tasks;
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     public class OrderController : ControllerBase
     {
         public OrderController(IOrderService service)
@@ -12,5 +17,31 @@
             this.OrderService = service;
         }
         public IOrderService OrderService { get; set; }
+
+        [HttpPost]
+        [Route("customer")]
+        public async Task<IActionResult> AddCustomerDetails([FromBody] CustomerDto customerDto)
+        {
+            string CustomerData;
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                CustomerData = await Task.FromResult(CustomerService.AddCustomerDetails(customerDto, userId));
+                if (!CustomerData.Contains("Not") && CustomerData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CustomerData, customerDto, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
+        }
     }
 }

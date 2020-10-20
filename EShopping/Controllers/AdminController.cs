@@ -40,10 +40,11 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null, ""));
         }
 
-        [HttpPost, Authorize(AuthenticationSchemes =
+        [HttpPost]
+        [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book")]
-        public async Task<IActionResult> AddBook([FromBody] BookDto bookDto,[FromHeader]string token)
+        public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
         {
             string adminData;
             try
@@ -71,10 +72,11 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
-        [HttpPost, Authorize(AuthenticationSchemes =
+        [HttpPost]
+        [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book/{bookId}")]
-        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId, [FromHeader]string token)
+        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId)
         {
             string adminData;
             try
@@ -98,10 +100,11 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
-        [HttpDelete, Authorize(AuthenticationSchemes =
+        [HttpDelete] 
+        [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("delete/{bookId}")]
-        public async Task<IActionResult> DeleteBook(int bookId,[FromHeader]string token)
+        public async Task<IActionResult> DeleteBook(int bookId)
         {
             string adminData;
             try

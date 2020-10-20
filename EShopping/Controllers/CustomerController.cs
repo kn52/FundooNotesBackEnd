@@ -98,7 +98,7 @@
 
         [HttpGet]
         [Route("comments")]
-        public async Task<IActionResult> getBookFeedback(int isbnNumber)
+        public async Task<IActionResult> getBookFeedback(string isbnNumber)
         {
             try
             {
@@ -133,7 +133,7 @@
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                var CustomerData = await Task.FromResult(CustomerService.getUserFeedback(bookId,userId));
+                var CustomerData = await Task.FromResult(CustomerService.getUserFeedback(1,userId));
                 if (CustomerData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Feedback Found", CustomerData, ""));

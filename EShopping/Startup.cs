@@ -70,17 +70,13 @@
             services.AddSingleton(Configuration);
 
             //Swagger
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "e Bookstore"});
-            });
             services.AddSwaggerGen(swagger =>
             {
                 //This is to generate the Default UI of Swagger Documentation  
                 swagger.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Version = "v2",
-                    Title = "JWT Token Authentication API",
+                    Title = "e BoookStore",
                     Description = "ASP.NET Core 2.1 Web API"
                 });
                 // To Enable authorization using Swagger (JWT)  
@@ -160,7 +156,8 @@
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            
+
+            app.UseAuthentication();
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();
 
@@ -168,10 +165,9 @@
             //app.UseSwaggerUI();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "e Bookstore");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "e Bookstore");
             });
 
-            app.UseAuthentication();
             //CORS
             app.UseCors();
         }

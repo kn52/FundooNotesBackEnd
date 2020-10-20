@@ -49,7 +49,7 @@
 
         [HttpGet]
         [Route("cart")]
-        public async Task<IActionResult> FetchCartBook([FromHeader]string token)
+        public async Task<IActionResult> FetchCartBook()
         {
             try
             {
@@ -74,7 +74,7 @@
 
         [HttpDelete]
         [Route("cart/{cartItemId}")]
-        public async Task<IActionResult> DeleteFromCartBook(int cartItemId,[FromHeader] string token)
+        public async Task<IActionResult> DeleteFromCartBook(int cartItemId)
         {
             string CartData;
             try
@@ -100,7 +100,7 @@
 
         [HttpPut]
         [Route("cart/{cartItemId}/{quantity}")]
-        public async Task<IActionResult> UpdateCartBookQuantity(int cartItemId,int quantity, [FromHeader] string token)
+        public async Task<IActionResult> UpdateCartBookQuantity(int cartItemId,int quantity)
         {
             string CartData;
             try

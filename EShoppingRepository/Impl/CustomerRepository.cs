@@ -138,7 +138,7 @@
             return "Customer Feedback Not Added";
         }
 
-        public List<FeedBack> getBookFeedback(int isbnNumber)
+        public List<FeedBack> getBookFeedback(string isbnNumber)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
