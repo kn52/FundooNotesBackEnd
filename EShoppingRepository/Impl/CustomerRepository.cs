@@ -5,6 +5,7 @@
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
 
@@ -135,6 +136,50 @@
                 }
             }
             return "Customer Feedback Not Added";
+        }
+
+        public List<FeedBack> getBookFeedback(int isbnNumber)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spGetCustomerDetail", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@isbn_number", isbnNumber);
+                    
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            List<FeedBack> feedBack = new List<FeedBack>();
+                            while (rdr.Read())
+                            {
+                                feedBack.Add(new FeedBack{
+                                    feedbackId = Convert.ToInt32(rdr["id"]),
+                                    feedbackMessage = rdr["feedback_message"].ToString(),
+                                    rating = Convert.ToInt32(rdr["rating"]),
+                                    userId = Convert.ToInt32(rdr["user_id"]),
+                                    bookId = Convert.ToInt32(rdr["book_id"])
+                                });
+                            }
+                            return feedBack;
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
         }
 
         private readonly string DBString = null;

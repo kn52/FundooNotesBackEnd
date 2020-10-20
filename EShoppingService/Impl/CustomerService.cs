@@ -4,6 +4,7 @@
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using EShoppingService.Infc;
+    using System.Collections.Generic;
 
     public class CustomerService : ICustomerService
     {
@@ -25,9 +26,9 @@
         {
             return CustomerRepository.AddUserFeedBack(feedBackDto, userId);        
         }
-        public FeedBack getBookFeedback(int isbnNumber)
+        public List<FeedBack> getBookFeedback(int isbnNumber)
         {
-            throw new System.NotImplementedException();
+            return CustomerRepository.getBookFeedback(isbnNumber);
         }
     }
 }
