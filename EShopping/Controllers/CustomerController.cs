@@ -44,5 +44,31 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
         }
+
+        [HttpPost]
+        [Route("customer")]
+        public async Task<IActionResult> AddCustomerDetails([FromBody] CustomerDto customerDto)
+        {
+            string CustomerData;
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                CustomerData = await Task.FromResult(CustomerService.AddCustomerDetails(customerDto, userId));
+                if (!CustomerData.Contains("Not") && CustomerData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CustomerData, customerDto, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
+        }
     }
 }
