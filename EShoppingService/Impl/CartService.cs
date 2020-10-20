@@ -1,9 +1,9 @@
-﻿namespace EShoppingService.Impl
+﻿namespace EShoppingRepository.Impl
 {
     using EShoppingModel.Dto;
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
-    using EShoppingService.Infc;
+    using EShoppingRepository.Infc;
     public class CartService : ICartService
     {
         public CartService(ICartRepository repository)

@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using EShoppingService.Infc;
-    using EShoppingService.Impl;
+    using EShoppingRepository.Infc;
+    using EShoppingRepository.Impl;
     using EShoppingModel.Infc;
     using EShoppingModel.Impl;
     using Microsoft.AspNetCore.Mvc;

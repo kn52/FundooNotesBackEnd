@@ -1,4 +1,4 @@
-﻿namespace EShoppingService.Infc
+﻿namespace EShoppingRepository.Infc
 {
     using EShoppingModel.Dto;
     using EShoppingModel.Model;

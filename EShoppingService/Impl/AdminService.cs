@@ -1,9 +1,9 @@
-﻿namespace EShoppingService.Impl
+﻿namespace EShoppingRepository.Impl
 {
     using EShoppingModel.Model;
     using EShoppingModel.Dto;
     using EShoppingModel.Infc;
-    using EShoppingService.Infc;
+    using EShoppingRepository.Infc;
     public class AdminService : IAdminService
     {
         public AdminService(IAdminRepository repository)

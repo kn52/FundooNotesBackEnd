@@ -1,9 +1,9 @@
-﻿namespace EShoppingService.Impl
+﻿namespace EShoppingRepository.Impl
 {
     using System.Collections.Generic;
     using EShoppingModel.Model;
     using EShoppingModel.Infc;
-    using EShoppingService.Infc;
+    using EShoppingRepository.Infc;
     public class BookService : IBookService
     {
         public BookService(IBookRepository repository)

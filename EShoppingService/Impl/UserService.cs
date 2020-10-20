@@ -1,9 +1,9 @@
-﻿namespace EShoppingService.Impl
+﻿namespace EShoppingRepository.Impl
 {
     using EShoppingModel.Dto;
     using EShoppingModel.Infc;
     using EShoppingModel.Model;
-    using EShoppingService.Infc;
+    using EShoppingRepository.Infc;
     public class UserService : IUserService
     {
         public UserService(IUserRepository repository)

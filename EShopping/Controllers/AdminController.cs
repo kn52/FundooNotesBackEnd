@@ -2,7 +2,7 @@
 {
     using EShoppingModel.Response;
     using EShoppingModel.Dto;
-    using EShoppingService.Infc;
+    using EShoppingRepository.Infc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;

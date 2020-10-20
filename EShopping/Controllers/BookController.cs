@@ -4,7 +4,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using EShoppingModel.Response;
-    using EShoppingService.Infc;
+    using EShoppingRepository.Infc;
     using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
