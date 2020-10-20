@@ -45,8 +45,8 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
         }
 
-        [HttpPost]
-        [Route("customer")]
+        [HttpGet]
+        [Route("customer/{addressType}")]
         public async Task<IActionResult> FetchCustomerDetails(int addressType)
         {
             try
@@ -68,6 +68,32 @@
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Address Not Found", null, ""));
+        }
+
+        [HttpPost]
+        [Route("comments")]
+        public async Task<IActionResult> AddUserFeedBack([FromBody] FeedBackDto feedbackDto)
+        {
+            string CustomerData;
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                CustomerData = await Task.FromResult(CustomerService.AddUserFeedBack(feedbackDto, userId));
+                if (!CustomerData.Contains("Not") && CustomerData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CustomerData, feedbackDto, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
         }
     }
 }

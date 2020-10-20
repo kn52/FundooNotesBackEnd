@@ -7,6 +7,7 @@
     public interface ICustomerService
     {
         string AddCustomerDetails(CustomerDto customerDto,string userId);
-        Customer FetchCustomerDetails(int addressType, string userId); 
+        Customer FetchCustomerDetails(int addressType, string userId);
+        string AddUserFeedBack(FeedBackDto feedBackDto, string userId);
     }
 }

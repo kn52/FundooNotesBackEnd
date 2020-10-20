@@ -17,10 +17,13 @@
         {
             return CustomerRepository.AddCustomerDetails(customerDto,userId);
         }
-
         public Customer FetchCustomerDetails(int addressType, string userId)
         {
             return CustomerRepository.FetchCustomerDetails(addressType, userId);
+        }
+        public string AddUserFeedBack(FeedBackDto feedBackDto, string userId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
