@@ -1,6 +1,7 @@
 ﻿namespace EShoppingRepository.Impl
 {
     using EShoppingModel.Dto;
+    using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
     using System;
@@ -52,6 +53,52 @@
                 }
             }
             return "Customer Detail Updated";
+        }
+
+        public Customer FetchCustomerDetails(int addressType, string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spGetCustomerDetail", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@customer_address_type", addressType);
+                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(userId));
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            Customer customer = new Customer();
+                            while (rdr.Read())
+                            {
+                                customer.customerId = Convert.ToInt32(rdr["customer_id"]);
+                                customer.customerAddress = rdr["customer_address"].ToString();
+                                customer.customerAddressType = Convert.ToInt32(rdr["customer_address_type"]);
+                                customer.customerLandmark = rdr["customer_landmark"].ToString();
+                                customer.customerLocality = rdr["customer_locality"].ToString();
+                                customer.customerPinCode = Convert.ToInt32(rdr["customer_pin_code"]);
+                                customer.customerTown = rdr["customer_town"].ToString();
+                                customer.userId = Convert.ToInt32(rdr["user_id"]);
+                                return customer;
+                            }
+                            return null;
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
         }
 
         private readonly string DBString = null;

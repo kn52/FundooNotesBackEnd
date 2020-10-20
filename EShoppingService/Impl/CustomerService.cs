@@ -20,7 +20,7 @@
 
         public Customer FetchCustomerDetails(int addressType, string userId)
         {
-            throw new System.NotImplementedException();
+            return CustomerRepository.FetchCustomerDetails(addressType, userId);
         }
     }
 }
