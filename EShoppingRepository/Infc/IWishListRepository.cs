@@ -6,5 +6,6 @@
     {
         string AddToWishList(int bookId, string userId);
         List<WishListItems> FetchWishList(string userId);
+        string DeleteBookFromWishList(int bookId, string userId);
     }
 }

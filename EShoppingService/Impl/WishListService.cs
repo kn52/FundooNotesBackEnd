@@ -19,11 +19,11 @@
         }
         public List<WishListItems> FetchWishList(string userId)
         {
-            throw new System.NotImplementedException();
+            return WishListRepository.FetchWishList(userId);
         }
         public string DeleteBookFromWishList(int bookId, string userId)
         {
-            throw new System.NotImplementedException();
+            return WishListRepository.DeleteBookFromWishList(bookId, userId);
         }
     }
 }

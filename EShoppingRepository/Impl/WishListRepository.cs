@@ -20,7 +20,7 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spAddUserFeedback", conn)
+                using (SqlCommand cmd = new SqlCommand("spAddToWishList", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
@@ -53,7 +53,7 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spGetBookFeedback", conn)
+                using (SqlCommand cmd = new SqlCommand("spFetchWishList", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
@@ -91,6 +91,40 @@
                 }
             }
             return null;
+        }
+
+        public string DeleteBookFromWishList(int bookId, string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spDeleteBookFromWishList", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@book_id", bookId);
+                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(userId));
+
+                    try
+                    {
+                        conn.Open();
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
+                        {
+                            return "Deleted From WishList Successfully";
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "WishList Id Not Found";
         }
 
         private readonly string DBString = null;
