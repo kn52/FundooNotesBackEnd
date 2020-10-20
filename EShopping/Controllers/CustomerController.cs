@@ -20,8 +20,8 @@
         public ICustomerService CustomerService { get; set; }
 
         [HttpPost]
-        [Route("cart")]
-        public async Task<IActionResult> AddToCart([FromBody] CustomerDto customerDto)
+        [Route("customer")]
+        public async Task<IActionResult> AddCustomerDetails([FromBody] CustomerDto customerDto)
         {
             string CustomerData;
             try
@@ -40,7 +40,7 @@
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
         }

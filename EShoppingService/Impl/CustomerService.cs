@@ -14,7 +14,7 @@
 
         public string AddCustomerDetails(CustomerDto customerDto, string userId)
         {
-            throw new System.NotImplementedException();
+            return CustomerRepository.AddCustomerDetails(customerDto,userId);
         }
     }
 }
