@@ -101,6 +101,42 @@
             return null;
         }
 
+        public string AddUserFeedBack(FeedBackDto feedBackDto, string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spAddUserFeedback", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@feedback_message", feedBackDto.feedbackMessage);
+                    cmd.Parameters.AddWithValue("@rating", feedBackDto.rating);
+                    cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(userId));
+                    cmd.Parameters.AddWithValue("@isbn_number", feedBackDto.isbNumber);
+                    
+                    try
+                    {
+                        conn.Open();
+                        int count = cmd.ExecuteNonQuery();
+                        if (count > 0)
+                        {
+                            return "Added Customer Feedback Successfully";
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return "Customer Feedback Not Added";
+        }
+
         private readonly string DBString = null;
     }
 }

@@ -23,7 +23,7 @@
         }
         public string AddUserFeedBack(FeedBackDto feedBackDto, string userId)
         {
-            throw new System.NotImplementedException();
+            return CustomerRepository.AddUserFeedBack(feedBackDto, userId);        
         }
     }
 }
