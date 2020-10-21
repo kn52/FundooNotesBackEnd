@@ -1,7 +1,10 @@
 ﻿namespace EShoppingService.Impl
 {
+    using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using EShoppingService.Infc;
+    using System.Collections.Generic;
+
     public class WishListService : IWishListService
     {
         public WishListService(IWishListRepository repository)
@@ -10,11 +13,11 @@
         }
         public IWishListRepository WishListRepository { get; set; }
 
-        public string AddToWishList(int bookId, int userId)
+        public string AddToWishList(int bookId, string userId)
         {
             return WishListRepository.AddToWishList(bookId,userId);
         }
-        public System.Collections.Generic.List<WishList> FetchWishList(string userId)
+        public List<WishListItems> FetchWishList(string userId)
         {
             throw new System.NotImplementedException();
         }

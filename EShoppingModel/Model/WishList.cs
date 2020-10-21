@@ -2,7 +2,7 @@
 {
     public class WishList
     {
-        private int  wishId { get; set; }
-        private int userId { get; set; }
+        public int  wishId { get; set; }
+        public int userId { get; set; }
     }
 }
