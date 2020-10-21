@@ -18,7 +18,7 @@
 
         [HttpPost]
         [Route("wishlist/{bookid}")]
-        public async Task<IActionResult> AddCustomerDetails(int bookId)
+        public async Task<IActionResult> AddToWishList(int bookId)
         {
             string WishListData;
             try
@@ -40,6 +40,31 @@
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, WishListData, null, ""));
+        }
+
+        [HttpGet]
+        [Route("wishlist")]
+        public async Task<IActionResult> FetchWishList(int addressType)
+        {
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                var WishListData = await Task.FromResult(WishListService.FetchWishList(userId));
+                if (WishListData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Wishlist Found", WishListData, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Wishlist Not Found", null, ""));
         }
     }
 }

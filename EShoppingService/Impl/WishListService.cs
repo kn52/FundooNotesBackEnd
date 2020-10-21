@@ -12,6 +12,10 @@
 
         public string AddToWishList(int bookId, int userId)
         {
+            return WishListRepository.AddToWishList(bookId,userId);
+        }
+        public System.Collections.Generic.List<WishList> FetchWishList(string userId)
+        {
             throw new System.NotImplementedException();
         }
     }
