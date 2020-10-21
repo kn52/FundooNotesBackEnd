@@ -66,5 +66,31 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Wishlist Not Found", null, ""));
         }
+
+        [HttpDelete]
+        [Route("wishlist/{bookid}")]
+        public async Task<IActionResult> DeleteBookFromWishList(int bookId)
+        {
+            string WishListData;
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                WishListData = await Task.FromResult(WishListService.DeleteBookFromWishList(bookId, userId));
+                if (!WishListData.Contains("Not") && WishListData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, WishListData, bookId, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, WishListData, null, ""));
+        }
     }
 }

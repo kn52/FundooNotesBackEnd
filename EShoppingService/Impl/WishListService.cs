@@ -21,5 +21,9 @@
         {
             throw new System.NotImplementedException();
         }
+        public string DeleteBookFromWishList(int bookId, string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
