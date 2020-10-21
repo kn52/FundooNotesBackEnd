@@ -11,5 +11,6 @@
         Customer FetchCustomerDetails(int addressType, string userId);
         string AddUserFeedBack(FeedBackDto feedBackDto, string userId);
         List<FeedBack> getBookFeedback(int isbnNumber);
+        FeedBack getUserFeedback(int bookId,string userId);
     }
 }

@@ -120,5 +120,30 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Feedback Found", null, ""));
         }
+
+        [HttpGet]
+        [Route("customer/feedback")]
+        public async Task<IActionResult> getUserFeedback(int bookId)
+        {
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                var CustomerData = await Task.FromResult(CustomerService.getUserFeedback(bookId,userId));
+                if (CustomerData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Feedback Found", CustomerData, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Feedback Found", null, ""));
+        }
     }
 }

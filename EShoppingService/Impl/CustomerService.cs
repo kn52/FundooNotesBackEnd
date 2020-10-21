@@ -30,5 +30,9 @@
         {
             return CustomerRepository.getBookFeedback(isbnNumber);
         }
+        public FeedBack getUserFeedback(int bookId, string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
