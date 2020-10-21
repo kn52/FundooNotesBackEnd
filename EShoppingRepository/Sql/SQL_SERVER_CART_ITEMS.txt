@@ -6,3 +6,89 @@ create table cart_items (
 	book_id int,
 	cart_id int
 )
+
+=====STORE PROCEDURE FOR ADD TO CART ITEMS=====
+create procedure AddToCart
+(
+	@quantity int,
+	@book_id int,
+	@user_id int
+)
+as
+begin
+	begin try
+		if EXISTS (select * from cart_items where book_id = @book_id and cart_id in (select cart_id from cart where cart.user_id = @user_id))
+			print 'Cart Already Exist'
+		else
+			begin
+				insert into cart_items(added_to_cart_date,quantity,book_id,cart_id)
+					values (SYSDATETIME(),@quantity,@book_id, (select cart_id from cart where cart.user_id = @user_id))
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR GET FROM CART ITEMS=====
+create procedure spFetchCartBook 
+(
+	@user_id int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from cart_items where cart_id in (select cart_id from cart where user_id = @user_id))
+			print 'Cart Not Found'
+		else
+			begin
+				select * from cart_items where cart_id in (select cart_id from cart where user_id = @user_id)
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR DELETE FROM CART ITEMS=====
+create procedure spDeleteBookFromCart 
+(
+	@cart_items_id int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from cart_items where cart_items_id = @cart_items_id)
+			print 'Id Not Found'
+		else
+			begin
+				delete from cart_items where cart_items_id = @cart_items_id
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR UPDATE CART ITEMS=====
+create procedure spUpdateCartBookQuantity 
+(
+	@cart_items_id int,
+	@quantity int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from cart_items where cart_items_id = @cart_items_id)
+			print 'Book Not Found'
+		else
+			begin
+				update cart_items
+				set quantity = @quantity
+				where cart_items_id = @cart_items_id
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end

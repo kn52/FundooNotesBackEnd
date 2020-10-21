@@ -7,3 +7,32 @@ create table orders (
 	customer int,
 	user_id int
 )
+
+=====STORE PROCEDURE TO PLACE ORDER=====
+create procedure spPlaceOrder
+(
+	@order_id nvarchar(50),
+	@user_id int
+)
+as
+declare @total_price int
+declare @cart_id int
+begin
+	set @total_price = 0
+	set @cart_id = (select cart_id from cart where user_id = @user_id)
+	begin try
+		if NOT EXISTS (select * from cart_items where cart_id = @cart_id)
+			print 'CART ID NOT FOUND'
+		else
+			begin
+				set @total_price = (select dbo.fnCalculateTotalPrice(@cart_id));			
+				insert into orders(order_id,order_placed_date,total_price,customer_id,user_id)
+					values (@order_id,SYSDATETIME(),@total_price,(select customer_id from customer where user_id = @user_id),@user_id);
+				
+				exec spUpdateCart @order_id,@cart_id;
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end

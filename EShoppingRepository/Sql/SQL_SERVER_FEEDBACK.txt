@@ -6,3 +6,68 @@ create table feedback (
 	user_id int,
 	book_id int
 )
+
+=====STORE PROCEDURE FOR ADD USER FEEDBACK=====
+create procedure spAddUserFeedback 
+(
+	@feedback_message varchar(255),
+	@rating int,
+	@user_id int,
+	@isbn_number varchar(13)
+)
+as
+begin
+	begin try
+		if EXISTS (select * from feedback where user_id = @user_id and book_id in (select id from book where isbn_number = @isbn_number))
+			print 'Feedback Already Exists'
+		else
+			begin
+				insert into feedback(feedback_message,rating,user_id,book_id)
+					values(@feedback_message,@rating,@user_id,(select id from book where isbn_number = @isbn_number))
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR GET BOOK FEEDBACK=====
+create procedure spGetBookFeedback 
+(
+	@isbn_number varchar(255)
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from feedback where book_id in (select id from book where isbn_number = @isbn_number))
+			print 'Feedback Not Found'
+		else
+			begin
+				select * from feedback where book_id in (select id from book where isbn_number = @isbn_number)
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE FOR GET USER FEEDBACK=====
+create procedure spGetUserFeedback 
+(
+	@user_id int,
+	@book_id int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from feedback where user_id = @user_id and @book_id = @book_id)
+			print 'Feedback Not Found'
+		else
+			begin
+				select * from feedback where user_id = @user_id and @book_id = @book_id
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end

@@ -19,7 +19,7 @@ create procedure spGetCustomerDetail
 as
 begin
 	begin try
-		if EXISTS (select * from customer where user_id = @user_id and customer_address_type = @customer_address_type)
+		if NOT EXISTS (select * from customer where user_id = @user_id and customer_address_type = @customer_address_type)
 			print 'Customer Details Not Found'
 		else
 			begin
@@ -68,3 +68,4 @@ begin
 		select ERROR_MESSAGE() as ErrorMessage
 	end catch
 end
+

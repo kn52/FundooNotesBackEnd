@@ -27,3 +27,40 @@ begin
 		select ERROR_MESSAGE() as ErrorMessage
 	end catch
 end
+
+=====STORE PROCEDURE TO SEARCH=====
+create procedure spGetBooks
+(
+	@search nvarchar(255) = null,
+	@filter nvarchar(255) = null,
+	@order nvarchar(5) = 'asc'
+)
+as
+declare @sql nvarchar(255)
+begin
+	begin try
+		set @sql = 'select * from book where 1=1';
+		if NOT EXISTS (select * from book)
+			print 'BOOKS NOT FOUND'
+		else
+			begin 
+				if @search is not null
+					set @sql = @sql + ' and auther_name like %' + @search + '% union book_name like %' + @search + '%';
+				
+				if @filter is not null
+					set @sql = @sql + ' order by ' + @filter + ' ';
+
+				if @filter is null
+					set @sql = @sql + ' order by book_name';
+
+				if @order is not null
+					set @sql = @sql + ' ' + @order;
+
+				print @sql
+				exec sp_executesql @sql
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end

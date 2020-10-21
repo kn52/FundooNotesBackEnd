@@ -5,3 +5,71 @@ create table wishlist_items (
 	book_id int,
 	wish_list_id int
 )
+
+=====STORE PROCEDURE TO ADD TO WISHLIST ITEMS=====
+create procedure spAddToWishList 
+(
+	@book_id int,
+	@user_id int 
+)
+as
+begin
+	begin try
+		if EXISTS (select * from wishlist_items where book_id = @book_id and wish_list_id 
+						in (select wish_id from wishlist where wishlist.user_id = @user_id))
+			print 'Cart Already Exist'
+		else
+			begin
+				insert into wishlist_items(add_to_cart_date,book_id,wish_list_id)
+					values (SYSDATETIME(),@book_id, (select wish_id from wishlist where wishlist.user_id = @user_id))
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE TO GET FROM WISHLIST ITEMS=====
+create procedure spFetchWishList 
+(
+	@user_id int 
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from wishlist_items where wish_list_id 
+						in (select wish_id from wishlist where wishlist.user_id = @user_id))
+			print 'Book Not Found'
+		else
+			begin
+				select * from wishlist_items where wish_list_id 
+						in (select wish_id from wishlist where wishlist.user_id = @user_id)
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE TO DELETE FROM WISHLIST ITEMS=====
+create procedure spDeleteBookFromWishList 
+(
+	@book_id int,
+	@user_id int 
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from wishlist_items where book_id = @book_id and wish_list_id 
+						in (select wish_id from wishlist where wishlist.user_id = @user_id))
+			print 'Book Not Found'
+		else
+			begin
+				delete from wishlist_items where book_id = @book_id and wish_list_id 
+						in (select wish_id from wishlist where wishlist.user_id = @user_id)
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
