@@ -142,7 +142,7 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spGetCustomerDetail", conn)
+                using (SqlCommand cmd = new SqlCommand("spGetBookFeedback", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
@@ -168,6 +168,50 @@
                             }
                             return feedBack;
                         }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
+        }
+
+        public FeedBack getUserFeedback(int bookId, string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spGetUserFeedback", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    cmd.Parameters.AddWithValue("@book_id", bookId);
+
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            FeedBack feedBack = new FeedBack();
+                            while (rdr.Read())
+                            {
+                                feedBack.feedbackId = Convert.ToInt32(rdr["id"]);
+                                feedBack.feedbackMessage = rdr["feedback_message"].ToString();
+                                feedBack.rating = Convert.ToInt32(rdr["rating"]);
+                                feedBack.userId = Convert.ToInt32(rdr["user_id"]);
+                                feedBack.bookId = Convert.ToInt32(rdr["book_id"]);
+                            }
+                            return feedBack;
+                        }
+                        return null;
                     }
                     catch
                     {
