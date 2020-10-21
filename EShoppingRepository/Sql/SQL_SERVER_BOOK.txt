@@ -1,0 +1,29 @@
+=====CREATE TABLE=====
+create table book (
+	id int primary key,
+	auther_name varchar(100),
+	book_detail varchar(2000),
+	book_image_src varchar(255),
+	book_name varchar(50),
+	book_price int,
+	isbn_number varchar(13),
+	no_of_copies int,
+	publishing_year int
+)
+
+=====STORE PROCEDURE FOR GET ALL BOOKS=====
+create procedure spGetBooks
+as
+begin
+	begin try
+		if NOT EXISTS (select * from book)
+			print 'BOOKS NOT FOUND'
+		else
+			begin 
+				select * from book
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
