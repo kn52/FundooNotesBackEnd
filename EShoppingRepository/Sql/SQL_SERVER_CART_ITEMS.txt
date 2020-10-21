@@ -1,8 +1,0 @@
-=====CREATE TABLE CART ITEMS=====
-create table cart_items (
-	cart_items_id int primary key identity(1,1),
-	added_to_cart_date datetime2(7),
-	quantity int,
-	book_id int,
-	cart_id int
-)

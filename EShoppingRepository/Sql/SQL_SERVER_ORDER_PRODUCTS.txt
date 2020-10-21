@@ -1,7 +1,0 @@
-=====CREATE OREDER PRODUCTS TABLE=====
-create table order_products (
-	order_products_id int primary key identity(1,1),
-	quantity int,
-	book_id int,
-	order_id int
-)

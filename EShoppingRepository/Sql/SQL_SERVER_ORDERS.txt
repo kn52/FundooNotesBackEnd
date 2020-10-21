@@ -1,9 +1,0 @@
-=====CREATE ORDERS TABLE=====
-create table orders (
-	id int primary key identity(1,1),
-	order_id varchar(255),
-	order_placed_date datetime2(7),
-	total_price int,
-	customer int,
-	user_id int
-)

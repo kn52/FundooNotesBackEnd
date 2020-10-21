@@ -1,7 +1,0 @@
-=====CREATE WISHLIST ITEMS=====
-create table wishlist_items (
-	wish_list_items_id int primary key identity(1,1),
-	add_to_cart_date datetime2(7),
-	book_id int,
-	wish_list_id int
-)
