@@ -1,5 +1,6 @@
 ﻿namespace EShopping.Controllers
 {
+    using EShoppingModel.Dto;
     using EShoppingModel.Response;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Authorization;
@@ -7,7 +8,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    [Route("api/[controller]")]
+    [Route("/bookstore")]
     [ApiController]
     [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     public class OrderController : ControllerBase
@@ -19,10 +20,10 @@
         public IOrderService OrderService { get; set; }
 
         [HttpPost]
-        [Route("customer")]
-        public async Task<IActionResult> AddCustomerDetails([FromBody] CustomerDto customerDto)
+        [Route("/order")]
+        public async Task<IActionResult> PlaceOrder([FromBody] OrderDto orderDto)
         {
-            string CustomerData;
+            string OrderData;
             try
             {
                 string userId = null;
@@ -31,17 +32,17 @@
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                CustomerData = await Task.FromResult(CustomerService.AddCustomerDetails(customerDto, userId));
-                if (!CustomerData.Contains("Not") && CustomerData != null)
+                OrderData = await Task.FromResult(OrderService.PlaceOrder(orderDto, userId));
+                if (!OrderData.Contains("Not") && OrderData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, CustomerData, customerDto, ""));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, OrderData, orderDto, ""));
                 }
             }
             catch
             {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Not Added", null, ""));
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, CustomerData, null, ""));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, OrderData, null, ""));
         }
     }
 }
