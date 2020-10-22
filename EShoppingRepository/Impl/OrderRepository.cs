@@ -38,7 +38,7 @@
                         int count = cmd.ExecuteNonQuery();
                         if (count > 0)
                         {
-                            using (SqlCommand cmd0 = new SqlCommand("spFetchUser",conn)
+                            using (SqlCommand cmd0 = new SqlCommand("spFetchUserDetail",conn)
                             {
                                 CommandType = CommandType.StoredProcedure
                             }){
@@ -60,7 +60,7 @@
                                 }
                                 catch 
                                 {
-                                    return "Detail Of Order Not Sent On Your Registered Email Id";
+                                    return "Order Details Not Sent On Your Registered Email Id";
                                 }
                             }
                             return "Order Placed Successfully";

@@ -142,5 +142,31 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
+
+        [HttpPost]
+        [Route("detail")]
+        public async Task<IActionResult> FetchUserDetail([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                var UserData = await Task.FromResult(UserService.FetchUserDetail(userId));
+                if (UserData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "User Found", UserData, ""));
+                }
+
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "User Not Found ", null, ""));
+        }
     }
 }

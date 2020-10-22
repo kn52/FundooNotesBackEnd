@@ -31,6 +31,10 @@
         {
             return UserRepository.ResetPassword(resetPasswordDto, userId);
         }
+        public User FetchUserDetail(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
         public string GenerateJSONWebToken(int userId)
         {
             return UserRepository.GenerateJSONWebToken(userId);

@@ -156,7 +156,7 @@
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
-                using (SqlCommand cmd = new SqlCommand("spAdminLogin", conn)
+                using (SqlCommand cmd = new SqlCommand("spLogin", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 })
