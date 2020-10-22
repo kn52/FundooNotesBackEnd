@@ -42,7 +42,24 @@ begin
 			print 'Cart Not Found'
 		else
 			begin
-				select * from cart_items where cart_id in (select cart_id from cart where user_id = @user_id)
+				(
+	@user_id int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from cart_items where cart_id in (select cart_id from cart where user_id = @user_id))
+			print 'Cart Not Found'
+		else
+			begin
+				select * from cart_items join book on cart_items.book_id = book.id 
+				where cart_id in (select cart_id from cart where user_id = @user_id)
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
 			end
 	end try
 	begin catch
