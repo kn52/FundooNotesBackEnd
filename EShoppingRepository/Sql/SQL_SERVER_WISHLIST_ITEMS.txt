@@ -42,8 +42,8 @@ begin
 			print 'Book Not Found'
 		else
 			begin
-				select * from wishlist_items where wish_list_id 
-						in (select wish_id from wishlist where wishlist.user_id = @user_id)
+				select * from wishlist_items join book on wishlist_items.book_id = book.id 
+				where wish_list_id in (select wish_id from wishlist where wishlist.user_id = @user_id)
 			end
 	end try
 	begin catch
