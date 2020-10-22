@@ -60,7 +60,7 @@
                                 }
                                 catch 
                                 {
-                                    return "Order Details Not Sent On Your Registered Email Id";
+                                    return "Order Details Not Sent To Your Registered Email Id";
                                 }
                             }
                             return "Order Placed Successfully";

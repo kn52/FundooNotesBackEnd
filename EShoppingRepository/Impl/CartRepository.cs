@@ -52,11 +52,6 @@
             }
             return "Already Added To Cart";
         }
-
-        public string GenerateJSONWebToken(int userId)
-        {
-            return TokenGenerator.GenerateJSONWebToken(userId, Configuration);
-        }
         public CartItems FetchCartBook(string userId)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
@@ -165,7 +160,7 @@
             }
             return "Cart Items Id Not Found";
         }
-
+        
         private readonly string DBString = null;
     }
 }
