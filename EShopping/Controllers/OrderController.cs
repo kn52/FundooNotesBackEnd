@@ -44,5 +44,31 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, OrderData, null, ""));
         }
+
+        [HttpPost]
+        [Route("/order")]
+        public async Task<IActionResult> FetchOrderSummary([FromBody] OrderDto orderDto)
+        {
+            string OrderData;
+            try
+            {
+                string userId = null;
+                userId = User.FindFirst("userId").Value;
+                if (userId == null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
+                }
+                OrderData = await Task.FromResult(OrderService.FetchOrderSummary(userId));
+                if (!OrderData.Contains("Not") && OrderData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, OrderData, orderDto, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, OrderData, null, ""));
+        }
     }
 }
