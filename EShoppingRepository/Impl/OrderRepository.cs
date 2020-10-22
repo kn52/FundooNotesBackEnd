@@ -1,6 +1,7 @@
 ﻿namespace EShoppingRepository.Impl
 {
     using EShoppingModel.Dto;
+    using EShoppingModel.Model;
     using EShoppingModel.Util.Infc;
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
@@ -77,6 +78,11 @@
                 }
             }
             return "Order Not Placed";
+        }
+
+        public Orders FetchOrderSummary(string userId)
+        {
+            throw new NotImplementedException();
         }
 
         private readonly string DBString = null;        

@@ -1,6 +1,7 @@
 ﻿namespace EShopping.Controllers
 {
     using EShoppingModel.Dto;
+    using EShoppingModel.Model;
     using EShoppingModel.Response;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Authorization;
@@ -49,7 +50,6 @@
         [Route("/order")]
         public async Task<IActionResult> FetchOrderSummary([FromBody] OrderDto orderDto)
         {
-            string OrderData;
             try
             {
                 string userId = null;
@@ -58,17 +58,17 @@
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                OrderData = await Task.FromResult(OrderService.FetchOrderSummary(userId));
-                if (!OrderData.Contains("Not") && OrderData != null)
+                Orders OrderData = await Task.FromResult(OrderService.FetchOrderSummary(userId));
+                if (OrderData != null)
                 {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, OrderData, orderDto, ""));
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Order Found" , OrderData, ""));
                 }
             }
             catch
             {
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, OrderData, null, ""));
+            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Order Not Found", null, ""));
         }
     }
 }

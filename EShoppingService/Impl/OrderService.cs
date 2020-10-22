@@ -12,13 +12,13 @@
             this.OrderRepository = repository;
         }
         public IOrderRepository OrderRepository { get; set;}
-        public Orders FetchOrderSummary(string userId)
-        {
-            throw new System.NotImplementedException();
-        }
         public string PlaceOrder(OrderDto orderDto, string userId)
         {
             return OrderRepository.PlaceOrder(orderDto,userId);
+        }
+        public Orders FetchOrderSummary(string userId)
+        {
+            return FetchOrderSummary(userId);
         }
     }
 }
