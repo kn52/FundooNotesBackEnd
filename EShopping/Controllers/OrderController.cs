@@ -46,9 +46,9 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, OrderData, null, ""));
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("/order")]
-        public async Task<IActionResult> FetchOrderSummary([FromBody] OrderDto orderDto)
+        public async Task<IActionResult> FetchOrderSummary()
         {
             try
             {
@@ -58,7 +58,7 @@
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Invalid Token", userId, ""));
                 }
-                Orders OrderData = await Task.FromResult(OrderService.FetchOrderSummary(userId));
+                var OrderData = await Task.FromResult(OrderService.FetchOrderSummary(userId));
                 if (OrderData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Order Found" , OrderData, ""));

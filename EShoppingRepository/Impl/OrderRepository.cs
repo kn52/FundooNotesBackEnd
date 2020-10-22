@@ -6,6 +6,7 @@
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
 
@@ -80,9 +81,48 @@
             return "Order Not Placed";
         }
 
-        public Orders FetchOrderSummary(string userId)
+        public List<Orders> FetchOrderSummary(string userId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spFetchUserDetail", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            List<Orders> orders = new List<Orders>();
+                            while (rdr.Read())
+                            {
+                                orders.Add(new Orders {
+                                    orderId = Convert.ToInt32(rdr["order_id"]),
+                                    orderPlacedDate = (DateTime) rdr["order_placed_date"],
+                                    totalPrice = Convert.ToInt32(rdr["total_price"]),
+                                    customerId = Convert.ToInt32(rdr["customer_id"]),
+                                    userId = Convert.ToInt32(rdr["user_id"])
+                                });
+                            }
+                            return orders;
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
         }
 
         private readonly string DBString = null;        

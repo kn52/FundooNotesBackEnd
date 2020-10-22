@@ -4,6 +4,7 @@
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using EShoppingService.Infc;
+    using System.Collections.Generic;
 
     public class OrderService : IOrderService
     {
@@ -16,7 +17,7 @@
         {
             return OrderRepository.PlaceOrder(orderDto,userId);
         }
-        public Orders FetchOrderSummary(string userId)
+        public List<Orders> FetchOrderSummary(string userId)
         {
             return FetchOrderSummary(userId);
         }
