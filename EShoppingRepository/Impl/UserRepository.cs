@@ -226,6 +226,50 @@
             }
             return "Failed To Reset Password";
         }
+        public User FetchUserDetail(string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(this.DBString))
+            {
+                using (SqlCommand cmd = new SqlCommand("spFetchUserDetail", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            User user = new User();
+                            while (rdr.Read())
+                            {
+                                user.id = Convert.ToInt32(rdr["id"]);
+                                user.fullName = rdr["full_name"].ToString();
+                                user.email = rdr["email"].ToString();
+                                user.password = rdr["password"].ToString();
+                                user.phoneNo = rdr["phone_no"].ToString();
+                                user.emailVerified = (bool)rdr["email_verified"];
+                                user.userRole = Convert.ToInt32(rdr["user_role"]);
+                                break;                
+                            }
+                            return user;
+                        }
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return null;
+        }
         public string GenerateJSONWebToken(int userId)
         {
             return TokenGenerator.GenerateJSONWebToken(userId,Configuration);

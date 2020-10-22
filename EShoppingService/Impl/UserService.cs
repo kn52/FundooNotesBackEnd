@@ -33,7 +33,7 @@
         }
         public User FetchUserDetail(string userId)
         {
-            throw new System.NotImplementedException();
+            return UserRepository.FetchUserDetail(userId);
         }
         public string GenerateJSONWebToken(int userId)
         {
