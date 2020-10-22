@@ -15,7 +15,6 @@ create table userinfo (
 create procedure spAdminLogin
 (
 	@email varchar(255),
-	@password varchar(255)
 )
 as
 begin

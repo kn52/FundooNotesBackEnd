@@ -70,8 +70,7 @@ end
 =====STORE PROCEDURE FOR USER LOGIN=====
 create procedure spUserLogin
 (
-	@email varchar(255),
-	@password char(255)
+	@email varchar(255)
 )
 as
 begin
@@ -81,6 +80,26 @@ begin
 		else
 			begin 
 				select * from userinfo where email = @email
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
+
+=====STORE PROCEDURE TO GET USER DETAIL=====
+create procedure spFetchUserDetail 
+(
+	@user_id int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from userinfo where id = @user_id)
+			PRINT 'User Not Found'
+		else
+			begin 
+				select * from userinfo where id = @user_id
 			end
 	end try
 	begin catch
