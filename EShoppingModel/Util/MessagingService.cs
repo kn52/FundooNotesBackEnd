@@ -19,6 +19,7 @@
         {
             this.messagQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
             this.messagQueue.Send(message);
+            SendEmail.Email();
         }
 
         public Message[] ReceiveMsg()

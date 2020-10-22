@@ -169,8 +169,10 @@
                         SqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
-                            this.GenerateJSONWebToken(Convert.ToInt32(rdr["id"]));
-                            SendEmail.Email("Reset your password by clicking on below link", email);
+                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(rdr["id"]));
+                            MessagingService.Send("Click on below given link to verify your email id " +
+                                "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
+                                "ashish52922@gmail.com");
                             return "Reset Password Link Is Sent To Your Registered Email";
                         }
                     }

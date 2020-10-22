@@ -3,16 +3,20 @@
     using EShoppingModel.Util.Infc;
     using Experimental.System.Messaging;
     using System;
-    using System.Collections.Generic;
     using System.Net;
     using System.Net.Mail;
-    using System.Runtime.CompilerServices;
-    using System.Text;
     public class SendEmail
     {
-        public static void Email(string htmlString, string to)
+        public static IMessagingService MessagingService = new MessagingService();
+
+        public static void Email()
         {
-            SendMessage(htmlString, to);
+            Message[] messages = MessagingService.ReceiveMsg();
+            foreach (Message message in messages)
+            {
+                message.Formatter = new XmlMessageFormatter(new String[] { "System.String,mscorlib" });
+                SendMessage(message.Body.ToString(),"");
+            }
         }
 
         private static void SendMessage(string htmlString,string to)
