@@ -36,3 +36,27 @@ begin
 		select ERROR_MESSAGE() as ErrorMessage
 	end catch
 end
+
+=====STORE PROCEDURE FOR GET PLACED ORDERS=====
+create procedure spFetchOrders 
+(
+	@user_id int
+)
+as
+begin
+	begin try
+		if NOT EXISTS (select * from cart_items where cart_id in (select cart_id from cart where user_id = @user_id))
+			print 'Cart Not Found'
+		else
+			begin
+				select orders.id,orders.order_id,orders.order_placed_date,orders.total_price,orders.customer_id,orders.user_id,
+					   order_products.book_id,order_products.quantity,book.id,book.auther_name,book.book_detail,book.book_image_src,
+					   book.book_name,book.book_price,book.isbn_number,book.publishing_year
+				from orders join order_products on orders.order_id = order_products.order_id  join book on order_products.book_id = book.id
+				where orders.user_id = @user_id
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
