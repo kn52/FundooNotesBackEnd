@@ -4,6 +4,6 @@
     using System.Collections.Generic;
     public interface IBookService
     {
-        IEnumerable<Book> GetBooks();
+        IEnumerable<Book> GetBooks(string searchBy,string filterBy,string orderBy);
     }
 }

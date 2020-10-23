@@ -12,9 +12,9 @@
         }
 
         public IBookRepository BookRepository { get; set; }
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Book> GetBooks(string searchBy, string filterBy, string orderBy)
         {
-            return BookRepository.GetBooks();
+            return BookRepository.GetBooks(searchBy,filterBy,orderBy);
         }
     }
 }

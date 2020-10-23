@@ -21,12 +21,12 @@
         public IBookService BookService { get; set; }
 
         [HttpGet]
-        [Route("books")]
-        public async Task<IActionResult> GetBook()
+        [Route("books/{searchBy}/{filterBy}/{orderBy}")]
+        public async Task<IActionResult> GetBook(string searchBy,string filterBy,string orderBy)
         {
             try
             {
-                var BookData = await Task.FromResult(BookService.GetBooks());
+                var BookData = await Task.FromResult(BookService.GetBooks(searchBy,filterBy,orderBy));
                 if (BookData != null)
                 {
                     return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Books Found", BookData, ""));

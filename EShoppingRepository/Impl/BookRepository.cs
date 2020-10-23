@@ -16,7 +16,7 @@
             DBString = this.Configuration["ConnectionString:DBConnection"];
         }
         public IConfiguration Configuration { get; set; }
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Book> GetBooks(string searchBy, string filterBy, string orderBy)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
@@ -25,7 +25,7 @@
                     CommandType = CommandType.StoredProcedure
                 })
                 {
-                    cmd.Parameters.AddWithValue("@search","");
+                    cmd.Parameters.AddWithValue("@search",searchBy.Trim().ToLower());
                     cmd.Parameters.AddWithValue("@filter","");
                     cmd.Parameters.AddWithValue("@order","");
 

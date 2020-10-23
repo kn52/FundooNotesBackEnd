@@ -4,6 +4,6 @@
     using System.Collections.Generic;
     public interface IBookRepository
     {
-        IEnumerable<Book> GetBooks();
+        IEnumerable<Book> GetBooks(string searchBy, string filterBy, string orderBy);
     }
 }
