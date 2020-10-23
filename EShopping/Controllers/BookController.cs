@@ -21,7 +21,7 @@
         public IBookService BookService { get; set; }
 
         [HttpGet]
-        [Route("books/{searchBy}/{filterBy}/{orderBy}")]
+        [Route("books")]
         public async Task<IActionResult> GetBook(string searchBy,string filterBy,string orderBy)
         {
             try

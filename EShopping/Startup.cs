@@ -1,23 +1,24 @@
 ﻿namespace EShopping
 {
+    using System;
+    using System.Collections.Generic;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.IdentityModel.Tokens;
     using EShoppingRepository.Infc;
     using EShoppingRepository.Impl;
     using EShoppingModel.Infc;
     using EShoppingModel.Impl;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.IdentityModel.Tokens;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using System.Text;
-    using Microsoft.OpenApi.Models;
     using EShoppingModel.Util.Infc;
     using EShoppingModel.Util;
     using EShoppingService.Infc;
     using EShoppingService.Impl;
-    using System;
+    using Microsoft.OpenApi.Models;
 
     public class Startup
     {
@@ -70,14 +71,14 @@
             //Swagger
             services.AddSwaggerGen(swagger =>
             {
-                //This is to generate the Default UI of Swagger Documentation  
+                //This is to generate the Default UI of Swagger Documentation
                 swagger.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Version = "v2",
                     Title = "e BoookStore",
                     Description = "ASP.NET Core 2.1 Web API"
                 });
-                // To Enable authorization using Swagger (JWT)  
+                //To Enable authorization using Swagger (JWT)  
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",

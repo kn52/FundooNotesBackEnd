@@ -7,6 +7,7 @@
     using EShoppingModel.Model;
     using EShoppingModel.Infc;
     using Microsoft.Extensions.Configuration;
+    using EShoppingModel.Util;
 
     public class BookRepository : IBookRepository
     {
@@ -26,8 +27,8 @@
                 })
                 {
                     cmd.Parameters.AddWithValue("@search",searchBy.Trim().ToLower());
-                    cmd.Parameters.AddWithValue("@filter","");
-                    cmd.Parameters.AddWithValue("@order","");
+                    cmd.Parameters.AddWithValue("@filter",FilterAttribute.GetAttribute(filterBy));
+                    cmd.Parameters.AddWithValue("@order",OrderAttribute.GetAttribute(orderBy));
 
                     try
                     {
