@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1231
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopping", "EShopping\EShopping.csproj", "{FECEFEDE-0052-403C-B58E-B2AED73EDB74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShopping", "EShopping\EShopping.csproj", "{FECEFEDE-0052-403C-B58E-B2AED73EDB74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingService", "EShoppingService\EShoppingService.csproj", "{99ECBF80-42C3-4E80-913B-21541A191575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShoppingService", "EShoppingService\EShoppingService.csproj", "{99ECBF80-42C3-4E80-913B-21541A191575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingRepository", "EShoppingRepository\EShoppingRepository.csproj", "{55610589-A33B-4B93-B396-1293CAD907C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShoppingRepository", "EShoppingRepository\EShoppingRepository.csproj", "{55610589-A33B-4B93-B396-1293CAD907C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingModel", "EShoppingModel\EShoppingModel.csproj", "{09B00CA3-5760-4050-A22A-3BD4D2053BFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShoppingModel", "EShoppingModel\EShoppingModel.csproj", "{09B00CA3-5760-4050-A22A-3BD4D2053BFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{779C85A6-3F20-45EE-AD92-FCC120AF3060}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

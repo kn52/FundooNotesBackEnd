@@ -39,13 +39,5 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "No Book Found",null, ""));
         }
-
-        [HttpGet]
-        [Route("image/{filename}")]
-        public async Task<String> UploadImage([FromForm]IFormFile file)
-        {
-            var name = await Task.FromResult(file.FileName);
-            return name;
-        }
     }
 }

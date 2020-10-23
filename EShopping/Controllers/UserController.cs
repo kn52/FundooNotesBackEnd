@@ -8,7 +8,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Cors;
-    
+    using System.ComponentModel;
+
     [Route("/bookstore/user")]
     [ApiController]
     [EnableCors("CORS")]
@@ -143,9 +144,9 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, null, ""));
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("detail")]
-        public async Task<IActionResult> FetchUserDetail([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> FetchUserDetail()
         {
             try
             {

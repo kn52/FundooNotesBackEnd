@@ -1,11 +1,11 @@
 ﻿namespace EShopping.Controllers
 {
     using EShoppingModel.Dto;
-    using EShoppingModel.Model;
     using EShoppingModel.Response;
     using EShoppingService.Infc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.ComponentModel;
     using System.Net;
     using System.Threading.Tasks;
 
@@ -48,6 +48,7 @@
 
         [HttpGet]
         [Route("/order")]
+        [Description("Fetch Order Summary")]
         public async Task<IActionResult> FetchOrderSummary()
         {
             try

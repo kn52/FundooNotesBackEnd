@@ -17,6 +17,7 @@
     using EShoppingModel.Util;
     using EShoppingService.Infc;
     using EShoppingService.Impl;
+    using System;
 
     public class Startup
     {
@@ -101,6 +102,9 @@
 
                     }
                 });
+                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+                swagger.IncludeXmlComments(xmlPath);
             });
 
             services.AddAuthentication(option =>

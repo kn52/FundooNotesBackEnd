@@ -25,6 +25,10 @@
                     CommandType = CommandType.StoredProcedure
                 })
                 {
+                    cmd.Parameters.AddWithValue("@search","");
+                    cmd.Parameters.AddWithValue("@filter","");
+                    cmd.Parameters.AddWithValue("@order","");
+
                     try
                     {
                         conn.Open();
@@ -34,7 +38,7 @@
                             List<Book> bookList = new List<Book>();
                             while (rdr.Read())
                             {
-                                Book book = new Book
+                                bookList.Add(new Book
                                 {
                                     id = Convert.ToInt32(rdr["id"]),
                                     authorName = rdr["auther_name"].ToString(),
@@ -45,8 +49,7 @@
                                     isbnNumber = rdr["isbn_number"].ToString(),
                                     noOfCopies = Convert.ToInt32(rdr["no_of_copies"]),
                                     publishingYear = Convert.ToInt32(rdr["publishing_year"])
-                                };
-                                bookList.Add(book);
+                                });
                             }
                             return bookList;
                         }
