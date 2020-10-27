@@ -5,3 +5,23 @@ create table order_products (
 	book_id int,
 	order_id int
 )
+
+=====STORE PROCEDURE TO ADD PLACED ORDER DETAILS=====
+create procedure spPlaceOrderDetails
+(
+	@quantity int,
+	@book_id int,
+	@order_id varchar(50)
+)
+as
+begin
+	begin try
+		begin
+			insert into order_products(quantity,book_id,order_id)
+				values (@quantity,@book_id,@order_id)
+		end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
