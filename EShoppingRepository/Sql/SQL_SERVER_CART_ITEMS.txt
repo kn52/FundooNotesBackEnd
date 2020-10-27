@@ -109,3 +109,30 @@ begin
 		select ERROR_MESSAGE() as ErrorMessage
 	end catch
 end
+
+=====STORE PROCEDUE TO UPDATE CART ON PLACING ORDER=====
+create procedure spUpdateCart
+(
+	@order_id nvarchar(50),
+	@cart_id int
+)
+as
+declare @count int
+declare @quantity int
+declare @book_id int
+begin
+	set @count = 0;
+	while @count < (select count(*) from cart_items)
+	begin
+		if EXISTS (select * from cart_items where cart_id = @cart_id order by cart_items_id offset @count rows fetch next 1 rows ONLY)
+		begin
+			set @book_id = (select book_id from cart_items where cart_id = @cart_id order by cart_items_id offset @count rows fetch next 1 rows ONLY) 
+			
+			set @quantity = (select quantity from cart_items where cart_id = @cart_id order by cart_items_id offset @count rows fetch next 1 rows ONLY)
+
+			exec spPlaceOrderDetails @quantity,@book_id,@order_id
+		end 
+		set @count = @count + 1;			
+	end
+	delete from cart_items where cart_id = @cart_id
+end
