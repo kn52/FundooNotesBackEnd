@@ -19,7 +19,7 @@ namespace EShoppingModel.Util
               configuration["Jwt:Issuer"],
               new Claim[] {
                   new Claim("userId",userId.ToString()),
-                  new Claim("userRole",userId.ToString())
+                  new Claim(ClaimTypes.Role,"Admin")
               },
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);

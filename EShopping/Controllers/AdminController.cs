@@ -12,6 +12,7 @@
     [Route("/bookstore/admin")]
     [ApiController]
     [EnableCors("CORS")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         public AdminController(IAdminService service)

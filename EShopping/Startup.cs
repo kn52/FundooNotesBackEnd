@@ -127,7 +127,7 @@
                 };
             });
 
-
+            
             //Cross Origin
             //services.AddCors();
             services.AddCors(c =>

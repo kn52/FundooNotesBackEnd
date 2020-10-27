@@ -38,6 +38,7 @@
                     {
                         conn.Open();
                         int count = cmd.ExecuteNonQuery();
+                        
                         if (count > 0)
                         {
                             using (SqlCommand cmd0 = new SqlCommand("spFetchUserDetail",conn)
@@ -47,8 +48,8 @@
                                 cmd.Parameters.AddWithValue("@user_id", Convert.ToInt32(userId));
                                 try
                                 {
-                                    conn.Open();
                                     SqlDataReader rdr = cmd.ExecuteReader();
+                        
                                     if (rdr.HasRows)
                                     {
                                         while (rdr.Read())
