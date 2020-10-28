@@ -1,8 +1,11 @@
 ﻿namespace EShopping.Controllers
 {
+    using System.Linq;
     using System.Net;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using EShoppingModel.Dto;
+    using EShoppingModel.Model;
     using EShoppingModel.Response;
     using EShoppingRepository.Infc;
     using Microsoft.AspNetCore.Mvc;
@@ -25,7 +28,7 @@
         {
             try
             {
-                var UserData = await Task.FromResult(AdminService.AdminLogin(loginDto));
+                var UserData = await GetLogin(this.GetUserRole(),loginDto);
                 string message = UserData.userRole == 0 ? "Admin Found" : "User Found";
                 if (UserData != null)
                 {
@@ -38,6 +41,23 @@
                 return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "User Not Found", null, ""));
+        }
+
+        private Task<User> GetLogin(string role,LoginDto loginDto)
+        {
+            if(role == "Admin")
+            {
+                return Task.FromResult(AdminService.AdminLogin(loginDto));
+            }
+            return Task.FromResult(UserService.UserLogin(loginDto));
+        }
+
+        private string GetUserRole()
+        {
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value);
+            return roles.First();
         }
     }
 }
