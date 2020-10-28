@@ -3,7 +3,6 @@
     using EShoppingModel.Dto;
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
-    using EShoppingRepository.Infc;
     using System.Collections.Generic;
 
     public class CustomerService : ICustomerService

@@ -51,7 +51,7 @@
                         string id = cmd.Parameters["@id"].Value.ToString();
                         if (id != "")
                         {
-                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(id));
+                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(id),"User");
                             MessagingService.Send("Click on below given link to verify your email id " +
                                 "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
@@ -169,7 +169,7 @@
                         SqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
-                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(rdr["id"]));
+                            var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(rdr["id"]),"User");
                             MessagingService.Send("Click on below given link to verify your email id " +
                                 "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
@@ -270,9 +270,9 @@
             }
             return null;
         }
-        public string GenerateJSONWebToken(int userId)
+        public string GenerateJSONWebToken(int userId, string userRole)
         {
-            return TokenGenerator.GenerateJSONWebToken(userId,Configuration);
+            return TokenGenerator.GenerateJSONWebToken(userId,userRole,Configuration);
         }
 
         private readonly string DBString = null;

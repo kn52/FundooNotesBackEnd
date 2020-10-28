@@ -3,7 +3,6 @@
     using EShoppingModel.Dto;
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
-    using EShoppingRepository.Infc;
     public class CartService : ICartService
     {
         public CartService(ICartRepository repository)

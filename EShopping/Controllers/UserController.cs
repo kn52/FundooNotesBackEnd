@@ -8,12 +8,12 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Cors;
-    using System.ComponentModel;
-
+    
     [Route("/bookstore/user")]
     [ApiController]
     [EnableCors("CORS")]
-    [Authorize(Roles = "User")]
+    [Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
     public class UserController : ControllerBase
     {
         public UserController(IUserService service)
@@ -44,8 +44,6 @@
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("verify/email/")]
         public async Task<IActionResult> VerifyEmail()
         {
@@ -81,7 +79,7 @@
                 var UserData = await Task.FromResult(UserService.UserLogin(loginDto));
                 if (UserData != null)
                 {
-                    var token = UserService.GenerateJSONWebToken(UserData.id);
+                    var token = UserService.GenerateJSONWebToken(UserData.id,"User");
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData, token));
                 }
 
@@ -94,8 +92,6 @@
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("forget/password/")]
         public async Task<IActionResult> ForgetPassword(string email)
         {
@@ -117,8 +113,6 @@
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("reset/password/")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {

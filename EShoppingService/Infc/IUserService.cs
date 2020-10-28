@@ -11,6 +11,6 @@
         string ForgetPassword(string email);
         string ResetPassword(ResetPasswordDto resetPasswordDto, string userId);
         User FetchUserDetail(string userId);
-        string GenerateJSONWebToken(int userId);
+        string GenerateJSONWebToken(int userId, string userRole);
     }
 }

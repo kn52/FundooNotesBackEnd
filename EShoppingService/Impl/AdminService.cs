@@ -27,9 +27,9 @@
         {
             return AdminRepository.DeleteBook(bookId);
         }
-        public string GenerateJSONWebToken(int userId)
+        public string GenerateJSONWebToken(int userId, string userRole)
         {
-            return AdminRepository.GenerateJSONWebToken(userId);
+            return AdminRepository.GenerateJSONWebToken(userId,userRole);
         }
     }
 }

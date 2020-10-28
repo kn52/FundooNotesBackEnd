@@ -177,9 +177,9 @@
             }
             return "Book Not Found";
         }
-        public string GenerateJSONWebToken(int userId)
+        public string GenerateJSONWebToken(int userId, string userRole)
         {
-            return TokenGenerator.GenerateJSONWebToken(userId, Configuration);
+            return TokenGenerator.GenerateJSONWebToken(userId,userRole, Configuration);
         }
         
         private readonly string DBString = null;

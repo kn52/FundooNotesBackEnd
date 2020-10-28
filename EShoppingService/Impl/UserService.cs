@@ -35,9 +35,9 @@
         {
             return UserRepository.FetchUserDetail(userId);
         }
-        public string GenerateJSONWebToken(int userId)
+        public string GenerateJSONWebToken(int userId, string userRole)
         {
-            return UserRepository.GenerateJSONWebToken(userId);
+            return UserRepository.GenerateJSONWebToken(userId,userRole);
         }
     }
 }

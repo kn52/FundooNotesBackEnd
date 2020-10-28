@@ -11,7 +11,8 @@
 
     [Route("/bookstore")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme,Roles = "User")]
+    [Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
     public class CartController : ControllerBase
     {
         public CartController(ICartService service)

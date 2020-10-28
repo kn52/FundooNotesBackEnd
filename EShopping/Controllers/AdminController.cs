@@ -12,7 +12,8 @@
     [Route("/bookstore/admin")]
     [ApiController]
     [EnableCors("CORS")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         public AdminController(IAdminService service)
@@ -30,7 +31,7 @@
                 var adminData = await Task.FromResult(AdminService.AdminLogin(loginDto));
                 if (adminData != null)
                 {
-                    var token = AdminService.GenerateJSONWebToken(adminData.id);
+                    var token = AdminService.GenerateJSONWebToken(adminData.id,"Admin");
                     return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName,token));
                 }
             }
@@ -42,8 +43,6 @@
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book")]
         public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
         {
@@ -74,8 +73,6 @@
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book/{bookId}")]
         public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto)
         {
@@ -102,8 +99,6 @@
         }
 
         [HttpDelete] 
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("delete/{bookId}")]
         public async Task<IActionResult> DeleteBook(int bookId)
         {
