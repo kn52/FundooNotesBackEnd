@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.IdentityModel.Tokens;
@@ -127,7 +128,12 @@
                 };
             });
 
-            
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+                options.InstanceName = "";
+            });
+
             //Cross Origin
             //services.AddCors();
             services.AddCors(c =>
@@ -141,7 +147,6 @@
                                 .WithExposedHeaders();
                     });
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

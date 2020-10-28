@@ -13,6 +13,7 @@
     [Route("/bookstore/user")]
     [ApiController]
     [EnableCors("CORS")]
+    [Authorize(Roles = "User")]
     public class UserController : ControllerBase
     {
         public UserController(IUserService service)
