@@ -77,7 +77,7 @@
         [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [Route("book/{bookId}")]
-        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto,int bookId)
+        public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto)
         {
             string adminData;
             try
