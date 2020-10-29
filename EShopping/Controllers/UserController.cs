@@ -12,8 +12,6 @@
     [Route("/bookstore/user")]
     [ApiController]
     [EnableCors("CORS")]
-    [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
     public class UserController : ControllerBase
     {
         public UserController(IUserService service)
@@ -23,7 +21,31 @@
         IUserService UserService { get; set; }
 
         [HttpPost]
+        [Route("user/registration")]
+        public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
+        {
+            string UserData;
+            try
+            {
+                UserData = await Task.FromResult(UserService.UserRegistration(userRegistrationDto));
+                if (UserData != "" && UserData != null)
+                {
+                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Registered Successfully.Email Verification " +
+                        "Link Is Sent To Your Registered Email Id", UserData, ""));
+                }
+            }
+            catch
+            {
+                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
+            }
+            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, "", ""));
+        }
+
+
+        [HttpPost]
         [Route("verify/email/")]
+        [Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> VerifyEmail()
         {
             string UserData;
@@ -72,6 +94,8 @@
 
         [HttpPost]
         [Route("reset/password/")]
+        [Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
             string UserData;
@@ -99,6 +123,8 @@
 
         [HttpGet]
         [Route("detail")]
+        [Authorize(AuthenticationSchemes =
+            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> FetchUserDetail()
         {
             try
