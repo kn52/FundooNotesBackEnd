@@ -113,7 +113,8 @@
                 })
                 {
                     cmd.Parameters.AddWithValue("@email", loginDto.email);
-                    
+                    cmd.Parameters.AddWithValue("@user_role", 1);
+
                     try
                     {
                         conn.Open();

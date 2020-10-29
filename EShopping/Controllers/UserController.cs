@@ -50,27 +50,6 @@
         }
 
         [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> UserLogin([FromBody] LoginDto loginDto)
-        {
-            try
-            {
-                var UserData = await Task.FromResult(UserService.UserLogin(loginDto));
-                if (UserData != null)
-                {
-                    var token = UserService.GenerateJSONWebToken(UserData.id,"User");
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Login Successfully", UserData, token));
-                }
-
-            }
-            catch
-            {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
-            }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, "Not Found ", null, ""));
-        }
-
-        [HttpPost]
         [Route("forget/password/")]
         public async Task<IActionResult> ForgetPassword(string email)
         {

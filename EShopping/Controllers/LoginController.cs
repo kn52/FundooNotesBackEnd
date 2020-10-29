@@ -1,5 +1,6 @@
 ﻿namespace EShopping.Controllers
 {
+    using System;
     using System.Linq;
     using System.Net;
     using System.Security.Claims;
@@ -24,15 +25,12 @@
         public IUserService UserService { get; set; }
 
         [HttpPost]
-        [Route("login")]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "Admin,User")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        [Route("all/login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto,[FromQuery] int userRole = 0)
         {
             try
             {
-                string UserRole = this.GetUserRole();
-                var UserData = await GetLogin(UserRole,loginDto);
+                var UserData = await GetLogin(userRole,loginDto);
                 string message = UserData.userRole == 0 ? "Admin Found" : "User Found";
                 if (UserData != null)
                 {
@@ -49,8 +47,6 @@
 
         [HttpPost]
         [Route("user/registration")]
-        [Authorize(AuthenticationSchemes =
-            Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
         {
             string UserData;
@@ -69,16 +65,9 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, "", ""));
         }
-        private string GetUserRole()
+        private Task<User> GetLogin(int userRole,LoginDto loginDto)
         {
-            var roles = ((ClaimsIdentity)User.Identity).Claims
-                .Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value);
-            return roles.First();
-        }
-        private Task<User> GetLogin(string role,LoginDto loginDto)
-        {
-            if(role == "Admin")
+            if(userRole == 0)
             {
                 return Task.FromResult(AdminService.AdminLogin(loginDto));
             }

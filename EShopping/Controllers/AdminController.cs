@@ -23,26 +23,6 @@
         public IAdminService AdminService { get; set; }
 
         [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> AdminLogin([FromBody] LoginDto loginDto)
-        {
-            try
-            {
-                var adminData = await Task.FromResult(AdminService.AdminLogin(loginDto));
-                if (adminData != null)
-                {
-                    var token = AdminService.GenerateJSONWebToken(adminData.id,"Admin");
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Admin Found", adminData.fullName,token));
-                }
-            }
-            catch
-            {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null,""));
-            }
-            return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "Not An Admin", null, ""));
-        }
-
-        [HttpPost]
         [Route("book")]
         public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
         {
