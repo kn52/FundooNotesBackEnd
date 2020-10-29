@@ -1,0 +1,42 @@
+=====DYNAMIC STORE PROCEDURE TO GET BOOKS=====
+create procedure spGetBooks
+(
+	@search nvarchar(255) = null,
+	@filter nvarchar(255) = null,
+	@order nvarchar(5) = 'asc'
+)
+as
+declare @sql nvarchar(255)
+begin
+	begin try
+		set @sql = 'select * from book where 1=1';
+		if NOT EXISTS (select * from book)
+			print 'BOOKS NOT FOUND'
+		else
+			begin 
+				declare @SQL nvarchar(MAX)
+				declare @PARAMETERDEF nvarchar(MAX)
+ 	
+    				set @PARAMETERDEF = '@SEARCH nvarchar(100), @FILTER nvarchar(100), @ORDER nvarchar(100)'
+							
+    				set @SQL = 'SELECT id,book_name,book_price FROM book WHERE -1=-1 ' 
+ 
+				if @search is not null and @search != ''
+					set @SQL = @SQL+  'AND book_name like ''%'' + @SEARCH + ''%'' OR auther_name like ''%'' + @SEARCH + ''%'' '
+
+				if @filter is not null and @filter != ''
+					set @SQL = @SQL+  'ORDER BY ' + @FILTER + ' '
+		
+				if @filter is null or @filter = ''
+					set @SQL = @SQL+  'ORDER BY book_name '
+
+				if @order is not null and @order != ''
+					set @SQL = @SQL + @ORDER
+	
+				exec sp_Executesql @SQL, @PARAMETERDEF, @SEARCH = @search, @FILTER = @filter, @ORDER = @order
+			end
+	end try
+	begin catch
+		select ERROR_MESSAGE() as ErrorMessage
+	end catch
+end
