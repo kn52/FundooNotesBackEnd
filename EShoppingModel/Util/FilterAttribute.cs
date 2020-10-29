@@ -4,11 +4,6 @@
     {
         public static string GetAttribute(string attribute)
         {
-            if (attribute == null)
-            {
-                return "";
-            }
-
             string AttributeName = attribute.Trim().ToLower();
 
             switch (AttributeName)

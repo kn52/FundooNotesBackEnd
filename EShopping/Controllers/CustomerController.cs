@@ -48,7 +48,7 @@
 
         [HttpGet]
         [Route("customer/{addressType}")]
-        public async Task<IActionResult> FetchCustomerDetails(int addressType)
+        public async Task<IActionResult> FetchCustomerDetails(int addressType = 0)
         {
             try
             {

@@ -101,7 +101,7 @@
 
         [HttpPut]
         [Route("cart/{cartItemId}/{quantity}")]
-        public async Task<IActionResult> UpdateCartBookQuantity(int cartItemId,int quantity)
+        public async Task<IActionResult> UpdateCartBookQuantity(int cartItemId,int quantity = 1)
         {
             string CartData;
             try

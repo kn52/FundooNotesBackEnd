@@ -44,7 +44,7 @@
                                     id = Convert.ToInt32(rdr["id"]),
                                     authorName = rdr["auther_name"].ToString(),
                                     bookDetail = rdr["book_detail"].ToString(),
-                                    bookImageSrc = rdr["bool_image_src"].ToString(),
+                                    bookImageSrc = rdr["book_image_src"].ToString(),
                                     bookName = rdr["book_name"].ToString(),
                                     bookPrice = Convert.ToInt32(rdr["book_price"]),
                                     isbnNumber = rdr["isbn_number"].ToString(),
