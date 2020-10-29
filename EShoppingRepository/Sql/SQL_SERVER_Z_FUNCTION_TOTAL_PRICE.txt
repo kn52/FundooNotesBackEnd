@@ -1,0 +1,37 @@
+create function fnCalculateTotalPrice
+(
+	@cart_id int
+)
+returns int
+as
+begin
+	declare @count int;
+	declare @sum int;
+	set @count = 0;
+	set @sum = 0;
+	while @count < (select count(*) from cart_items)
+	begin
+		if NOT EXISTS (select * from cart_items where cart_id = @cart_id)
+			break;
+		else
+			begin
+				if NOT EXISTS (select book_price from book where id in
+							(select book_id from cart_items where cart_id = @cart_id order by cart_items_id 
+														offset @count rows fetch next 1 rows ONLY))
+						break;
+				
+				if NOT EXISTS (select quantity from cart_items where cart_id = @cart_id order by cart_items_id 
+									offset @count rows fetch next 1 rows ONLY)
+						break;
+
+				set @sum = @sum + (select quantity from cart_items where cart_id = @cart_id order by cart_items_id 
+										offset @count rows fetch next 1 rows ONLY) 
+										* (select book_price from book where id in
+												(select book_id from cart_items where cart_id = @cart_id order by cart_items_id 
+														offset @count rows fetch next 1 rows ONLY))
+				
+				set @count = @count + 1;
+			end
+	end
+	return @sum
+end
