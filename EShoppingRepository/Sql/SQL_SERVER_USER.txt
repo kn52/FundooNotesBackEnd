@@ -70,12 +70,13 @@ end
 =====STORE PROCEDURE FOR USER LOGIN=====
 create procedure spUserLogin
 (
-	@email varchar(255)
+	@email varchar(255),
+	@user_role int
 )
 as
 begin
 	begin try
-		if NOT EXISTS (select * from userinfo where email = @email)
+		if NOT EXISTS (select * from userinfo where email = @email and user_role = @user_role)
 			PRINT 'NOT AN ADMIN'
 		else
 			begin 

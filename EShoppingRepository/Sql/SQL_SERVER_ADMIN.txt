@@ -15,11 +15,12 @@ create table userinfo (
 create procedure spAdminLogin
 (
 	@email varchar(255),
+	@user_role int
 )
 as
 begin
 	begin try
-		if NOT EXISTS (select * from userinfo where email = @email and password=@password)
+		if NOT EXISTS (select * from userinfo where email = @email and user_role = @user_role)
 			PRINT 'NOT AN ADMIN'
 		else
 			begin 

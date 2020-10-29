@@ -25,8 +25,8 @@
         public IUserService UserService { get; set; }
 
         [HttpPost]
-        [Route("all/login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto,[FromQuery] int userRole = 0)
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto,[FromQuery] int userRole = 1)
         {
             try
             {
