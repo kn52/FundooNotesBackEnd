@@ -23,27 +23,6 @@
         IUserService UserService { get; set; }
 
         [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
-        {
-            string UserData; 
-            try
-            {
-                UserData = await Task.FromResult(UserService.UserRegistration(userRegistrationDto));
-                if (UserData != "" && UserData != null)
-                {
-                    return this.Ok(new ResponseEntity(HttpStatusCode.OK, "Registered Successfully.Email Verification " +
-                        "Link Is Sent To Your Registered Email Id", UserData, ""));
-                }
-            }
-            catch
-            {
-                return this.BadRequest(new ResponseEntity(HttpStatusCode.BadRequest, "Bad Request", null, ""));
-            }
-            return this.Ok(new ResponseEntity(HttpStatusCode.Found, UserData, "", ""));
-        }
-
-        [HttpPost]
         [Route("verify/email/")]
         public async Task<IActionResult> VerifyEmail()
         {
