@@ -53,7 +53,7 @@
                 DistributedCache.SetString("User", JsonConvert.SerializeObject(user));
                 return user;
             }
-            user = JsonConvert.DeserializeObject<User>(DistributedCache.GetString("BookList"));
+            user = JsonConvert.DeserializeObject<User>(DistributedCache.GetString("User"));
             return user;
         }
         public string GenerateJSONWebToken(int userId, string userRole)

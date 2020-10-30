@@ -26,7 +26,7 @@
         public IEnumerable<CartItems> FetchCartBook(string userId)
         {
             IEnumerable<CartItems> books;
-            if (DistributedCache.GetString("CartList") != null)
+            if (DistributedCache.GetString("CartList") == null)
             {
                 books = CartRepository.FetchCartBook(userId);
                 DistributedCache.SetString("CartList", JsonConvert.SerializeObject(books));
@@ -37,11 +37,18 @@
         }
         public string DeleteFromCartBook(int cartItemId)
         {
+            if (DistributedCache.GetString("CartList") != null)
+            {
+                DistributedCache.Remove("CartList");
+            }
             return CartRepository.DeleteFromCartBook(cartItemId);
         }
-
         public string UpdateCartBookQuantity(int cartItemsId, int quantity)
         {
+            if (DistributedCache.GetString("CartList") != null)
+            {
+                DistributedCache.Remove("CartList");
+            }
             return CartRepository.UpdateCartBookQuantity(cartItemsId,quantity);
         }
     }

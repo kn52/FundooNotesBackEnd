@@ -16,10 +16,6 @@
         public IDistributedCache DistributedCache { get; set; }
         public User AdminLogin(LoginDto loginDto)
         {
-            if (DistributedCache.GetString("BookList") != null)
-            {
-                DistributedCache.Remove("BookList");
-            }
             return AdminRepository.AdminLogin(loginDto);
         }
         public string AddBook(BookDto bookDto)
