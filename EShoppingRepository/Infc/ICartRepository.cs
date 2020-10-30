@@ -6,7 +6,7 @@
     public interface ICartRepository
     {
         string AddToCart(CartDto cartDto, string userId);
-        CartItems FetchCartBook(string userId);
+        IEnumerable<CartItems> FetchCartBook(string userId);
         string DeleteFromCartBook(int cartItemId);
         string UpdateCartBookQuantity(int cartItemsId, int quantity);
     }

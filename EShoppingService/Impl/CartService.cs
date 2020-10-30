@@ -3,22 +3,36 @@
     using EShoppingModel.Dto;
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
+    using Microsoft.Extensions.Caching.Distributed;
+    using System.Collections.Generic;
+
     public class CartService : ICartService
     {
         public CartService(ICartRepository repository, IDistributedCache distributedCache)
         {
             this.CartRepository = repository;
-            this.DistributedCache = distributedCache;
         }
         public ICartRepository CartRepository { get; set; }
         public IDistributedCache DistributedCache { get; set; }
         public string AddToCart(CartDto cartDto, string userId)
         {
+            if (DistributedCache.GetString("CartList") != null)
+            {
+                DistributedCache.Remove("CartList");
+            }
             return CartRepository.AddToCart(cartDto,userId);
         }
         public CartItems FetchCartBook(string userId)
         {
-            return CartRepository.FetchCartBook(userId);
+            IEnumerable<CartItems> books;
+            if (DistributedCache.GetString("CartList") != null)
+            {
+                books = CartRepository.FetchCartBook(userId);
+                DistributedCache.SetString("CartList", JsonConvert.SerializeObject(books));
+                return books;
+            }
+            books = JsonConvert.DeserializeObject<IEnumerable<Book>>(DistributedCache.GetString("BookList"));
+            return books;
         }
         public string DeleteFromCartBook(int cartItemId)
         {

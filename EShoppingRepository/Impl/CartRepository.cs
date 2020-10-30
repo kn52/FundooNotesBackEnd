@@ -6,6 +6,7 @@
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Configuration;
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     
@@ -52,7 +53,7 @@
             }
             return "Already Added To Cart";
         }
-        public CartItems FetchCartBook(string userId)
+        public IEnumerable<CartItems> FetchCartBook(string userId)
         {
             using (SqlConnection conn = new SqlConnection(this.DBString))
             {
@@ -67,16 +68,22 @@
                     {
                         conn.Open();
                         SqlDataReader rdr = cmd.ExecuteReader();
+                        
                         if (rdr.HasRows)
                         {
-                            CartItems cartItems = new CartItems();
+                            List<CartItems> cartItems = new List<CartItems>();
+                            CartItems cartItem = new CartItems();
                             while (rdr.Read())
                             {
-                                    cartItems.cartItemId = Convert.ToInt32(rdr["cart_items_id"]);
-                                    cartItems.addToCartDate = (DateTime)rdr["added_to_cart_date"];
-                                    cartItems.quantity = Convert.ToInt32(rdr["quantity"]) ;
-                                    cartItems.bookId = Convert.ToInt32(rdr["book_id"]);
-                                    cartItems.cartId = Convert.ToInt32(rdr["cart_id"]);
+                                cartItems.Add(new CartItems
+                                {
+                                    cartItemId = Convert.ToInt32(rdr["cart_items_id"]),
+                                    addToCartDate = (DateTime)rdr["added_to_cart_date"],
+                                    quantity = Convert.ToInt32(rdr["quantity"]),
+                                    bookId = Convert.ToInt32(rdr["book_id"]),
+                                    cartId = Convert.ToInt32(rdr["cart_id"]),
+                            });
+                                    
                             }
                             return cartItems;
                         }
