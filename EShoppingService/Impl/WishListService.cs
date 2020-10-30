@@ -3,13 +3,13 @@
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using EShoppingService.Infc;
+    using Microsoft.Extensions.Caching.Distributed;
     using Newtonsoft.Json;
     using System.Collections.Generic;
 
     public class WishListService : IWishListService
     {
-        public AdminService(IAdminRepository repository, IDistributedCache distributedCache)
-        public WishListService(IWishListRepository repository)
+        public WishListService(IWishListRepository repository, IDistributedCache distributedCache)
         {
             this.WishListRepository = repository;
             this.DistributedCache = distributedCache;
@@ -33,7 +33,7 @@
                 DistributedCache.SetString("WishList", JsonConvert.SerializeObject(books));
                 return books;
             }
-            books = JsonConvert.DeserializeObject<List<Book>>(DistributedCache.GetString("WishList"));
+            books = JsonConvert.DeserializeObject<List<WishListItems>>(DistributedCache.GetString("WishList"));
             return books;
         }
         public string DeleteBookFromWishList(int bookId, string userId)

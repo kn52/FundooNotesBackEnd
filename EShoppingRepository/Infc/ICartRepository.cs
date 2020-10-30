@@ -2,6 +2,7 @@
 {
     using EShoppingModel.Dto;
     using EShoppingModel.Model;
+    using System.Collections.Generic;
 
     public interface ICartRepository
     {

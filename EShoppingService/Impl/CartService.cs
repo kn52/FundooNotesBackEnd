@@ -4,6 +4,7 @@
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
     using Microsoft.Extensions.Caching.Distributed;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
 
     public class CartService : ICartService
@@ -22,7 +23,7 @@
             }
             return CartRepository.AddToCart(cartDto,userId);
         }
-        public CartItems FetchCartBook(string userId)
+        public IEnumerable<CartItems> FetchCartBook(string userId)
         {
             IEnumerable<CartItems> books;
             if (DistributedCache.GetString("CartList") != null)
@@ -31,7 +32,7 @@
                 DistributedCache.SetString("CartList", JsonConvert.SerializeObject(books));
                 return books;
             }
-            books = JsonConvert.DeserializeObject<IEnumerable<Book>>(DistributedCache.GetString("BookList"));
+            books = JsonConvert.DeserializeObject<IEnumerable<CartItems>>(DistributedCache.GetString("CartList"));
             return books;
         }
         public string DeleteFromCartBook(int cartItemId)
