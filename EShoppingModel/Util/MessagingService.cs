@@ -1,5 +1,6 @@
 ﻿namespace EShoppingModel.Util
 {
+    using EShoppingModel.Model;
     using EShoppingModel.Util.Infc;
     using Experimental.System.Messaging;
     using System;
@@ -15,10 +16,15 @@
             }
         }
 
-        public void Send(string message,string to)
+        public void Send(string sub,string msg,string to)
         {
-            this.messagQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
-            this.messagQueue.Send(message);
+            this.messagQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(Email) });
+            this.messagQueue.Send(new Email
+            {
+                subject = sub,
+                message = msg,
+                email = to,
+            });
             SendEmail.Email();
         }
 

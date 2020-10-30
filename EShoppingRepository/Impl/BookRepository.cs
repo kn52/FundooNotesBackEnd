@@ -8,7 +8,6 @@
     using EShoppingModel.Infc;
     using Microsoft.Extensions.Configuration;
     using EShoppingModel.Util;
-
     public class BookRepository : IBookRepository
     {
         public BookRepository(IConfiguration configuration)

@@ -52,7 +52,7 @@
                         if (id != "")
                         {
                             var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(id),"User");
-                            MessagingService.Send("Click on below given link to verify your email id " +
+                            MessagingService.Send("Verify Email","Click on below given link to verify your email id " +
                                 "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
                             return id;
@@ -171,7 +171,7 @@
                         if (rdr.HasRows)
                         {
                             var GeneratedToken = this.GenerateJSONWebToken(Convert.ToInt32(rdr["id"]),"User");
-                            MessagingService.Send("Click on below given link to verify your email id " +
+                            MessagingService.Send("Reset Password","Click on below given link to verify your email id " +
                                 "<br/> <a href='http://localhost:3000/verify/email/?token=" + GeneratedToken + "'" + ">Verify Email</a>",
                                 "ashish52922@gmail.com");
                             return "Reset Password Link Is Sent To Your Registered Email";
