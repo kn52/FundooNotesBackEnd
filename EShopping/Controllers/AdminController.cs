@@ -9,7 +9,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Cors;
 
-    [Route("/bookstore/admin")]
+    [Route("admin")]
     [ApiController]
     [EnableCors("CORS")]
     [Authorize(AuthenticationSchemes =
@@ -23,7 +23,6 @@
         public IAdminService AdminService { get; set; }
 
         [HttpPost]
-        [Route("book")]
         public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
         {
             string adminData;
@@ -52,8 +51,7 @@
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, adminData, bookDto, ""));
         }
 
-        [HttpPost]
-        [Route("book/{bookId}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateBook([FromBody] BookDto bookDto)
         {
             string adminData;
@@ -79,7 +77,6 @@
         }
 
         [HttpDelete] 
-        [Route("delete/{bookId}")]
         public async Task<IActionResult> DeleteBook(int bookId)
         {
             string adminData;

@@ -9,8 +9,8 @@
         public string password { get; set; }
         public string phoneNo { get; set; }
 
-        [DefaultValue(false)]
-        public bool emailVerified { get; set; }
+        [DefaultValue(true)]
+        public bool emailVerified { get; set; } = true;
 
         public DateTime registrationDate { get; set; }
 

@@ -6,10 +6,9 @@
     using EShoppingModel.Response;
     using EShoppingRepository.Infc;
     using Microsoft.AspNetCore.Cors;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("/bookstore")]
+    [Route("books")]
     [ApiController]
     [EnableCors("CORS")]
     public class BookController : ControllerBase
@@ -21,8 +20,7 @@
         public IBookService BookService { get; set; }
 
         [HttpGet]
-        [Route("books")]
-        public async Task<IActionResult> GetBook(string searchBy = "",string filterBy = "", string orderBy = "")
+        public async Task<IActionResult> GetBook(string searchBy = "",string filterBy = "name", string orderBy = "asc")
         {
             try
             {

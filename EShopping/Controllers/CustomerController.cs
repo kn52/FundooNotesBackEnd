@@ -8,7 +8,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    [Route("/bookstore")]
+    [Route("customer")]
     [ApiController]
     [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
@@ -21,7 +21,7 @@
         public ICustomerService CustomerService { get; set; }
 
         [HttpPost]
-        [Route("customer")]
+        [Route("detail")]
         public async Task<IActionResult> AddCustomerDetails([FromBody] CustomerDto customerDto)
         {
             string CustomerData;
@@ -47,7 +47,7 @@
         }
 
         [HttpGet]
-        [Route("customer/{addressType}")]
+        [Route("detail")]
         public async Task<IActionResult> FetchCustomerDetails(int addressType = 0)
         {
             try
@@ -123,7 +123,7 @@
         }
 
         [HttpGet]
-        [Route("customer/feedback")]
+        [Route("feedback")]
         public async Task<IActionResult> GetUserFeedback(int bookId)
         {
             try

@@ -1,5 +1,6 @@
 ﻿namespace EShopping.Controllers
 {
+    using System;
     using System.Net;
     using System.Threading.Tasks;
     using EShoppingModel.Dto;
@@ -8,7 +9,7 @@
     using EShoppingRepository.Infc;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("/bookstore")]
+    [Route("login")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -21,13 +22,12 @@
         public IUserService UserService { get; set; }
 
         [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto,[FromQuery] int userRole = 1)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto,[FromQuery] string userRole = "User")
         {
             try
             {
-                var UserData = await GetLogin(userRole,loginDto);
-                string message = UserData.userRole == 0 ? "Admin Found" : "User Found";
+                var UserData = await GetLogin(userRole.Trim().ToLower(),loginDto);
+                string message = UserData != null && UserData.userRole == 0 ? "Admin Found" : "User Found";
                 if (UserData != null)
                 {
                     var token = this.GenerateToken(UserData);
@@ -40,9 +40,9 @@
             }
             return this.Ok(new ResponseEntity(HttpStatusCode.NoContent, "User Not Found", null, ""));
         }
-        private Task<User> GetLogin(int userRole,LoginDto loginDto)
+        private Task<User> GetLogin(string userRole,LoginDto loginDto)
         {
-            if(userRole == 0)
+            if(userRole == "admin")
             {
                 return Task.FromResult(AdminService.AdminLogin(loginDto));
             }

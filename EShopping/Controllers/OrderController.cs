@@ -9,7 +9,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    [Route("/bookstore")]
+    [Route("order")]
     [ApiController]
     [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
@@ -22,7 +22,6 @@
         public IOrderService OrderService { get; set; }
 
         [HttpPost]
-        [Route("/order")]
         public async Task<IActionResult> PlaceOrder([FromBody] OrderDto orderDto)
         {
             string OrderData;
@@ -48,8 +47,6 @@
         }
 
         [HttpGet]
-        [Route("/order")]
-        [Description("Fetch Order Summary")]
         public async Task<IActionResult> FetchOrderSummary()
         {
             try

@@ -4,18 +4,13 @@
     using EShoppingModel.Infc;
     using EShoppingModel.Model;
     using EShoppingRepository.Infc;
-    using Microsoft.Extensions.Caching.Distributed;
-    using Newtonsoft.Json;
-
     public class UserService : IUserService
     {
-        public UserService(IUserRepository repository, IDistributedCache distributedCache)
+        public UserService(IUserRepository repository)
         {
             this.UserRepository = repository;
-            this.DistributedCache = distributedCache;
         }
         IUserRepository UserRepository { get; set; }
-        public IDistributedCache DistributedCache { get; set; }
         public string UserRegistration(UserRegistrationDto userRegistrationDto)
         {
             return UserRepository.UserRegistration(userRegistrationDto);
@@ -26,10 +21,6 @@
         }
         public User UserLogin(LoginDto loginDto)
         {
-            if (DistributedCache.GetString("User") != null)
-            {
-                DistributedCache.Remove("User");
-            }
             return UserRepository.UserLogin(loginDto);
         }
         public string ForgetPassword(string email)
@@ -38,23 +29,11 @@
         }
         public string ResetPassword(ResetPasswordDto resetPasswordDto, string userId)
         {
-            if (DistributedCache.GetString("User") != null)
-            {
-                DistributedCache.Remove("User");
-            }
             return UserRepository.ResetPassword(resetPasswordDto, userId);
         }
         public User FetchUserDetail(string userId)
         {
-            User user;
-            if (DistributedCache.GetString("User") == null)
-            {
-                user = UserRepository.FetchUserDetail(userId);
-                DistributedCache.SetString("User", JsonConvert.SerializeObject(user));
-                return user;
-            }
-            user = JsonConvert.DeserializeObject<User>(DistributedCache.GetString("User"));
-            return user;
+            return UserRepository.FetchUserDetail(userId);
         }
         public string GenerateJSONWebToken(int userId, string userRole)
         {

@@ -35,7 +35,7 @@
                 })
                 {
                     cmd.Parameters.AddWithValue("@email", userRegistrationDto.email);
-                    cmd.Parameters.AddWithValue("@email_verified", userRegistrationDto.emailVerified);
+                    cmd.Parameters.AddWithValue("@email_verified", true);
                     cmd.Parameters.AddWithValue("@full_name", userRegistrationDto.fullName);
                     cmd.Parameters.AddWithValue("@password", userRegistrationDto.password);
                     cmd.Parameters.AddWithValue("@phone_no", userRegistrationDto.phoneNo);

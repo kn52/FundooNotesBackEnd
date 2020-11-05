@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Cors;
     
-    [Route("/bookstore/user")]
+    [Route("user")]
     [ApiController]
     [EnableCors("CORS")]
     public class UserController : ControllerBase
@@ -21,7 +21,7 @@
         IUserService UserService { get; set; }
 
         [HttpPost]
-        [Route("user/registration")]
+        [Route("registration")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
         {
             string UserData;
@@ -43,7 +43,7 @@
 
 
         [HttpPost]
-        [Route("verify/email/")]
+        [Route("verify/email")]
         [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> VerifyEmail()
@@ -72,7 +72,7 @@
         }
 
         [HttpPost]
-        [Route("forget/password/")]
+        [Route("forget/password")]
         public async Task<IActionResult> ForgetPassword(string email)
         {
             string UserData;
@@ -93,7 +93,7 @@
         }
 
         [HttpPost]
-        [Route("reset/password/")]
+        [Route("reset/password")]
         [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)

@@ -9,7 +9,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    [Route("/bookstore")]
+    [Route("cart")]
     [ApiController]
     [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
@@ -23,7 +23,6 @@
         public ICartService CartService { get; set; }
 
         [HttpPost]
-        [Route("cart")]
         public async Task<IActionResult> AddToCart([FromBody] CartDto cartDto)
         {
             string CartData;
@@ -49,7 +48,6 @@
         }
 
         [HttpGet]
-        [Route("cart")]
         public async Task<IActionResult> FetchCartBook()
         {
             try
@@ -74,7 +72,6 @@
         }
 
         [HttpDelete]
-        [Route("cart/{cartItemId}")]
         public async Task<IActionResult> DeleteFromCartBook(int cartItemId)
         {
             string CartData;
@@ -100,7 +97,6 @@
         }
 
         [HttpPut]
-        [Route("cart/{cartItemId}/{quantity}")]
         public async Task<IActionResult> UpdateCartBookQuantity(int cartItemId,int quantity = 1)
         {
             string CartData;

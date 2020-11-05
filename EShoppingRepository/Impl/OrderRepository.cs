@@ -55,7 +55,7 @@
                                         while (rdr.Read())
                                         {
                                             string email = rdr["email"].ToString();
-                                            MessagingService.Send("Your order placed successfully with order id " +
+                                            MessagingService.Send("Order Placed","Your order placed successfully with order id " +
                                                  "OrdedId","ashish52922@gmail.com");
                                             break;
                                         }

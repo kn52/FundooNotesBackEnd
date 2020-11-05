@@ -7,7 +7,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    [Route("/bookstore")]
+    [Route("wishlist")]
     [ApiController]
     [Authorize(AuthenticationSchemes =
             Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
@@ -20,7 +20,6 @@
         public IWishListService WishListService { get; set; }
 
         [HttpPost]
-        [Route("wishlist/{bookId}")]
         public async Task<IActionResult> AddToWishList([FromRoute]int bookId)
         {
             string WishListData;
@@ -46,7 +45,6 @@
         }
 
         [HttpGet]
-        [Route("wishlist")]
         public async Task<IActionResult> FetchWishList()
         {
             try
@@ -71,7 +69,6 @@
         }
 
         [HttpDelete]
-        [Route("wishlist/{bookId}")]
         public async Task<IActionResult> DeleteBookFromWishList([FromRoute]int bookId)
         {
             string WishListData;
